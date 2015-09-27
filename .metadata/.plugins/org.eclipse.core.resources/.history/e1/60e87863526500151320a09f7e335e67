@@ -13,11 +13,9 @@ import java.util.Hashtable;
 public class Vstore{
 	private Hashtable<Integer, byte[]> data;
 	private static final String file = "cs542.db";
+	private final int vKey = 428657931;
 	
 	private Vstore(){
-		String kk = "myName";
-		int vKey = kk.hashCode();
-		
 		ObjectInputStream objectInput = null;
 		try {
 			objectInput = new ObjectInputStream (new FileInputStream(file));

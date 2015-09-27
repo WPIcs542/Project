@@ -11,9 +11,9 @@ public class Main{
     public static void main(String [] args){
         boolean flag = false;
         
-        flag = getAndput(vKey) &&
-            removeAndget(vKey) &&
-            rebootAndget(vKey) &&
+        flag = getAndput(vKey)&&
+            removeAndget(vKey)&&
+            rebootAndget(vKey)&&
             fragmentPut();
         if(flag){
             System.out.println("Job Done!");
