@@ -111,14 +111,15 @@ public class Vstore{
 		return true;
 	}
 	public void saveContents(){
-//                try{
-//                    FileOutputStream file =new FileOutputStream();      
-//                    objectOutputStream objO = new ObjectoutputStream(file);
-//                    objO.writeObject(data);
-//                    objO.close();
-//      
-//                 }catch(IOException ex){
-//                        ex.printStackTrace(); 
-//                 }
+//                public void saveContents(){
+                try{
+                    FileOutputStream f =new FileOutputStream(file);      
+                    ObjectOutputStream objO = new ObjectOutputStream(f);
+                    objO.writeObject(data);
+                    objO.close();
+      
+                 }catch(IOException ex){
+                        ex.printStackTrace(); 
+                 }
 	}
 }
