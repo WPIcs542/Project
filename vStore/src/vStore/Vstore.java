@@ -13,7 +13,7 @@ import java.util.Hashtable;
 public class Vstore{
 	private Hashtable<Integer, byte[]> data;
 	private static final String file = "cs542.db";
-	
+	private static final int MAX_VALUE_SIZE = 1024 * 1024;
 	private Vstore(){
 		String kk = "myName";
 		int vKey = kk.hashCode();
@@ -47,13 +47,30 @@ public class Vstore{
 		}
 	}
 	
-	private static Vstore init(){
-		return new Vstore();
+	//Java singleton
+	private static class VstoreLoader {
+        private static final Vstore instance = new Vstore();
+    }
+
+	//Java singleton
+	private static Vstore getInstance(){
+		return VstoreLoader.instance;
 	}
 	
 	private boolean put(int key, byte[] value){
+		// synchronized blocks can only have one thread executing at the same time
+		synchronized(this) {
+			//Check if the value satisfies the size requirement
+			if(value.length > MAX_VALUE_SIZE){
+				System.out.println("------Value should not be larger than 1 MB!------");
+				return false;
+			} else {
+				data.put(key, value);			
+			}
+		}
 		return true;
 	}
+		
 	
 	private byte[] get(int key){
 		return new byte[0];
@@ -64,6 +81,8 @@ public class Vstore{
 	}
 	
 	private boolean clear(){
+		Hashtable<Integer, byte[]> newdata = new Hashtable<Integer, byte[]>();
+		this.data = newdata;
 		return true;
 	}
 }
