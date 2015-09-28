@@ -7,7 +7,7 @@ package vStore;
 import java.util.Scanner;
 
 public class Main{
-    static Vstore store = new Vstore();
+    static Vstore store;
     static final int vKey = 428657931;
     
     public static void main(String [] args){
@@ -41,7 +41,6 @@ public class Main{
         	}else if(option==1){
         		System.out.println("You are puting data");
         		byte[] vl = new byte[1000]; 
-        		vl = "That's put something into it".getBytes();
         		flag = store.put(vKey, vl);
         	}else if(option==2){
         		System.out.println("You are getting data, Enter your key:");

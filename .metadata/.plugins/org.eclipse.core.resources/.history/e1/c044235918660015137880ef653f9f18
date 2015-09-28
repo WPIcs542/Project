@@ -7,7 +7,7 @@ package vStore;
 import java.util.Scanner;
 
 public class Main{
-    static Vstore store = new Vstore();
+    static Vstore store;
     static final int vKey = 428657931;
     
     public static void main(String [] args){

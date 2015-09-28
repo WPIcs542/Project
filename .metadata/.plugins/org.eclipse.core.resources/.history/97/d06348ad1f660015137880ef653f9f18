@@ -21,12 +21,12 @@ public class Vstore{
 		File df = new File(file);
 		if(df.exists() && !df.isDirectory()) { 
 			System.out.println("Data file exist !");
+			
 		}else{
 			try {
 				//if there is no such file, create it.
 				ObjectOutputStream obout = new ObjectOutputStream(new FileOutputStream(file));
-				obout.writeObject(new Hashtable<Integer, byte[]>());
-				obout.close();
+				obout.writeObject("Create the value store database");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -87,22 +87,11 @@ public class Vstore{
 	}
 	
 	public byte[] get(int key){
-		byte[] b=NULL;
-                b=data.get(key);
-                return b;
+		return new byte[0];
 	}
 	
 	public boolean remove(int key){
-		// synchronized blocks can only have one thread executing at the same time
-	        synchronized(this){
-                        String dd;
-                        dd =data.remove(key);
-                }
-                saveContents(); 
-                if(dd==Null)
-                        return false;
-                else
-                        return true; 
+		return true;
 	}
 	
 	public boolean clear(){
@@ -110,14 +99,4 @@ public class Vstore{
 		this.data = newdata;
 		return true;
 	}
-	public void saveContents(){
-                try{
-                    FileOutStream file =new FileOutputStream();      
-                    objectOutputStream objO = new ObjectoutputStream(file);
-                    objO.writeObject(data);
-                    objO.close();
-      
-                 }catch(IOException ex){
-                        ex.printStackTrace(); 
-                 }
 }
