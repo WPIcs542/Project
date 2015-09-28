@@ -73,11 +73,22 @@ public class Vstore{
 		
 	
 	public byte[] get(int key){
-		return new byte[0];
+		byte[] b=NULL;
+                b=data.get(key);
+                return b;
 	}
 	
 	public boolean remove(int key){
-		return true;
+		// synchronized blocks can only have one thread executing at the same time
+	        synchronized(this){
+                        String dd;
+                        dd =data.remove(key);
+                }
+                saveContents(); 
+                if(dd==Null)
+                        return false;
+                else
+                        return true; 
 	}
 	
 	public boolean clear(){
@@ -85,4 +96,14 @@ public class Vstore{
 		this.data = newdata;
 		return true;
 	}
+	public void saveContents(){
+                try{
+                    FileOutStream file =new FileOutputStream();      
+                    objectOutputStream objO = new ObjectoutputStream(file);
+                    objO.writeObject(data);
+                    objO.close();
+      
+                 }catch(IOException ex){
+                        ex.printStackTrace(); 
+                 }
 }
