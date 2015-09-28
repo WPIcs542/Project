@@ -94,15 +94,15 @@ public class Vstore{
 	
 	public boolean remove(int key){
 		// synchronized blocks can only have one thread executing at the same time
-		byte[] dd = new byte[1024];
-	    synchronized(this){
-	    	dd = data.remove(key);
-	    }
-        saveContents(); 
-        if(dd.length == 0){
-        	return false;
-        }
-        return true;
+	        synchronized(this){
+                        String dd;
+                        dd =data.remove(key);
+                }
+                saveContents(); 
+                if(dd==null)
+                        return false;
+                else
+                        return true; 
 	}
 	
 	public boolean clear(){
