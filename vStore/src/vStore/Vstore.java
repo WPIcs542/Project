@@ -111,7 +111,7 @@ public class Vstore{
 		return true;
 	}
 	public void saveContents(){
-//                public void saveContents(){
+//                
                 try{
                     FileOutputStream f =new FileOutputStream(file);      
                     ObjectOutputStream objO = new ObjectOutputStream(f);
