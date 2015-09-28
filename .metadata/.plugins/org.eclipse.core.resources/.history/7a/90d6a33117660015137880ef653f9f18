@@ -46,11 +46,6 @@ public class Main{
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [1024];
         		temp = store.get(vKey);
-        		if(temp.length == 0){
-        			System.out.println("Not found");
-        		}else{
-        			System.out.println("Reach Correct Data");
-        		}
         	}else if(option==3){
         		System.out.println("Testing get and put");
         	}else if(option==4){

@@ -44,13 +44,6 @@ public class Main{
         		flag = store.put(vKey, vl);
         	}else if(option==2){
         		System.out.println("You are getting data, Enter your key:");
-        		byte[] temp = new byte [1024];
-        		temp = store.get(vKey);
-        		if(temp.length == 0){
-        			System.out.println("Not found");
-        		}else{
-        			System.out.println("Reach Correct Data");
-        		}
         	}else if(option==3){
         		System.out.println("Testing get and put");
         	}else if(option==4){
@@ -62,14 +55,14 @@ public class Main{
         	}else{
         		System.out.println("The number is not correct, try again!");
         	}
-        	
-        	if(flag){
-                System.out.println("Job Done!");
-            }else{
-                System.out.println("Job Failed, try again.");
-            }
         }
         scan.close();
+        
+        if(flag){
+            System.out.println("Job Done!");
+        }else{
+            System.out.println("Not working!");
+        }
     }
     
     //here is the test get() and put() at the same time
