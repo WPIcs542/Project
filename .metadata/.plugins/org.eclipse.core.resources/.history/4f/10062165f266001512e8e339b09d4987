@@ -6,6 +6,7 @@ package vStore;
 
 import java.io.UnsupportedEncodingException;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main{
@@ -33,7 +34,9 @@ public class Main{
         		System.out.println("7) Show Me the Main Menu !!-------------");
         		System.out.println("8) Put Data with your key---------------");
         		System.out.println("9) Get Data with your key---------------");
-        		System.out.println("10) Quit Value Store---------------------");
+        		System.out.println("10) Remove Data with your key-----------");
+        		System.out.println("11) The fragment Test here--------------");
+        		System.out.println("12) Quit Value Store--------------------");
         	}
         	flag = false;
         	System.out.print("==>");
@@ -45,7 +48,7 @@ public class Main{
         		break;
         	}
         	
-        	if(option==10){
+        	if(option==12){
         		System.out.println("Thank you for using value store! Bye");
         		running = false;
         		break;
@@ -96,11 +99,54 @@ public class Main{
             		break;
             	}
         		System.out.println("DataString: ");
-        		scan1 = new Scanner(System.in);
         		String vals = scan1.nextLine();
         		byte[] val = new byte[1024]; //The maximum size is 1MB dataStream.
         		val = vals.getBytes();
-        		flag = store.put(k, val);
+        		if(val.length==0){
+        			System.out.println("Empty input");
+        			flag = false;
+        		}else{
+        			flag = store.put(k, val);
+        		}
+        	}else if(option==9){
+        		System.out.println("Enter your key to get data: ");
+        		int k = -1;
+        		try{
+            		k = scan.nextInt();
+            	}catch(InputMismatchException e){
+            		option = 0;
+            		System.out.println("This is not an integer: " + e);
+            		break;
+            	}
+        		byte[] result = new byte[1024];
+        		result = store.get(k);
+        		if(result.length == 0){
+        			System.out.println("Not found");
+        		}else{
+        			flag = true;
+        		}
+        		String text = "";
+				try {
+					text = new String(result, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		System.out.println("The value is: " + text);
+        	}else if(option==10){
+        		System.out.println("Enter the key to remove data: ");
+        		int k = -1;
+        		try{
+            		k = scan.nextInt();
+            	}catch(InputMismatchException e){
+            		option = 0;
+            		System.out.println("This is not an integer: " + e);
+            		break;
+            	}
+        		flag = store.remove(k);
+        	}else if(option==11){
+        		System.out.println("Here is the fragment test: ");
+        		flag = fragmentPut();
         	}else{
         		System.out.println("The number is not correct, try again!");
         	}
@@ -132,9 +178,38 @@ public class Main{
     
     //here is the test of Fragmentation put() A B C D .....
     public static boolean fragmentPut(){
-        return true;
+    	byte [] a = new byte[1024*1024];
+    	byte [] b = new byte[1024*1024];
+    	byte [] c = new byte[1024*1024];
+    	byte [] d = new byte[1024*1024];
+    	a = generation(512*1024);
+    	b = generation(1024*1024);
+    	c = generation(1024*1024);
+    	d = generation(1024*1024);
+    	return store.put(33, a) &&
+    		store.put(44, b) &&
+    		store.put(55, c) &&
+    		store.put(66, d);
     }
     
+    // This is a function to create the size of byte for testing.
+    public static byte[] generation(int size){
+    	byte [] value = new byte[size];
+    	new Random().nextBytes(value); //create some random bytes
+    	//this is to print out the test, no need for it.
+//    	String text = "";
+//		try {
+//			text = new String(value, "UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	System.out.println("Test: "+ text);
+    	
+    	return value;
+    }
+    
+    // this is the function to show all the data in cs542.db
     public static boolean showAll(){
     	return store.listTable();
     }
