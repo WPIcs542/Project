@@ -4,6 +4,8 @@
 
 package vStore;
 
+import java.io.UnsupportedEncodingException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main{
@@ -11,9 +13,10 @@ public class Main{
     static final int vKey = 428657931;
     
     public static void main(String [] args){
-        boolean flag = false;
+        boolean flag;
         boolean running = true;
         Scanner scan = new Scanner(System.in);
+        Scanner scan1 = new Scanner(System.in);;
         int option = 0;
         
         while(running){
@@ -21,18 +24,29 @@ public class Main{
         		System.out.println("------Welcome to the Value Store !------");
         		System.out.println("---------Here is the Main Menu----------");
         		System.out.println("--------Select the number options below:");
-        		System.out.println("1) Put data-----------------------------");
-        		System.out.println("2) Get Data by Key----------------------");
+        		System.out.println("1) Put String data----------------------");
+        		System.out.println("2) Get String Data by Key---------------");
         		System.out.println("3) Testing get and put at the same time-");
         		System.out.println("4) Testing remove and get at the same time");
         		System.out.println("5) Test reboot, then get data-----------");
-        		System.out.println("6) Show database info-------------------");
+        		System.out.println("6) Show all database info---------------");
         		System.out.println("7) Show Me the Main Menu !!-------------");
-        		System.out.println("8) Quit Value Store---------------------");
+        		System.out.println("8) Put Data with your key---------------");
+        		System.out.println("9) Get Data with your key---------------");
+        		System.out.println("10) Remove Data with your key-----------");
+        		System.out.println("11) Quit Value Store--------------------");
         	}
+        	flag = false;
         	System.out.print("==>");
-        	option = scan.nextInt();
-        	if(option==8){
+        	try{
+        		option = scan.nextInt();
+        	}catch(InputMismatchException e){
+        		option = 0;
+        		System.out.println("This is not an integer:" + e);
+        		break;
+        	}
+        	
+        	if(option==11){
         		System.out.println("Thank you for using value store! Bye");
         		running = false;
         		break;
@@ -40,26 +54,78 @@ public class Main{
         		option=0;
         	}else if(option==1){
         		System.out.println("You are puting data");
-        		byte[] vl = new byte[1000]; 
-        		vl = "That's put something into it".getBytes();
+        		byte[] vl = new byte[1024]; 
+        		vl = "That's put something into it, sounds fun right, awesome!!".getBytes();
         		flag = store.put(vKey, vl);
         	}else if(option==2){
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [1024];
         		temp = store.get(vKey);
+        		String text = "";
+				try {
+					text = new String(temp, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		System.out.println("The value is: " + text);
         		if(temp.length == 0){
         			System.out.println("Not found");
         		}else{
-        			System.out.println("Reach Correct Data");
+        			flag = true;
         		}
         	}else if(option==3){
         		System.out.println("Testing get and put");
+        		flag = getAndput(vKey);
         	}else if(option==4){
         		System.out.println("Testing remove and get");
+        		flag = removeAndget(vKey);
         	}else if(option==5){
         		System.out.println("Testing reboot and get");
+        		flag = rebootAndget(vKey);
         	}else if(option==6){
         		System.out.println("Show all data, done!");
+        		flag = showAll();
+        	}else if(option==8){
+        		System.out.println("Please Enter your key to put data: ");
+        		int k = -1;
+        		try{
+            		k = scan.nextInt();
+            	}catch(InputMismatchException e){
+            		option = 0;
+            		System.out.println("This is not an integer: " + e);
+            		break;
+            	}
+        		System.out.println("DataString: ");
+        		String vals = scan1.nextLine();
+        		byte[] val = new byte[1024]; //The maximum size is 1MB dataStream.
+        		val = vals.getBytes();
+        		flag = store.put(k, val);
+        	}else if(option==9){
+        		System.out.println("Enter your key to get data: ");
+        		int k = -1;
+        		try{
+            		k = scan.nextInt();
+            	}catch(InputMismatchException e){
+            		option = 0;
+            		System.out.println("This is not an integer: " + e);
+            		break;
+            	}
+        		byte[] result = new byte[1024];
+        		result = store.get(k);
+        		String text = "";
+				try {
+					text = new String(result, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		System.out.println("The value is: " + text);
+        		if(result.length == 0){
+        			System.out.println("Not found");
+        		}else{
+        			flag = true;
+        		}
         	}else{
         		System.out.println("The number is not correct, try again!");
         	}
@@ -71,6 +137,7 @@ public class Main{
             }
         }
         scan.close();
+        scan1.close();
     }
     
     //here is the test get() and put() at the same time
@@ -93,4 +160,7 @@ public class Main{
         return true;
     }
     
+    public static boolean showAll(){
+    	return store.listTable();
+    }
 }

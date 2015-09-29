@@ -11,7 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
+import java.util.Set;
 
 public class Vstore{
 	private Hashtable<Integer, byte[]> data;
@@ -20,7 +22,7 @@ public class Vstore{
 	public Vstore(){
 		File df = new File(file);
 		if(df.exists() && !df.isDirectory()) { 
-			System.out.println("Data file exist !");
+			System.out.println("Database file exist !");
 		}else{
 			try {
 				//if there is no such file, create it.
@@ -32,6 +34,7 @@ public class Vstore{
 				e.printStackTrace();
 			}
 		}
+		df.exists();
 		ObjectInputStream objectInput = null;
 		try {
 			objectInput = new ObjectInputStream (new FileInputStream(file));
@@ -59,7 +62,6 @@ public class Vstore{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		df.exists();
 	}
 	
 	//Java singleton
@@ -83,13 +85,14 @@ public class Vstore{
 				data.put(key, value);			
 			}
 		}
+		this.saveContents();
 		return true;
 	}
 	
 	public byte[] get(int key){
 		byte[] b=null;
-                b=data.get(key);
-                return b;
+        b=data.get(key);
+        return b;
 	}
 	
 	public boolean remove(int key){
@@ -110,6 +113,7 @@ public class Vstore{
 		this.data = newdata;
 		return true;
 	}
+	
 	public void saveContents(){       
 		try{
 			FileOutputStream f =new FileOutputStream(file);      
@@ -119,5 +123,21 @@ public class Vstore{
 		}catch(IOException ex){
 			ex.printStackTrace(); 
 		}
+	}
+	
+	// This is the function to show all the information in database. 
+	public boolean listTable(){
+		Set<Integer> keys = data.keySet();
+		String text = "";
+        for(Integer key: keys){
+        	try {
+				text = new String(data.get(key),  "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            System.out.println("Value of " + key + " is: "+ text);
+        }
+        return true;
 	}
 }
