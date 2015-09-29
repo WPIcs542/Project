@@ -189,14 +189,14 @@ public class Main{
     	for(int n=0;n<size;n++){
     		value[n] = q.getBytes()[0];
     	}
-    	String text = "";
-		try {
-			text = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	System.out.println("Test: "+ text);
+//    	String text = "";
+//		try {
+//			text = new String(value, "UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	System.out.println("Test: "+ text);
     	return value;
     }
     

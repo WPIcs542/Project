@@ -101,14 +101,13 @@ public class Vstore{
 	    synchronized(this){
 	    	dd = data.remove(key);
 	    }
+        saveContents(); 
         if(dd.length == 0){
         	return false;
         }
-        saveContents();
         return true;
 	}
 	
-	//this is used in the reboot testing. 
 	public boolean clear(){
 		Hashtable<Integer, byte[]> newdata = new Hashtable<Integer, byte[]>();
 		this.data = newdata;

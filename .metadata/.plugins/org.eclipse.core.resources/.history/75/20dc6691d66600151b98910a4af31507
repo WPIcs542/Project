@@ -34,8 +34,7 @@ public class Main{
         		System.out.println("8) Put Data with your key---------------");
         		System.out.println("9) Get Data with your key---------------");
         		System.out.println("10) Remove Data with your key-----------");
-        		System.out.println("11) The fragment Test here--------------");
-        		System.out.println("12) Quit Value Store--------------------");
+        		System.out.println("11) Quit Value Store--------------------");
         	}
         	flag = false;
         	System.out.print("==>");
@@ -47,7 +46,7 @@ public class Main{
         		break;
         	}
         	
-        	if(option==12){
+        	if(option==11){
         		System.out.println("Thank you for using value store! Bye");
         		running = false;
         		break;
@@ -104,9 +103,8 @@ public class Main{
         		if(val.length==0){
         			System.out.println("Empty input");
         			flag = false;
-        		}else{
-        			flag = store.put(k, val);
         		}
+        		flag = store.put(k, val);
         	}else if(option==9){
         		System.out.println("Enter your key to get data: ");
         		int k = -1;
@@ -143,9 +141,6 @@ public class Main{
             		break;
             	}
         		flag = store.remove(k);
-        	}else if(option==11){
-        		System.out.println("Here is the fragment test: ");
-        		flag = fragmentPut();
         	}else{
         		System.out.println("The number is not correct, try again!");
         	}
@@ -177,27 +172,7 @@ public class Main{
     
     //here is the test of Fragmentation put() A B C D .....
     public static boolean fragmentPut(){
-    	byte [] a = new byte[1024];
-    	a = generation(500);
-    	return store.put(555, a);
-    }
-    
-    // This is a function to create the size of byte for testing.
-    public static byte[] generation(int size){
-    	String q = "q";
-    	byte [] value = new byte[size];
-    	for(int n=0;n<size;n++){
-    		value[n] = q.getBytes()[0];
-    	}
-    	String text = "";
-		try {
-			text = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	System.out.println("Test: "+ text);
-    	return value;
+        return true;
     }
     
     public static boolean showAll(){

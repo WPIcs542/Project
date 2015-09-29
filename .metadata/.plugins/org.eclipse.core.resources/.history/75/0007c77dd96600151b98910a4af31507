@@ -143,9 +143,6 @@ public class Main{
             		break;
             	}
         		flag = store.remove(k);
-        	}else if(option==11){
-        		System.out.println("Here is the fragment test: ");
-        		flag = fragmentPut();
         	}else{
         		System.out.println("The number is not correct, try again!");
         	}

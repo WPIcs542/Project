@@ -34,8 +34,7 @@ public class Main{
         		System.out.println("8) Put Data with your key---------------");
         		System.out.println("9) Get Data with your key---------------");
         		System.out.println("10) Remove Data with your key-----------");
-        		System.out.println("11) The fragment Test here--------------");
-        		System.out.println("12) Quit Value Store--------------------");
+        		System.out.println("11) Quit Value Store--------------------");
         	}
         	flag = false;
         	System.out.print("==>");
@@ -47,7 +46,7 @@ public class Main{
         		break;
         	}
         	
-        	if(option==12){
+        	if(option==11){
         		System.out.println("Thank you for using value store! Bye");
         		running = false;
         		break;
@@ -143,9 +142,6 @@ public class Main{
             		break;
             	}
         		flag = store.remove(k);
-        	}else if(option==11){
-        		System.out.println("Here is the fragment test: ");
-        		flag = fragmentPut();
         	}else{
         		System.out.println("The number is not correct, try again!");
         	}
