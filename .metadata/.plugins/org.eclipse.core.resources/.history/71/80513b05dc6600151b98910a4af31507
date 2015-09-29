@@ -198,8 +198,6 @@ public class Main{
     	for(int n=0;n<size;n++){
     		value[n] = q.getBytes()[0];
     	}
-    	
-    	//this is to print out the test, no need for it.
 //    	String text = "";
 //		try {
 //			text = new String(value, "UTF-8");
@@ -208,7 +206,6 @@ public class Main{
 //			e.printStackTrace();
 //		}
 //    	System.out.println("Test: "+ text);
-    	
     	return value;
     }
     

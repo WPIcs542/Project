@@ -177,18 +177,9 @@ public class Main{
     
     //here is the test of Fragmentation put() A B C D .....
     public static boolean fragmentPut(){
-    	byte [] a = new byte[1024*1024];
-    	byte [] b = new byte[1024*1024];
-    	byte [] c = new byte[1024*1024];
-    	byte [] d = new byte[1024*1024];
-    	a = generation(512*1024);
-    	b = generation(1024*1024);
-    	c = generation(1024*1024);
-    	d = generation(1024*1024);
-    	return store.put(a.hashCode(), a) &&
-    		store.put(b.hashCode(), b) &&
-    		store.put(c.hashCode(), c) &&
-    		store.put(d.hashCode(), d);
+    	byte [] a = new byte[1024];
+    	a = generation(500);
+    	return store.put(555, a);
     }
     
     // This is a function to create the size of byte for testing.
@@ -198,17 +189,14 @@ public class Main{
     	for(int n=0;n<size;n++){
     		value[n] = q.getBytes()[0];
     	}
-    	
-    	//this is to print out the test, no need for it.
-//    	String text = "";
-//		try {
-//			text = new String(value, "UTF-8");
-//		} catch (UnsupportedEncodingException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//    	System.out.println("Test: "+ text);
-    	
+    	String text = "";
+		try {
+			text = new String(value, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	System.out.println("Test: "+ text);
     	return value;
     }
     
