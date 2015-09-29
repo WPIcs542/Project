@@ -19,6 +19,7 @@ public class Vstore{
 	private Hashtable<Integer, byte[]> data;
 	private static final String file = "cs542.db";
 	private static final int MAX_VALUE_SIZE = 1024 * 1024;
+	
 	public Vstore(){
 		File df = new File(file);
 		if(df.exists() && !df.isDirectory()) { 
@@ -74,12 +75,13 @@ public class Vstore{
 		return VstoreLoader.instance;
 	}
 	
+	//Stores data under the given key
 	public boolean put(int key, byte[] value){
 		// synchronized blocks can only have one thread executing at the same time
 		synchronized(this) {
 			//Check if the value satisfies the size requirement
 			if(value.length > MAX_VALUE_SIZE){
-				System.out.println("------Value should not be larger than 1 MB!------");
+				System.out.println("Value should not be larger than 1 MB!");
 				return false;
 			} else {
 				data.put(key, value);			
@@ -96,14 +98,17 @@ public class Vstore{
 	}
 	
 	public boolean remove(int key){
-		// synchronized blocks can only have one thread executing at the same time
-		byte[] dd = new byte[1024];
-	    synchronized(this){
-	    	dd = data.remove(key);
-	    }
-        if(dd.length == 0){
-        	return false;
-        }
+		//test if the key exists
+		if(!data.containsKey(key)){
+			System.out.println("The key does not exit!");
+        	return false;	
+		}
+		else {
+			// synchronized blocks can only have one thread executing at the same time
+			synchronized(this){
+				data.remove(key);
+			}
+		}
         saveContents();
         return true;
 	}
@@ -115,6 +120,7 @@ public class Vstore{
 		return true;
 	}
 	
+	//this method is to write data into cs542.db
 	public void saveContents(){       
 		try{
 			FileOutputStream f =new FileOutputStream(file);      

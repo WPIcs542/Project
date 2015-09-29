@@ -6,6 +6,7 @@ package vStore;
 
 import java.io.UnsupportedEncodingException;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main{
@@ -185,20 +186,16 @@ public class Main{
     	b = generation(1024*1024);
     	c = generation(1024*1024);
     	d = generation(1024*1024);
-    	return store.put(a.hashCode(), a) &&
-    		store.put(b.hashCode(), b) &&
-    		store.put(c.hashCode(), c) &&
-    		store.put(d.hashCode(), d);
+    	return store.put(33, a) &&
+    		store.put(44, b) &&
+    		store.put(55, c) &&
+    		store.put(66, d);
     }
     
     // This is a function to create the size of byte for testing.
     public static byte[] generation(int size){
-    	String q = "q";
     	byte [] value = new byte[size];
-    	for(int n=0;n<size;n++){
-    		value[n] = q.getBytes()[0];
-    	}
-    	
+    	new Random().nextBytes(value); //create some random bytes
     	//this is to print out the test, no need for it.
 //    	String text = "";
 //		try {
