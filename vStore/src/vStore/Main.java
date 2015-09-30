@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Main{
     static Vstore store = new Vstore();
     static final int vKey = 428657931;
+    private static final int MAX_VALUE_SIZE = 1024 * 1024;
     
     public static void main(String [] args){
         boolean flag;
@@ -56,13 +57,15 @@ public class Main{
         		option=0;
         	}else if(option==1){
         		System.out.println("You are puting data");
-        		byte[] vl = new byte[1024]; 
+        		byte[] vl = new byte[MAX_VALUE_SIZE]; 
         		vl = "That's put something into it, sounds fun right, awesome!!".getBytes();
         		flag = store.put(vKey, vl);
         	}else if(option==2){
         		System.out.println("You are getting data, Enter your key:");
-        		byte[] temp = new byte [1024];
+        		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
+        		if(temp == "keydoesnotexit!".getBytes()) flag = false;
+        		else{
         		String text = "";
 				try {
 					text = new String(temp, "UTF-8");
@@ -71,11 +74,13 @@ public class Main{
 					e.printStackTrace();
 				}
         		System.out.println("The value is: " + text);
-        		if(temp.length == 0){
+        		flag = true;
+        		}
+        		/*if(temp.length == 0){
         			System.out.println("Not found");
         		}else{
         			flag = true;
-        		}
+        		}*/
         	}else if(option==3){
         		System.out.println("Testing get and put");
         		flag = getAndput(vKey);
@@ -100,7 +105,7 @@ public class Main{
             	}
         		System.out.println("DataString: ");
         		String vals = scan1.nextLine();
-        		byte[] val = new byte[1024]; //The maximum size is 1MB dataStream.
+        		byte[] val = new byte[MAX_VALUE_SIZE]; //The maximum size is 1MB dataStream.
         		val = vals.getBytes();
         		if(val.length==0){
         			System.out.println("Empty input");
@@ -118,8 +123,11 @@ public class Main{
             		System.out.println("This is not an integer: " + e);
             		break;
             	}
-        		byte[] result = new byte[1024];
+        		byte[] result = new byte[MAX_VALUE_SIZE];
         		result = store.get(k);
+        		if(result == "keydoesnotexit!".getBytes()){
+        			flag = false; 
+        		} else {	
         		String text = "";
 				try {
 					text = new String(result, "UTF-8");
@@ -128,10 +136,11 @@ public class Main{
 					e.printStackTrace();
 				}
         		System.out.println("The value is: " + text);
-        		if(result.length == 0){
-        			System.out.println("Not found");
-        		}else{
-        			flag = true;
+        		flag = true;
+//        		if(result.length == 0){
+//        			System.out.println("Not found");
+//        		}else{
+//        			
         		}
         	}else if(option==10){
         		System.out.println("Enter the key to remove data: ");

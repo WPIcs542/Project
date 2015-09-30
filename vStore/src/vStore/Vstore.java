@@ -92,15 +92,24 @@ public class Vstore{
 	}
 	
 	public byte[] get(int key){
-		byte[] b=null;
-        b=data.get(key);
-        return b;
+		if(!data.containsKey(key)){
+			System.out.println("The key does not exist!");
+        	return "keydoesnotexit!".getBytes();	
+		}
+		else {
+			// synchronized blocks can only have one thread executing at the same time
+			synchronized(this){
+				byte[] b=null;
+				b=data.get(key);
+				return b;
+			}
+		}  
 	}
 	
 	public boolean remove(int key){
 		//test if the key exists
 		if(!data.containsKey(key)){
-			System.out.println("The key does not exit!");
+			System.out.println("The key does not exist!");
         	return false;	
 		}
 		else {
