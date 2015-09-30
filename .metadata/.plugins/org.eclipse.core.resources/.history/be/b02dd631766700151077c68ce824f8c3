@@ -64,18 +64,17 @@ public class Main{
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
-        		if(temp == "keydoesnotexit!".getBytes()) {
-        			flag = false;
-        		}else{
-        			String text = "";
-        			try {
-        				text = new String(temp, "UTF-8");
-        			} catch (UnsupportedEncodingException e) {
-        				// TODO Auto-generated catch block
-        				e.printStackTrace();
-        			}
-        			System.out.println("The value is: " + text);
-        			flag = true;
+        		if(temp == "keydoesnotexit!".getBytes()) flag = false;
+        		else{
+        		String text = "";
+				try {
+					text = new String(temp, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		System.out.println("The value is: " + text);
+        		flag = true;
         		}
         		/*if(temp.length == 0){
         			System.out.println("Not found");

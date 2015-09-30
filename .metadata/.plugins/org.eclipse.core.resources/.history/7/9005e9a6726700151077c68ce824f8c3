@@ -87,9 +87,6 @@ public class Vstore{
 				if(data.size() + value.length > MAX_VALUE_SIZE*4){
 					System.out.println("Database has no space to put data!");
 					return false;
-				}else if(data.containsKey(key)){
-					System.out.println("The key exist !");
-					return false;
 				}
 				data.put(key, value);			
 			}
@@ -149,16 +146,12 @@ public class Vstore{
 	}
 	
 	// This is the function to show all the information in database. 
-	public boolean listTable(String filename){
-		if(!filename.equalsIgnoreCase("542.db")){
-			System.out.println("File does not exist !");
-			return false;
-		}
+	public boolean listTable(){
 		Set<Integer> keys = data.keySet();
 		int size = 0;
         for(Integer key: keys){
         	size = data.get(key).length;
-            System.out.println("Value of Key: " + key + "\t--The size of data: "+ size + " Bytes");
+            System.out.println("Value of Key: " + key + "\t||The size of data: "+ size + " bytes");
         }
         return true;
 	}

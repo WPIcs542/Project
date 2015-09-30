@@ -84,17 +84,10 @@ public class Vstore{
 				System.out.println("Value should not be larger than 1 MB!");
 				return false;
 			} else {
-				if(data.size() + value.length > MAX_VALUE_SIZE*4){
-					System.out.println("Database has no space to put data!");
-					return false;
-				}else if(data.containsKey(key)){
-					System.out.println("The key exist !");
-					return false;
-				}
 				data.put(key, value);			
 			}
 		}
-		saveContents();
+		this.saveContents();
 		return true;
 	}
 	
@@ -136,29 +129,30 @@ public class Vstore{
 		return true;
 	}
 	
-	//this method is to write data into cs542.db and the same as write to commit. 
+	//this method is to write data into cs542.db and the same as commit. 
 	public void saveContents(){       
 		try{
 			FileOutputStream f =new FileOutputStream(file);      
-			ObjectOutputStream objOutput = new ObjectOutputStream(f);
-			objOutput.writeObject(data);
-			objOutput.close();
+			ObjectOutputStream objO = new ObjectOutputStream(f);
+			objO.writeObject(data);
+			objO.close();
 		}catch(IOException ex){
 			ex.printStackTrace(); 
 		}
 	}
 	
 	// This is the function to show all the information in database. 
-	public boolean listTable(String filename){
-		if(!filename.equalsIgnoreCase("542.db")){
-			System.out.println("File does not exist !");
-			return false;
-		}
+	public boolean listTable(){
 		Set<Integer> keys = data.keySet();
-		int size = 0;
+		String text = "";
         for(Integer key: keys){
-        	size = data.get(key).length;
-            System.out.println("Value of Key: " + key + "\t--The size of data: "+ size + " Bytes");
+        	try {
+				text = new String(data.get(key),  "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            System.out.println("Value of " + key + " is: "+ text);
         }
         return true;
 	}

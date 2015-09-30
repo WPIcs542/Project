@@ -64,9 +64,9 @@ public class Main{
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
-        		if(temp == "keydoesnotexit!".getBytes()) {
+        		if(temp == "keydoesnotexit!".getBytes()) 
         			flag = false;
-        		}else{
+        		else{
         			String text = "";
         			try {
         				text = new String(temp, "UTF-8");

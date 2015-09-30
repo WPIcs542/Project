@@ -64,18 +64,17 @@ public class Main{
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
-        		if(temp == "keydoesnotexit!".getBytes()) {
-        			flag = false;
-        		}else{
-        			String text = "";
-        			try {
-        				text = new String(temp, "UTF-8");
-        			} catch (UnsupportedEncodingException e) {
-        				// TODO Auto-generated catch block
-        				e.printStackTrace();
-        			}
-        			System.out.println("The value is: " + text);
-        			flag = true;
+        		if(temp == "keydoesnotexit!".getBytes()) flag = false;
+        		else{
+        		String text = "";
+				try {
+					text = new String(temp, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		System.out.println("The value is: " + text);
+        		flag = true;
         		}
         		/*if(temp.length == 0){
         			System.out.println("Not found");
@@ -92,10 +91,8 @@ public class Main{
         		System.out.println("Testing reboot and get");
         		flag = rebootAndget(vKey);
         	}else if(option==6){
-        		System.out.println("Show all data");
-        		System.out.println("File name ==>");
-        		String name = scan1.nextLine();
-        		flag = showAll(name);
+        		System.out.println("Show all data, done!");
+        		flag = showAll();
         	}else if(option==8){
         		System.out.println("Please Enter your key to put data: ");
         		int k = -1;
