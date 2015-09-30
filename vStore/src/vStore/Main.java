@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class Main{
     static Vstore store = new Vstore();
     static final int vKey = 428657931;
+    static final int testKey = 31415924;
     private static final int MAX_VALUE_SIZE = 1024 * 1024;
     
     public static void main(String [] args){
@@ -165,8 +166,27 @@ public class Main{
     }
     
     //here is the test get() and put() at the same time
-    public static boolean getAndput(int key){
-        return true;
+    public static boolean getAndput(int key) {
+    	Thread t1 = new Thread(
+    			new Runnable(){
+    				public void run(){
+    				store.put(testKey,"getAndput".getBytes());
+    				
+    				}  }, "t1");
+
+    	Thread t2 = new Thread(
+    			new Runnable(){
+    				public void run(){
+    				store.get(testKey);
+    				
+    				}  }, "t2");
+
+    	t1.start();
+    //	t0.join();
+    	t2.start();
+    //	t1.join();
+    	return true;
+ 
     }
     
     //here is the test remove() and get() at the same time
