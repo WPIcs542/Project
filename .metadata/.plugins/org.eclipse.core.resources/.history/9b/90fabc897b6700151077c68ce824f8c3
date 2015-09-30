@@ -64,19 +64,24 @@ public class Main{
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
-        		if(temp.length == 0){
+        		if(temp == "keydoesnotexit!".getBytes()) {
         			flag = false;
-        		} else {
-	    			String text = "";
-	    			try {
-	    				text = new String(temp, "UTF-8");
-	    			} catch (UnsupportedEncodingException e) {
-	    				// TODO Auto-generated catch block
-	    				e.printStackTrace();
-	    			}
-	    			System.out.println("The value is: " + text);
-	    			flag = true;
+        		}else{
+        			String text = "";
+        			try {
+        				text = new String(temp, "UTF-8");
+        			} catch (UnsupportedEncodingException e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        			System.out.println("The value is: " + text);
+        			flag = true;
         		}
+        		/*if(temp.length == 0){
+        			System.out.println("Not found");
+        		}else{
+        			flag = true;
+        		}*/
         	}else if(option==3){
         		System.out.println("Testing get and put");
         		flag = getAndput(vKey);
@@ -123,18 +128,18 @@ public class Main{
             	}
         		byte[] result = new byte[MAX_VALUE_SIZE];
         		result = store.get(k);
-        		if(result.length == 0){
-        			flag = false;
-        		} else {
-	        		String text = "";
-	        		try {
-	        			text = new String(result, "UTF-8");
-					} catch (UnsupportedEncodingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        		System.out.println("The value is: " + text);
-	        		flag = true;
+        		if(result == "keydoesnotexit!".getBytes()){
+        			flag = false; 
+        		} else {	
+        			String text = "";
+        		try {
+        			text = new String(result, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		System.out.println("The value is: " + text);
+        		flag = true;        			
         		}
         	}else if(option==10){
         		System.out.println("Enter the key to remove data: ");
@@ -194,37 +199,19 @@ public class Main{
     
     //here is the test of Fragmentation put() A B C D .....
     public static boolean fragmentPut(){
-    	byte [] a = new byte[MAX_VALUE_SIZE];
-    	byte [] b = new byte[MAX_VALUE_SIZE];
-    	byte [] c = new byte[MAX_VALUE_SIZE];
-    	byte [] d = new byte[MAX_VALUE_SIZE];
-    	byte [] e = new byte[MAX_VALUE_SIZE/2];
-    	byte [] f = new byte[MAX_VALUE_SIZE];
-    	byte [] g = new byte[MAX_VALUE_SIZE];
-    	byte [] h = new byte[MAX_VALUE_SIZE];
-    	
-    	a = generation(MAX_VALUE_SIZE);
-    	b = generation(MAX_VALUE_SIZE);
-    	c = generation(MAX_VALUE_SIZE);
-    	d = generation(MAX_VALUE_SIZE);
-    	e = generation(MAX_VALUE_SIZE/2);
-    	f = generation(MAX_VALUE_SIZE);
-    	g = generation(MAX_VALUE_SIZE);
-    	h = generation(MAX_VALUE_SIZE);
-    	
-    	boolean a1 = store.put(333, a); //put a
-    	boolean b1 = store.put(444, b); //put b
-    	boolean c1 = store.put(555, c); //put c
-    	boolean d1 = store.put(666, d); //put d
-    	boolean b11 = store.remove(444); //remove b
-    	boolean e1 = store.put(444, e); //put e = 0.5MB
-    	boolean f1 = store.put(777, f); //put f = 1.0MB fail
-    	boolean c11 = store.remove(555); //remove c
-    	boolean g1 = store.put(555, g); //put g = 1.0MB succeed
-    	boolean e11 = store.remove(444); //remove e
-    	boolean h1 = store.put(444, h); //put h = 1.0MB succeeds
-    	clearAll();
-    	return a1 && b1 &&c1 &&d1 &&b11&& e1&& (!f1) && c11&& g1&& e11&& h1;
+    	byte [] a = new byte[512*1024];
+    	byte [] b = new byte[1024*1024];
+    	byte [] c = new byte[1024*1024];
+    	byte [] d = new byte[1024*1024];
+    	a = generation(512*1024);
+    	b = generation(1024*1024);
+    	c = generation(1024*1024);
+    	d = generation(1024*1024);
+    	boolean p = store.put(333, a);
+    	boolean q = store.put(444, b);
+    	boolean w = store.put(555, c);
+    	boolean z = store.put(666, d);
+    	return p && q && w && z;
     }
     
     // This is a function to create the size of byte for testing.
@@ -247,13 +234,5 @@ public class Main{
     // this is the function to show all the data in cs542.db
     public static boolean showAll(String filename){
     	return store.listTable(filename);
-    }
-    
-    // for the fragment test only
-    public static void clearAll(){
-    	store.remove(333);
-    	store.remove(444);
-    	store.remove(555);
-    	store.remove(666);
     }
 }

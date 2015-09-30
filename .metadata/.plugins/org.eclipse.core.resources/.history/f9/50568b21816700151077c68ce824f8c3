@@ -64,19 +64,24 @@ public class Main{
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
-        		if(temp.length == 0){
+        		if(temp == "keydoesnotexit!".getBytes()) {
         			flag = false;
-        		} else {
-	    			String text = "";
-	    			try {
-	    				text = new String(temp, "UTF-8");
-	    			} catch (UnsupportedEncodingException e) {
-	    				// TODO Auto-generated catch block
-	    				e.printStackTrace();
-	    			}
-	    			System.out.println("The value is: " + text);
-	    			flag = true;
+        		}else{
+        			String text = "";
+        			try {
+        				text = new String(temp, "UTF-8");
+        			} catch (UnsupportedEncodingException e) {
+        				// TODO Auto-generated catch block
+        				e.printStackTrace();
+        			}
+        			System.out.println("The value is: " + text);
+        			flag = true;
         		}
+        		/*if(temp.length == 0){
+        			System.out.println("Not found");
+        		}else{
+        			flag = true;
+        		}*/
         	}else if(option==3){
         		System.out.println("Testing get and put");
         		flag = getAndput(vKey);
@@ -123,18 +128,18 @@ public class Main{
             	}
         		byte[] result = new byte[MAX_VALUE_SIZE];
         		result = store.get(k);
-        		if(result.length == 0){
-        			flag = false;
-        		} else {
-	        		String text = "";
-	        		try {
-	        			text = new String(result, "UTF-8");
-					} catch (UnsupportedEncodingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        		System.out.println("The value is: " + text);
-	        		flag = true;
+        		if(result == "keydoesnotexit!".getBytes()){
+        			flag = false; 
+        		} else {	
+        			String text = "";
+        		try {
+        			text = new String(result, "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        		System.out.println("The value is: " + text);
+        		flag = true;        			
         		}
         	}else if(option==10){
         		System.out.println("Enter the key to remove data: ");
@@ -223,7 +228,7 @@ public class Main{
     	boolean g1 = store.put(555, g); //put g = 1.0MB succeed
     	boolean e11 = store.remove(444); //remove e
     	boolean h1 = store.put(444, h); //put h = 1.0MB succeeds
-    	clearAll();
+    	//clearAll();
     	return a1 && b1 &&c1 &&d1 &&b11&& e1&& (!f1) && c11&& g1&& e11&& h1;
     }
     

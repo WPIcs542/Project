@@ -80,7 +80,7 @@ public class Vstore{
 		        	size += data.get(thekey).length;
 		        }
 				if(size + value.length > MAX_VALUE_SIZE*4.1){
-					System.out.println("Database has no space to put data! the attempt key=" + key);
+					System.out.println("Database has no space to put data!");
 					return false;
 				}else if(data.containsKey(key)){
 					System.out.println("The key exist !");
@@ -96,7 +96,7 @@ public class Vstore{
 	public byte[] get(int key){
 		if(!data.containsKey(key)){
 			System.out.println("The key does not exist!");
-        	return new byte[0];	
+        	return "keydoesnotexit!".getBytes();	
 		}
 		else {
 			// synchronized blocks can only have one thread executing at the same time
