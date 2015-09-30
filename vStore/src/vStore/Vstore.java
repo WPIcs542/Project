@@ -69,8 +69,7 @@ public class Vstore{
 	public boolean put(int key, byte[] value){
 		// synchronized blocks can only have one thread executing at the same time
 		synchronized(this) {
-			//Check if the value satisfies the size requirement
-			System.out.println("put first");
+			//Check if the value satisfies the size requirement  
 			if(value.length > MAX_VALUE_SIZE){
 				System.out.println("Value should not be larger than 1 MB!");
 				return false;
@@ -83,10 +82,10 @@ public class Vstore{
 				if(size + value.length > MAX_VALUE_SIZE*4.1){
 					System.out.println("Database has no space to put data! the attempt key=" + key);
 					return false;
-				}else if(data.containsKey(key)){
+				}else /*if(data.containsKey(key)){
 					System.out.println("The key exist !");
 					return false;
-				}
+				}*/
 				data.put(key, value);			
 			}
 		}
@@ -95,14 +94,13 @@ public class Vstore{
 	}
 	
 	public byte[] get(int key){
-		synchronized(this){
-			System.out.println("get first");
+		// synchronized blocks can only have one thread executing at the same time
+		synchronized(this){ 
 			if(!data.containsKey(key)){
 				System.out.println("The key does not exist!");
 				return new byte[0];	
 			}
 			else {
-			// synchronized blocks can only have one thread executing at the same time
 				byte[] b=null;
 				b=data.get(key);
 				return b;

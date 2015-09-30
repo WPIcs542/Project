@@ -167,24 +167,34 @@ public class Main{
     
     //here is the test get() and put() at the same time
     public static boolean getAndput(int key) {
+  
     	Thread t1 = new Thread(
     			new Runnable(){
     				public void run(){
-    				store.put(testKey,"getAndput".getBytes());
-    				
+    				store.put(key,"getAndput".getBytes());
     				}  }, "t1");
 
     	Thread t2 = new Thread(
     			new Runnable(){
     				public void run(){
-    				store.get(testKey);
-    				
-    				}  }, "t2");
-
+	    				try {
+							Thread.sleep(500);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	    				try {
+							String text = new String(store.get(key), "UTF-8");
+							System.out.println("The value is: " + text);
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+    				}        
+    			}, "t2"
+    	);
     	t1.start();
-    //	t0.join();
     	t2.start();
-    //	t1.join();
     	return true;
  
     }
