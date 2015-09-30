@@ -64,24 +64,19 @@ public class Main{
         		System.out.println("You are getting data, Enter your key:");
         		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
-        		if(temp == "keydoesnotexit!".getBytes()) {
+        		if(temp.length == 0){
         			flag = false;
-        		}else{
-        			String text = "";
-        			try {
-        				text = new String(temp, "UTF-8");
-        			} catch (UnsupportedEncodingException e) {
-        				// TODO Auto-generated catch block
-        				e.printStackTrace();
-        			}
-        			System.out.println("The value is: " + text);
-        			flag = true;
+        		} else {
+	    			String text = "";
+	    			try {
+	    				text = new String(temp, "UTF-8");
+	    			} catch (UnsupportedEncodingException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}
+	    			System.out.println("The value is: " + text);
+	    			flag = true;
         		}
-        		/*if(temp.length == 0){
-        			System.out.println("Not found");
-        		}else{
-        			flag = true;
-        		}*/
         	}else if(option==3){
         		System.out.println("Testing get and put");
         		flag = getAndput(vKey);
@@ -128,18 +123,18 @@ public class Main{
             	}
         		byte[] result = new byte[MAX_VALUE_SIZE];
         		result = store.get(k);
-        		if(result == "keydoesnotexit!".getBytes()){
-        			flag = false; 
-        		} else {	
-        			String text = "";
-        		try {
-        			text = new String(result, "UTF-8");
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-        		System.out.println("The value is: " + text);
-        		flag = true;        			
+        		if(result.length == 0){
+        			flag = false;
+        		} else {
+	        		String text = "";
+	        		try {
+	        			text = new String(result, "UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	        		System.out.println("The value is: " + text);
+	        		flag = true;
         		}
         	}else if(option==10){
         		System.out.println("Enter the key to remove data: ");

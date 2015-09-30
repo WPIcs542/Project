@@ -101,7 +101,7 @@ public class Vstore{
 	public byte[] get(int key){
 		if(!data.containsKey(key)){
 			System.out.println("The key does not exist!");
-        	return "keydoesnotexit!".getBytes();	
+        	return new byte[0];	
 		}
 		else {
 			// synchronized blocks can only have one thread executing at the same time
