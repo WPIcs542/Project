@@ -167,22 +167,10 @@ public class Main{
     
     //here is the test get() and put() at the same time
     public static boolean getAndput(int key) {
-  
+    	//thread to get string
     	Thread t1 = new Thread(
     			new Runnable(){
     				public void run(){
-    				store.put(key,"getAndput".getBytes());
-    				}  }, "t1");
-
-    	Thread t2 = new Thread(
-    			new Runnable(){
-    				public void run(){
-	    				try {
-							Thread.sleep(500);
-						} catch (InterruptedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
 	    				try {
 							String text = new String(store.get(key), "UTF-8");
 							System.out.println("The value is: " + text);
@@ -191,8 +179,22 @@ public class Main{
 							e.printStackTrace();
 						}
     				}        
-    			}, "t2"
+    			}, "t1"
     	);
+    	
+    	//thread to put and replace string
+    	Thread t2 = new Thread(
+    			new Runnable(){
+    				public void run(){
+        				try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+        				store.put(key,"value changed!".getBytes());
+    				}  }, "t2"
+    	); 	
     	t1.start();
     	t2.start();
     	return true;
