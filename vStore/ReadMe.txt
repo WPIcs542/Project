@@ -48,7 +48,7 @@ For remove(),it has one variable key, it will remove the data mapped by key in o
 For clear(), the purpose of it is to build a new empty database with hashstable data structure.
 For savecontente(), the purpose of it is to save the changes to the data to the file permanently.
 
-For listtable() ?
+For listtable() the purpose of it is to show all the information in database.
 
 In class main we have eight methods, they are main(), getandput(),removeandget(),rebootandget(),fragmentput(),generation(),showall(),clear().
 
@@ -63,9 +63,9 @@ For rebootandget() ,its purpose is to test when database was rebooted, check whe
 
 For fragmentput(),its purpose is to test the size control of the database input . when calling on this method, the program will put random size files within maxvalue limit of database file into our database file, then remove one of them, put another in it ,sees its work or not.
 
-For generation(). Its purpose is to create the random size file for testing the fragmentput(), it has one variable which is used for giving the first number of the random function in the method.
+For generation(), Its purpose is to create the random size file for testing the fragmentput(), it has one variable which is used for giving the first number of the random function in the method.
 
-For Showall()?
+For Showall(), Its the function to show all the data in cs542.db,it has one variable filename which is passed from the main shell. 
 
 For clearall(), its purpose is remove all the data in the database file.
 
