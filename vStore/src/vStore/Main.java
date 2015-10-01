@@ -57,7 +57,7 @@ public class Main{
         	}else if(option==7){
         		option=0;
         	}else if(option==1){
-        		System.out.println("You are puting data");
+        		System.out.println("You are putting data");
         		byte[] vl = new byte[MAX_VALUE_SIZE]; 
         		vl = "That's put something into it, sounds fun right, awesome!!".getBytes();
         		flag = store.put(vKey, vl);
