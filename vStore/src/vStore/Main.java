@@ -201,6 +201,27 @@ public class Main{
     
     //here is the test remove() and get() at the same time
     public static boolean removeAndget(int key){
+    	Thread t1 = new Thread(
+    			new Runnable(){
+    				public void run(){
+    				store.remove(key);
+    				}  }, "t1");
+
+    	Thread t2 = new Thread(
+    			new Runnable(){
+    				public void run(){
+	    				try {
+							Thread.sleep(500);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	    				store.get(key);
+    				}        
+    			}, "t2"
+    	);
+    	t1.start();
+    	t2.start();
         return true;
     }
     
