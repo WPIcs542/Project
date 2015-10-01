@@ -34,9 +34,10 @@ When user presses "10", "Enter the key to remove data: " is printed. User input 
 When user presses "11", "Here is the fragment test: " is printed. The program put() 4 values, byte arrays of 1 MB each, with keys 333, 444, 555 and 666. Remove key 444. put() 0.5 MB in size for key 444. Validate that a put() 1 MB in size for key 777 fails. Remove 555 and now validate that a put() 1 MB in size for key 555 succeeds. Remove 444 and try Put() 1 MB in size for key 444. If all of the above get validated, flag is set to true.
 Each of the above option has a flag, if flag is true "Job Done!" is printed, or "job Failed!" is printed. 
 
-saveContents(), listTable().
 
 Below is the introduction of the methods in our main class and vstore class:
+
+In the class Vstore, we have six methods, they are put(), get(),remove(),clear(), saveContents(), listTable().
 
 For put() method, it has two input variables, the first variable is the key used by HashTable to map and save the data, the second is used for passing the object string which will be saved. At first put() method checks the size of the data which will be put in, if it is larger than the maxValue limit which is 1M, the data will not be put in. if it is less than the maxvalue limit, then check whether the file has enough space to save the data, if space is enough, put in the data and save file. And this method contains synchronized statement, so when one thread running this method, other threads will stop and wait it finish.
 
@@ -64,6 +65,6 @@ For generation(). Its purpose is to create the random size file for testing the 
 For Showall()?
 For clearall(), its purpose is remove all the data in the database file.
 
- 
+
 
 
