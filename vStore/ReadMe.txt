@@ -37,7 +37,7 @@ When user presses "11", "Here is the fragment test: " is printed. The program pu
 Each of the above option has a flag, if flag is true "Job Done!" is printed, or "job Failed!" is printed. 
 
 
-Code design explained:
+Code design:
 
 In the class Vstore, we have six methods, they are put(), get(),remove(),clear(), saveContents(), listTable().
 
