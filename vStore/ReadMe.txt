@@ -4,7 +4,7 @@ Author: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
 
 In this project, Hashtable is used to store value under given key.
 
-Testing method & result:
+Testing method and how to use:
 Once the program starts to run, the following is printed first:
 Database file exist !
 ------Welcome to the Value Store !------
@@ -36,6 +36,11 @@ When user presses "10", "Enter the key to remove data: " is printed. User input 
 When user presses "11", "Here is the fragment test: " is printed. The program put() 4 values, byte arrays of 1 MB each, with keys 333, 444, 555 and 666. Remove key 444. put() 0.5 MB in size for key 444. Validate that a put() 1 MB in size for key 777 fails. Remove 555 and now validate that a put() 1 MB in size for key 555 succeeds. Remove 444 and try Put() 1 MB in size for key 444. If all of the above get validated, flag is set to true.
 Each of the above option has a flag, if flag is true "Job Done!" is printed, or "job Failed!" is printed. 
 
+Results:
+After pressing ¡°3¡±, ¡°That's put something into it, sounds fun right, awesome!!¡± is printed, which means doing a put() while get() executing cannot replace the value. Put() can only starts after get() finishes.
+After pressing ¡°4¡±, ¡°the key doesn¡¯t exist¡± is printed, which means remove() has already removed the value before get() starts.
+After pressing ¡°5¡±, the value stored under vkey is printed, which means that value store still has the value after rebooting.
+After pressing ¡°11¡±, "Job Done!" is printed, which means that fragment test succeeds.
 
 Code design:
 
