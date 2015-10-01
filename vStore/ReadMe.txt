@@ -33,6 +33,37 @@ When user presses "9", "Enter your key to get data: " is printed. User can input
 When user presses "10", "Enter the key to remove data: " is printed. User input an integer key and the value under the key (if exists) will be removed.
 When user presses "11", "Here is the fragment test: " is printed. The program put() 4 values, byte arrays of 1 MB each, with keys 333, 444, 555 and 666. Remove key 444. put() 0.5 MB in size for key 444. Validate that a put() 1 MB in size for key 777 fails. Remove 555 and now validate that a put() 1 MB in size for key 555 succeeds. Remove 444 and try Put() 1 MB in size for key 444. If all of the above get validated, flag is set to true.
 Each of the above option has a flag, if flag is true "Job Done!" is printed, or "job Failed!" is printed. 
+
+saveContents(), listTable().
+
+Below is the introduction of the methods in our main class and vstore class:
+
+For put() method, it has two input variables, the first variable is the key used by HashTable to map and save the data, the second is used for passing the object string which will be saved. At first put() method checks the size of the data which will be put in, if it is larger than the maxValue limit which is 1M, the data will not be put in. if it is less than the maxvalue limit, then check whether the file has enough space to save the data, if space is enough, put in the data and save file. And this method contains synchronized statement, so when one thread running this method, other threads will stop and wait it finish.
+
+For get() method, it has two variable keys, it will check whether database file contain the data mapped by the key in our hashtable, if succeed it will show the data .
+
+For remove(),it has one variable key, it will remove the data mapped by key in our hashtable if it contains. Then save the data.
+
+For clear(), the purpose of it is to build a new empty database with hashstable data structure.
+For savecontente(), the purpose of it is to save the changes to the data to the file permanently.
+
+For listtable() ?
+
+In class main we have eight methods, they are main(), getandput(),removeandget(),rebootandget(),fragmentput(),generation(),showall(),clear().
+
+For main() ,the purpose of it is to give us a big frame of how this program works, which include the configure of the environment and statement of the variables and test our methods in class Vstore.
+
+For getandput(), the purpose of this method is to test the put() and get() at the same time, it has one variable which is used for passing the original data key to the get() methods. When calling on this method, the program will at first do the put() then do the get(), so the data will be changed .we use two threads in this method to control which action we want to do first.
+
+For removeandget(), its purpose is to test remove() and get() at the same time, it has one variable which is used for passing the original data key to the remove() methods. When calling on this method, the program will at first do the remove() then do the get(), so the data wont exist. We use two threads in this method to control which action we want to do first.
+
+
+For rebootandget() ,its purpose is to test when database was rebooted, check whether the get() method could get what we stored in the database file last time.it has one variable which is used for passing the key of the last saved data in hashtable.
+For fragmentput(),its purpose is to test the size control of the database input . when calling on this method, the program will put random size files within maxvalue limit of database file into our database file, then remove one of them, put another in it ,sees its work or not.
+For generation(). Its purpose is to create the random size file for testing the fragmentput(), it has one variable which is used for giving the first number of the random function in the method.
+For Showall()?
+For clearall(), its purpose is remove all the data in the database file.
+
  
 
 
