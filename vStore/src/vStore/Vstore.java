@@ -151,7 +151,7 @@ public class Vstore{
 	
 	// This is the function to show all the information in database. 
 	public boolean listTable(String filename){
-		if(!filename.equalsIgnoreCase("542.db")){
+		if(!filename.equalsIgnoreCase("cs542.db")){
 			System.out.println("File does not exist !");
 			return false;
 		}
