@@ -2,7 +2,9 @@ This file is the introduction of value store and how it works.
 
 Author: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
 
-How to use:
+In this project, Hashtable is used to store value under given key.
+
+Testing method & result:
 Once the program starts to run, the following is printed first:
 Database file exist !
 ------Welcome to the Value Store !------
@@ -12,7 +14,7 @@ Database file exist !
 2) Get String Data by Key---------------
 3) Testing get and put at the same time-
 4) Testing remove and get at the same time
-5) Test reboot, then get data-----------
+5) Test reboot, then get data----------- 
 6) Show all database info---------------
 7) Show Me the Main Menu !!-------------
 8) Put Data with your key---------------
@@ -35,7 +37,7 @@ When user presses "11", "Here is the fragment test: " is printed. The program pu
 Each of the above option has a flag, if flag is true "Job Done!" is printed, or "job Failed!" is printed. 
 
 
-Below is the introduction of the methods in our main class and vstore class:
+Code design explained:
 
 In the class Vstore, we have six methods, they are put(), get(),remove(),clear(), saveContents(), listTable().
 
