@@ -1,6 +1,8 @@
-// This is the Main Shell
-// Sep.26.2015
-// Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
+/**
+ *  This is the Main Shell
+ *  Sep.26.2015
+ *  Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
+ */
 
 package vStore;
 
@@ -10,11 +12,21 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main{
-    static Vstore store = new Vstore();
-    static final int vKey = 428657931;
-    static final int testKey = 31415924;
-    private static final int MAX_VALUE_SIZE = 1024 * 1024;
+    static Vstore store = new Vstore();  	//Initialize value store object
+    static final int vKey = 428657931;		//this key is used for testing only
+    private static final int MAX_VALUE_SIZE = 1024 * 1024;  //set maximum size 1MB 
     
+    
+    /**
+     * KeyNote: This is the value store main shell. The idea is to use print out line to 
+     * show the Menu information. And using scanner read in the keyboard character that 
+     * the user choose. After that, the shell will go into the lower level shell for 
+     * other option choice. The option 1) to 5) are used for testing small byte[] array. 
+     * And option 11) is used for testing fragmentation management in database. We decide
+     * menu as human kind to bring option 7) to show the Menu again, and option 12) to 
+     * quit the main shell safely. 
+     * @param args
+     */
     public static void main(String [] args){
         boolean flag;
         boolean running = true;
@@ -26,7 +38,7 @@ public class Main{
         	if(option==0){
         		System.out.println("------Welcome to the Value Store !------");
         		System.out.println("---------Here is the Main Menu----------");
-        		System.out.println("--------Select the number options below:");
+        		System.out.println("Select the number options below:--------");
         		System.out.println("1) Put String data----------------------");
         		System.out.println("2) Get String Data by Key---------------");
         		System.out.println("3) Testing get and put at the same time-");
@@ -104,7 +116,7 @@ public class Main{
             	}
         		System.out.println("DataString: ");
         		String vals = scan1.nextLine();
-        		byte[] val = new byte[MAX_VALUE_SIZE]; //The maximum size is 1MB dataStream.
+        		byte[] val = new byte[MAX_VALUE_SIZE]; 
         		val = vals.getBytes();
         		if(val.length==0){
         			System.out.println("Empty input");
@@ -155,6 +167,10 @@ public class Main{
         		System.out.println("The number is not correct, try again!");
         	}
         	
+        	/**
+        	 *  this section is to tell me if the test is succeed or not.
+        	 *  It will check the boolean value that return from the previous test.
+        	 */
         	if(flag){
                 System.out.println("Job Done!");
             }else{
@@ -165,9 +181,15 @@ public class Main{
         scan1.close();
     }
     
-    //here is the test get() and put() at the same time
+    /**
+     * here is the test get() and put() at the same time
+     * The idea is to use thread method to run the get() and the put() method 
+     * at the same time with the same key.
+     * @param key
+     * @return boolean
+     */
     public static boolean getAndput(int key) {
-    	//thread to get string
+    	//create a thread to get string with the key
     	Thread t1 = new Thread(
     			new Runnable(){
     				public void run(){
@@ -182,7 +204,7 @@ public class Main{
     			}, "t1"
     	);
     	
-    	//thread to put and replace string
+    	//create a thread to put and replace string with the same key
     	Thread t2 = new Thread(
     			new Runnable(){
     				public void run(){
@@ -201,14 +223,23 @@ public class Main{
  
     }
     
-    //here is the test remove() and get() at the same time
+    /**
+     * here is the test remove() and get() at the same time
+     * it is similar as the previous function. We are using the same key
+     * to do remove and get actions at the same time. The result shows 
+     * that the remove will be executed before the get action. 
+     * @param key
+     * @return boolean
+     */
     public static boolean removeAndget(int key){
+    	//create a thread to remove the value with the key
     	Thread t1 = new Thread(
     			new Runnable(){
     				public void run(){
     				store.remove(key);
     				}  }, "t1");
 
+    	//create a thread to get the value with the same key
     	Thread t2 = new Thread(
     			new Runnable(){
     				public void run(){
@@ -218,7 +249,14 @@ public class Main{
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-	    				store.get(key);
+	    				String text = "";
+						try {
+							text = new String(store.get(key), "UTF-8");
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						System.out.println("The value is: " + text);
     				}        
     			}, "t2"
     	);
@@ -227,7 +265,17 @@ public class Main{
         return true;
     }
     
-    //here is the test of reboot put() and then run get()
+    /**
+     * here is the test of reboot put() and then run get()
+     * The idea is to remove all information in the memory. 
+     * Then, re-start the value store, which means to initialize 
+     * the value-store again. It will read all information from 542.db 
+     * file from the disk and put them into memory again. In this case,
+     * we will know if the database is in the disk or not. The result shows
+     * that all the information are in the disk before the restart. 
+     * @param key
+     * @return boolean
+     */
     public static boolean rebootAndget(int key){
     	byte [] test = new byte [MAX_VALUE_SIZE];
     	store.clear();
@@ -245,7 +293,18 @@ public class Main{
         return true;
     }
     
-    //here is the test of Fragmentation put() A B C D .....
+    /**
+     * here is the test of Fragmentation put() A B C D .....
+     * It is tricky that we should generate the different byte arrays to avoid 
+     * the space sharing. If the space is shared with other values, the total 
+     * size will not increase so we can still put into key and valve. The order of 
+     * testing is to put "a b c d" 4MB total into database. And then, remove 1.0 MB 
+     * and put 0.5 MB which will succeed. Next putting 1.0 MB again which will fail 
+     * because there is not enough space. Next, remove 1.0 MB and put into 1.0 MB succeed.
+     * Next, remove 0.5 MB and put into 1 MB succeed, because there will be 1.0 MB 
+     * space available in memory space. 
+     * @return boolean
+     */
     public static boolean fragmentPut(){
     	byte [] a = new byte[MAX_VALUE_SIZE];
     	byte [] b = new byte[MAX_VALUE_SIZE];
@@ -265,6 +324,7 @@ public class Main{
     	g = generation(MAX_VALUE_SIZE);
     	h = generation(MAX_VALUE_SIZE);
     	
+    	// The boolean value is used to catch the running succeed or fail
     	boolean a1 = store.put(333, a); //put a
     	boolean b1 = store.put(444, b); //put b
     	boolean c1 = store.put(555, c); //put c
@@ -280,7 +340,14 @@ public class Main{
     	return a1 && b1 &&c1 &&d1 &&b11&& e1&& (!f1) && c11&& g1&& e11&& h1;
     }
     
-    // This is a function to create the size of byte for testing.
+    /**
+     * This is a function to create the size of byte for testing.
+     * It is useful the use random() function from the library 
+     * to avoid the same result of sharing memory space as value.
+     * This function is used for testingfragmentation sonly. 
+     * @param size
+     * @return boolean 
+     */
     public static byte[] generation(int size){
     	byte [] value = new byte[size];
     	new Random().nextBytes(value); //create some random bytes
@@ -297,12 +364,21 @@ public class Main{
     	return value;
     }
     
-    // this is the function to show all the data in cs542.db
+    /**
+     * This is the function to show all the data in cs542.db
+     * The filename is passed from the main shell. 
+     * However, the default filename is cs542.db 
+     * You can change the filename above. 
+     * @param filename
+     * @return boolean
+     */
     public static boolean showAll(String filename){
     	return store.listTable(filename);
     }
     
-    // for the fragment test only
+    /**
+     * For the fragmentation test only to clear memory
+     */
     public static void clearAll(){
     	store.remove(333);
     	store.remove(444);

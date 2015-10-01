@@ -15,13 +15,21 @@ import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 import java.util.Set;
 
+
 public class Vstore{
+	// The main idea is to use Hashtable to store key and value
+	// And it is very useful and fast searching algorithm. 
 	private Hashtable<Integer, byte[]> data;
-	private static final String file = "cs542.db";
-	private static final int MAX_VALUE_SIZE = 1024 * 1024;
+	private static final String file = "cs542.db";    //defualt database filename
+	private static final int MAX_VALUE_SIZE = 1024 * 1024;  //set maximum size to be 1.0 MB
 	
+	/**
+	 * This is the object initialization 
+	 */
 	public Vstore(){
 		File df = new File(file);
+		// Need to check if the database filename is correct or not
+		// If there is no such name, create new database for storage. 
 		if(df.exists() && !df.isDirectory()) { 
 			System.out.println("Database file exist !");
 		}else{
@@ -36,6 +44,8 @@ public class Vstore{
 			}
 		}
 		df.exists();
+		
+		// The following is to reach data from the 542.db which is in the disk
 		ObjectInputStream objectInput = null;
 		try {
 			objectInput = new ObjectInputStream (new FileInputStream(file));
@@ -56,6 +66,7 @@ public class Vstore{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		// finally we put the data into memory space
 		data = (Hashtable<Integer, byte[]>) object;
 		try {
 			objectInput.close();
@@ -65,7 +76,15 @@ public class Vstore{
 		}
 	}
 	
-	//Stores data under the given key
+	/**
+	 * Stores data under the given key
+	 * First of all, we need to check the size of value should be no more than 1 MB
+	 * Second, we need to check if there is enough space to put the incoming value
+	 * Third, we want to commit memory save into disk 542.db
+	 * @param key
+	 * @param value
+	 * @return boolean
+	 */
 	public boolean put(int key, byte[] value){
 		// synchronized blocks can only have one thread executing at the same time
 		synchronized(this) {
@@ -82,17 +101,26 @@ public class Vstore{
 				if(size + value.length > MAX_VALUE_SIZE*4.1){
 					System.out.println("Database has no space to put data! the attempt key=" + key);
 					return false;
-				}else /*if(data.containsKey(key)){
+				}else{ 
+					/*if(data.containsKey(key)){
 					System.out.println("The key exist !");
 					return false;
 				}*/
-				data.put(key, value);			
+					data.put(key, value);
+				}
 			}
 		}
 		saveContents();
 		return true;
 	}
 	
+	/**
+	 * Here is the get method to show the value with coresponding key
+	 * We want to check if the key is not exist, print out information
+	 * and return the empty byte array to the main shell. 
+	 * @param key
+	 * @return byte[]
+	 */
 	public byte[] get(int key){
 		// synchronized blocks can only have one thread executing at the same time
 		synchronized(this){ 
@@ -114,6 +142,15 @@ public class Vstore{
 		}  
 	}
 	
+	/**
+	 * Here is the remove function to remove value from the Hashtable in memory.
+	 * First, we want to know if the key is exist, if not, print out message and 
+	 * return false to the main shell.
+	 * Second, if remove the key succeed, we want to commit to disk and save the 
+	 * updating result to 542.db in the disk. 
+	 * @param key
+	 * @return boolean
+	 */
 	public boolean remove(int key){
 		//test if the key exists
 		if(!data.containsKey(key)){
@@ -130,15 +167,23 @@ public class Vstore{
         return true;
 	}
 	
-	//this is used in the reboot testing. 
+	/**
+	 * this is used in the reboot testing. 
+	 * Clear Hashtable in the memory, but not the disk.
+	 * @return boolean
+	 */
 	public boolean clear(){
 		Hashtable<Integer, byte[]> newdata = new Hashtable<Integer, byte[]>();
 		this.data = newdata;
 		return true;
 	}
 	
-	//this method is to write data into cs542.db and the same as write to commit. 
-	public void saveContents(){       
+	/**
+	 * this method is to write data into cs542.db and the same as write to commit. 
+	 * Write the hashtable from memory to the disk is very important. 
+	 * The data will be safe with out of power or accident shut down. 
+	 */
+	public void saveContents(){      
 		try{
 			FileOutputStream f =new FileOutputStream(file);      
 			ObjectOutputStream objOutput = new ObjectOutputStream(f);
@@ -149,7 +194,15 @@ public class Vstore{
 		}
 	}
 	
-	// This is the function to show all the information in database. 
+	/**
+	 * This is the function to show all the information in database. 
+	 * List the default file name 542.db you can change the filename as your own.
+	 * First, we want to know if the file is exist or not.
+	 * Second, we want to list all the key and the value size with corresponding key. 
+	 * The value size is return as bytes unit. 
+	 * @param filename
+	 * @return boolean
+	 */
 	public boolean listTable(String filename){
 		if(!filename.equalsIgnoreCase("542.db")){
 			System.out.println("File does not exist !");
