@@ -60,9 +60,13 @@ For removeandget(), its purpose is to test remove() and get() at the same time, 
 
 
 For rebootandget() ,its purpose is to test when database was rebooted, check whether the get() method could get what we stored in the database file last time.it has one variable which is used for passing the key of the last saved data in hashtable.
+
 For fragmentput(),its purpose is to test the size control of the database input . when calling on this method, the program will put random size files within maxvalue limit of database file into our database file, then remove one of them, put another in it ,sees its work or not.
+
 For generation(). Its purpose is to create the random size file for testing the fragmentput(), it has one variable which is used for giving the first number of the random function in the method.
+
 For Showall()?
+
 For clearall(), its purpose is remove all the data in the database file.
 
 
