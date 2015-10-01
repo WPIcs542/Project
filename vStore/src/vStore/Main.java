@@ -62,7 +62,7 @@ public class Main{
         		vl = "That's put something into it, sounds fun right, awesome!!".getBytes();
         		flag = store.put(vKey, vl);
         	}else if(option==2){
-        		System.out.println("You are getting data, Enter your key:");
+        		System.out.println("You are getting data");
         		byte[] temp = new byte [MAX_VALUE_SIZE];
         		temp = store.get(vKey);
         		if(temp.length == 0){
