@@ -124,7 +124,7 @@ public class Vstore{
 	public byte[] get(int key){
 		// synchronized blocks can only have one thread executing at the same time
 		synchronized(this){ 
-			//Thread.sleep is for testing while doing get(), a thread does put()
+			//Thread.sleep is for testing while doing get(), a thread starts put()
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
@@ -161,7 +161,7 @@ public class Vstore{
 		else {
 			// synchronized blocks can only have one thread executing at the same time
 			synchronized(this){
-				//Thread.sleep is for testing while doing remove(), a thread does get()
+				//Thread.sleep is for testing while doing remove(), a thread starts get()
 				try {
 					Thread.sleep(400);
 				} catch (InterruptedException e) {
