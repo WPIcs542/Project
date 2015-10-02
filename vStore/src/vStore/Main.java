@@ -244,7 +244,7 @@ public class Main{
     			new Runnable(){
     				public void run(){
 	    				try {
-							Thread.sleep(500);
+							Thread.sleep(50);
 						} catch (InterruptedException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
