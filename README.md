@@ -11,3 +11,12 @@ Durability Validation. What happens if, after a reboot of the machine after the 
 Fragmentation. Put() 4 values, byte arrays of 1 MB each, with keys A, B, C and D. Remove key B. Put() ½ MB in size for key E. Validate that a Put() 1 MB in size for key F fails. Remove C and now validate that a Put() 1 MB in size for key G succeeds. Remove E and try Put() 1 MB in size for key H. With a naive implementation, it will fail even though there is room in store.db. An extra bonus point if you can modify your code such that Put("H", …) succeeds.
 
 Create a shell program show that will show the layout of data in cs542.db. Run the program to do the validations listed above and include a record of your interactions to prove that the validations produced the expected results.
+
+Part2:
+
+An indexing mechanism. Our index has just three interfaces:
+void Put(string key, Number data_value); or void Put(string key, string data_value); adds the index entry.
+string Get(Number data_value); or string Get(string data_value); retrieves the key given the index and
+void Remove(string key); deletes the index.
+
+Technically it could be counted as five interfaces because of Number vs. string. The Number inputs only apply if you are working with B+ Trees. You have a choice of index type: B+ tree or hash. Additional assumptions will be required to complete this assignment and limit the scope of the exercise. That is OK, but you must enumerate those assumptions.
