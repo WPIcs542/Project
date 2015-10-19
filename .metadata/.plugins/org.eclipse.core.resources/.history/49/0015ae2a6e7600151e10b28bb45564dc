@@ -6,16 +6,13 @@
 
 package hashIndex;
 
-import java.util.ArrayList;
-
 public class BplusTree {
-	private static ArrayList<Index> bPlusTree;
 	
 	/**
 	 * The constructor
 	 */
 	public BplusTree(){
-		bPlusTree = new ArrayList<Index>();
+		
 	}
 	
 	public void put(String key, int value){
