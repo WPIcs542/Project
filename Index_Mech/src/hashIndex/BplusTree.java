@@ -85,7 +85,11 @@ public class BplusTree {
 	 * @param value
 	 */
 	public void put(String key, int value){
+<<<<<<< HEAD
 		//we are not going to use B+ tree for index. 
+=======
+		//dkjlsakjdlfkjs
+>>>>>>> origin/master
 	}
 	
 	/**
