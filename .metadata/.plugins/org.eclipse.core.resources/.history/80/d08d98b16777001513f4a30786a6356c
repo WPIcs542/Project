@@ -1,0 +1,18 @@
+package hashIndex;
+
+public class Index {
+	private static int depth;
+	private static int totalLength;
+	
+	/**
+	 * This is constructor. 
+	 * @param depth
+	 * @param totalLength
+	 */
+	public Index(int totalLength){
+		this.depth = depth;
+		this.totalLength = totalLength;
+	}
+	
+	
+}

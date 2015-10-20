@@ -1,13 +1,21 @@
 package hashIndex;
 
-public class Index {
-	private static int depth;
+import java.io.Serializable;
+
+public class Index implements Serializable{
+	private static final long serialVersionUID = -9184164241837197805L;
 	private static int totalLength;
 	
-	public Index(int depth, int totalLength){
-		this.depth = depth;
+	/**
+	 * This is constructor. 
+	 * @param totalLength
+	 */
+	public Index(int totalLength){
 		this.totalLength = totalLength;
 	}
 	
+	public int getLength(){
+		return totalLength;
+	}
 	
 }

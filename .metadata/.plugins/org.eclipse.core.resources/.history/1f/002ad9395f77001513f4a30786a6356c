@@ -1,0 +1,66 @@
+/**
+ *  This is the Main.java for hash index project_2
+ *  Team Members: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
+ *  Date: Oct/16/2015
+ */
+
+package hashIndex;
+
+import java.util.ArrayList;
+
+public class BplusTree {
+	private static ArrayList<Index> bPlusTree;
+	private static int length;
+	/**
+	 * The constructor
+	 */
+	public BplusTree(){
+		bPlusTree = new ArrayList<Index>();
+		length = 10;
+	}
+	
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void put(String key, int value){
+		
+	}
+	
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 */
+	public void put(String key, String value){
+		
+	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @return String is the key
+	 */
+	public String get(int value){
+		return "";
+	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @return String is the key
+	 */
+	public String get(String value){
+		return "";
+	}
+	
+	/**
+	 * 
+	 * @param key
+	 */
+	public void remove(String key){
+		
+	}
+}
+

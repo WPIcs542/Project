@@ -1,0 +1,18 @@
+package hashIndex;
+
+public class Index {
+	private static int totalLength;
+	
+	/**
+	 * This is constructor. 
+	 * @param totalLength
+	 */
+	public Index(int totalLength){
+		this.totalLength = totalLength;
+	}
+	
+	public int getLength(){
+		return totalLength;
+	}
+	
+}

@@ -8,6 +8,11 @@ package hashIndex;
 
 public class Main {
 	static BplusTree bTree = new BplusTree();
+	
+	/**
+	 * run testing through indexTree.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		System.out.println("Test line of Hash Index!!");
 	}
