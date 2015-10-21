@@ -16,8 +16,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 //import java.util.Hashtable;
 
-public class BplusTree {
-	private ArrayList<Index> bPlusTree;
+public class HashIndex {
+	private ArrayList<Index> hashIndex;
 	private int length = 10;
 	private int depth = 3;
 	private static String filename = "cs542.db";
@@ -25,19 +25,19 @@ public class BplusTree {
 	/**
 	 * The constructor
 	 */
-	public BplusTree(){
+	public HashIndex(){
 		File df = new File(filename);
 		if(df.exists() && !df.isDirectory()) { 
 			System.out.println("Database file exist !");
 		}else{
-			bPlusTree = new ArrayList<Index>();
+			hashIndex = new ArrayList<Index>();
 			try {
 				//if there is no such file, create it.
 				ObjectOutputStream obout = new ObjectOutputStream(new FileOutputStream(filename));
 				for(int n=0; n<this.depth; n++){
-					bPlusTree.add(new Index(length));
+					hashIndex.add(new Index(length));
 				}
-				obout.writeObject(bPlusTree);
+				obout.writeObject(hashIndex);
 				obout.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -69,7 +69,7 @@ public class BplusTree {
 		// finally we put the data into memory space
 		@SuppressWarnings("unchecked")
 		ArrayList<Index> object2 = (ArrayList<Index>) object;
-		this.bPlusTree = object2;
+		this.hashIndex = object2;
 		
 		try {
 			objectInput.close();
@@ -84,37 +84,23 @@ public class BplusTree {
 	 * @param key
 	 * @param value
 	 */
-	public void put(String key, int value){
+	public void put(String key, String data_value){
+		
 		//we are not going to use B+ tree for index. 
 	}
 	
-	/**
-	 * 
-	 * @param key
-	 * @param value
-	 */
-	public void put(String key, String value){
-		
-	}
-	
+
 	/**
 	 * 
 	 * @param value
 	 * @return String is the key
 	 */
-	public String get(int value){
+	public String get(String key){
 		//we are not going to use B+ tree for index.
 		return "";
 	}
 	
-	/**
-	 * 
-	 * @param value
-	 * @return String is the key
-	 */
-	public String get(String value){
-		return "";
-	}
+	
 	
 	/**
 	 * 

@@ -7,7 +7,7 @@
 package hashIndex;
 
 public class Main {
-	static BplusTree bTree = new BplusTree();
+	static HashIndex hash = new HashIndex();
 	
 	/**
 	 * run testing through indexTree.
