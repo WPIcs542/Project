@@ -41,7 +41,6 @@ public class HashIndex {
 				obout.writeObject(hashIndex);
 				obout.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -51,31 +50,26 @@ public class HashIndex {
 		try {
 			objectInput = new ObjectInputStream (new FileInputStream(filename));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Object object = null;
 		try {
 			object = objectInput.readObject();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		// finally we put the data into memory space
 		@SuppressWarnings("unchecked")
 		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
-		this.hashIndex = object2;
-		
+		this.hashIndex = object2;	
 		try {
 			objectInput.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -94,13 +88,16 @@ public class HashIndex {
 		}else{
 			bucket.incrementLength();
 			
-			if(bucket.getLength() == depth){
+			if(bucket.ifExistSpace()){
+				bucket.insert(key, dataValue);
+			}else{
+				bucket.incrementLength();
 				
+				if(bucket.getLength() == depth){
+					
+				}
 			}
 		}
-			
-		
-		//we are not going to use B+ tree for index. 
 	}
 	
 
@@ -110,7 +107,7 @@ public class HashIndex {
 	 * @return String is the key
 	 */
 	public String get(String key){
-		//we are not going to use B+ tree for index.
+		
 		return "";
 	}
 	

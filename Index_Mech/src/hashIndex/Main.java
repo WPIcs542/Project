@@ -7,13 +7,14 @@
 package hashIndex;
 
 public class Main {
-	static HashIndex hash = new HashIndex();
+	static HashIndex hash;
 	
 	/**
-	 * run testing through indexTree.
+	 * run testing through Hashindex.
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		hash = new HashIndex();
 		System.out.println("Test line of Hash Index!!");
 	}
 
