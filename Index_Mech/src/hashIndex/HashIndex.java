@@ -18,9 +18,8 @@ import java.util.ArrayList;
 
 public class HashIndex {
 	private ArrayList<Bucket> hashIndex;
-	private int length = 10;
-	private int depth = 3;
-	static int localLength = 2;
+	private int decisionBitsNumber = 2; //"i" in textbook
+	static int initialBlockBitsNumber = 2; //"j" in text book
 	private static String filename = "cs542.db";
 	
 	/**
@@ -35,8 +34,8 @@ public class HashIndex {
 			try {
 				//if there is no such file, create it.
 				ObjectOutputStream obout = new ObjectOutputStream(new FileOutputStream(filename));
-				for(int n=0; n<this.depth; n++){
-					hashIndex.add(new Bucket(length));
+				for(int n=0; n<this.decisionBitsNumber; n++){
+					hashIndex.add(new Bucket(initialBlockBitsNumber));
 				}
 				obout.writeObject(hashIndex);
 				obout.close();
@@ -87,15 +86,25 @@ public class HashIndex {
 			bucket.insert(key, dataValue);
 		}else{
 			bucket.incrementLength();
+
+			//if "i" equals "j"
+			if(bucket.getLength() == decisionBitsNumber){
+				decisionBitsNumber++;
+			    for(int i = 0; i< Math.pow(2, decisionBitsNumber-1);i++ ){
+			    	//create a new block
+			    	if(i==bucketId){
+			    		hashIndex.add(new Bucket(bucket.getLength()));
+			    	}
+			    	//reference to old block
+			    	else{
+			    		Bucket bucketTemp = hashIndex.get(i);
+			    		hashIndex.add(bucketTemp);
+			    	}
+			    }
+			}else{//if "i" > "j"
+
 			
-			if(bucket.ifExistSpace()){
-				bucket.insert(key, dataValue);
-			}else{
-				bucket.incrementLength();
-				
-				if(bucket.getLength() == depth){
-					
-				}
+
 			}
 		}
 	}
