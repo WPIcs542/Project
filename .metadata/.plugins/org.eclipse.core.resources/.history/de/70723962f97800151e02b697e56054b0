@@ -1,0 +1,14 @@
+package hashIndex;
+
+import java.io.Serializable;
+
+public class ValuePair implements Serializable{
+	private String key;
+	private String dataValue;
+	
+    public ValuePair(String key, String dataValue) {
+	this.key = key;
+	this.dataValue = dataValue;
+    }
+    
+}

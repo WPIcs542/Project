@@ -44,7 +44,6 @@ public class Bucket implements Serializable{
 				return this.blockContents[i].getKey();
 			}	
 		}
-		return "There is no such value index!!";
 	}
 	
 	public boolean ifExistSpace(){

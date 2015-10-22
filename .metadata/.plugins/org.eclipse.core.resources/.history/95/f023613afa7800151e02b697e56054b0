@@ -1,6 +1,7 @@
 package hashIndex;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class Bucket implements Serializable{
 	private static final long serialVersionUID = -9184164241837197805L;
@@ -38,15 +39,6 @@ public class Bucket implements Serializable{
 		}
 	}
 
-	public String getKey(String value){
-		for(int i=0 ; i<blockSize ; i++){
-			if(this.blockContents[i].getValue().equals(value)){
-				return this.blockContents[i].getKey();
-			}	
-		}
-		return "There is no such value index!!";
-	}
-	
 	public boolean ifExistSpace(){
 		for(int i = 0; i<blockSize;i++){
 			if(this.blockContents[i]==null)	
@@ -57,10 +49,10 @@ public class Bucket implements Serializable{
 	
 	public void remove(String key){
 		for(int i=0 ; i<blockSize ; i++){
-			if(blockContents[i].getKey().equals(key)){
+			if(blockContents[i].contains(key)){
 				blockContents[i] = null;
 				return;
-			}
+			}	
 		}
 	}
 	

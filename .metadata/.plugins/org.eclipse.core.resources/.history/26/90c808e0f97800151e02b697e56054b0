@@ -1,6 +1,8 @@
 package hashIndex;
 
-public class KeyValuePair{
+import java.io.Serializable;
+
+public class KeyValuePair implements Serializable{
 	private String key;
 	private String dataValue;
 	
@@ -10,7 +12,7 @@ public class KeyValuePair{
     }
     
     public String getValue(){
-		return this.dataValue;
+		return this.value;
 	}
 	
 	public String getKey(){
@@ -18,6 +20,6 @@ public class KeyValuePair{
 	}
 	
 	public void setValue(String value){
-		this.dataValue = value;
+		this.value = value;
 	}
 }
