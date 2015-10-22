@@ -89,10 +89,14 @@ public class HashIndex {
 		
 		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
 		Bucket bucket = hashIndex.get(bucketId);
-		if(bucket.existSpace()){
+		if(bucket.ifExistSpace()){
 			bucket.insert(key, dataValue);
 		}else{
+			bucket.incrementLength();
 			
+			if(bucket.getLength() == depth){
+				
+			}
 		}
 			
 		
