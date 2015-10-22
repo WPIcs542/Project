@@ -48,20 +48,3 @@ public class Bucket implements Serializable{
 	
 }
 
-class KeyValuePair{
-	public String key;
-	public String value;
-	
-	public KeyValuePair(String key, String value){
-		this.key = key;
-		this.value = value;
-	}
-	
-	public String getValue(){
-		return this.value;
-	}
-	
-	public String getKey(){
-		return this.key;
-	}
-}
