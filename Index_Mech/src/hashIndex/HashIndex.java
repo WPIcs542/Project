@@ -17,9 +17,10 @@ import java.util.ArrayList;
 //import java.util.Hashtable;
 
 public class HashIndex {
-	private ArrayList<Index> hashIndex;
+	private ArrayList<Bucket> hashIndex;
 	private int length = 10;
 	private int depth = 3;
+	static int localLength = 2;
 	private static String filename = "cs542.db";
 	
 	/**
@@ -30,12 +31,12 @@ public class HashIndex {
 		if(df.exists() && !df.isDirectory()) { 
 			System.out.println("Database file exist !");
 		}else{
-			hashIndex = new ArrayList<Index>();
+			hashIndex = new ArrayList<Bucket>();
 			try {
 				//if there is no such file, create it.
 				ObjectOutputStream obout = new ObjectOutputStream(new FileOutputStream(filename));
 				for(int n=0; n<this.depth; n++){
-					hashIndex.add(new Index(length));
+					hashIndex.add(new Bucket(length));
 				}
 				obout.writeObject(hashIndex);
 				obout.close();
@@ -68,7 +69,7 @@ public class HashIndex {
 		}
 		// finally we put the data into memory space
 		@SuppressWarnings("unchecked")
-		ArrayList<Index> object2 = (ArrayList<Index>) object;
+		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
 		this.hashIndex = object2;
 		
 		try {
@@ -80,11 +81,20 @@ public class HashIndex {
 	}
 
 	/**
-	 * 
+	 * Method to put data and 
 	 * @param key
 	 * @param value
 	 */
-	public void put(String key, String data_value){
+	public synchronized void put(String key, String dataValue){
+		
+		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
+		Bucket bucket = hashIndex.get(bucketId);
+		if(bucket.existSpace()){
+			bucket.insert(key, dataValue);
+		}else{
+			
+		}
+			
 		
 		//we are not going to use B+ tree for index. 
 	}
