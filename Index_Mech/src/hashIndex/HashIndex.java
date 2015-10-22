@@ -74,7 +74,7 @@ public class HashIndex {
 	}
 
 	/**
-	 * Method to put data and 
+	 * Method to put data in hash. Extensible hash tables are used.
 	 * @param key
 	 * @param value
 	 */
@@ -85,11 +85,10 @@ public class HashIndex {
 		if(bucket.ifExistSpace()){
 			bucket.insert(key, dataValue);
 		}else{
-			bucket.incrementLength();
-
 			//if "i" equals "j"
 			if(bucket.getLength() == decisionBitsNumber){
 				decisionBitsNumber++;
+				bucket.incrementLength();
 			    for(int i = 0; i< Math.pow(2, decisionBitsNumber-1);i++ ){
 			    	//create a new block
 			    	if(i==bucketId){
@@ -100,15 +99,32 @@ public class HashIndex {
 			    		Bucket bucketTemp = hashIndex.get(i);
 			    		hashIndex.add(bucketTemp);
 			    	}
+			    	redistribute(bucket);
 			    }
-			}else{//if "i" > "j"
-
-			
-
-			}
+			}else{//if "i" > "j", double the block
+				int bucketTempId = (int) (bucketId + Math.pow(2, decisionBitsNumber-1));
+				Bucket bucketTemp = new Bucket(bucket.getLength());
+				hashIndex.set(bucketTempId, bucketTemp);
+				redistribute(bucket);
+				}
+			put(key, dataValue);
 		}
 	}
 	
+	
+	/**
+	 * Redistribute the elements in each block. 
+	 * Clean the block then put the elements in again.
+	 * 
+	 * @param bucket
+	 */
+	private void redistribute(Bucket bucket){
+		KeyValuePair tempContents[] = bucket.getBlockContents();
+		bucket.refreshBucket();
+		for(int i = 0; i< bucket.blockSize; i++){
+			put(tempContents[i].getKey(), tempContents[i].getValue());
+		}
+	}	
 
 	/**
 	 * 

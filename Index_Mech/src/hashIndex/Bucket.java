@@ -22,7 +22,7 @@ public class Bucket implements Serializable{
 	}
 	
 	public void incrementLength(){
-		this.blockBitsNumber *= 2;
+		this.blockBitsNumber++;
 	}
 	
 	public KeyValuePair[] getBlockContents(){
@@ -62,6 +62,10 @@ public class Bucket implements Serializable{
 				return;
 			}
 		}
+	}
+	
+	public void refreshBucket(){
+		this.blockContents  = new KeyValuePair[blockSize];
 	}
 	
 //	class ValuePair{
