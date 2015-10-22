@@ -23,7 +23,7 @@ public class Bucket implements Serializable{
 	}
 	
 	public void incrementLength(){
-		this.blockBitsNumber *= 2;
+		this.blockBitsNumber++;
 	}
 	
 	public Set[] getBlockContents(){
@@ -33,12 +33,13 @@ public class Bucket implements Serializable{
 	public void insert(String key, String dataValue){
 		for(int i=0 ; i<blockSize ; i++){
 			if(this.blockContents[i] ==null){
-				this.blockContents[i].add(new ValuePair(key, dataValue));
+				this.blockContents[i].add(new KeyValuePair(key, dataValue));
 				return;
 			}	
 		}
 	}
 
+	
 	public boolean ifExistSpace(){
 		for(int i = 0; i<blockSize;i++){
 			if(this.blockContents[i]==null)	return true;
@@ -46,35 +47,24 @@ public class Bucket implements Serializable{
 		return false;
 	}
 	
-	public void remove(String key){
-		for(int i=0 ; i<blockSize ; i++){
-			if(blockContents[i].contains(key)){
-				blockContents[i] = null;
-				return;
-			}	
-		}
-	}
-	
-	class ValuePair{
-		private String key;
-		private String value;
-		
-		public ValuePair(String key, String value){
-			this.key = key;
-			this.value = value;
-		}
-		
-		public String getValue(){
-			return this.value;
-		}
-		
-		public String getKey(){
-			return this.key;
-		}
-		
-		public void setValue(String value){
-			this.value = value;
-		}
-	}
 }
 
+class ValuePair implements Serializable{
+	private static final long serialVersionUID = -9184164241837197805L;
+	private String key;
+	private String value;
+	
+	public ValuePair(String key, String value){
+		this.key = key;
+		this.value = value;
+	}
+	
+	public String getValue(){
+		return this.value;
+	}
+	
+	public String getKey(){
+		return this.key;
+	}
+	
+}

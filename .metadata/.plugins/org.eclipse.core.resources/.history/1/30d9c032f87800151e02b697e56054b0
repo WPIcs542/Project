@@ -55,7 +55,8 @@ public class Bucket implements Serializable{
 		}
 	}
 	
-	class ValuePair{
+	class ValuePair implements Serializable{
+		private static final long serialVersionUID = -9184164241837197805L;
 		private String key;
 		private String value;
 		
