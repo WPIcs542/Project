@@ -31,12 +31,14 @@ public class HashIndex {
 			System.out.println("Database file exist !");
 		}else{
 			hashIndex = new ArrayList<Bucket>();
+			
+			for(int n=0; n<this.decisionBitsNumber; n++){
+				hashIndex.add(new Bucket(initialBlockBitsNumber));
+			}
 			try {
 				//if there is no such file, create it.
 				ObjectOutputStream obout = new ObjectOutputStream(new FileOutputStream(filename));
-				for(int n=0; n<this.decisionBitsNumber; n++){
-					hashIndex.add(new Bucket(initialBlockBitsNumber));
-				}
+				
 				obout.writeObject(hashIndex);
 				obout.close();
 			} catch (IOException e) {
@@ -143,6 +145,12 @@ public class HashIndex {
 	 * @param key
 	 */
 	public void remove(String key){
+		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
+		Bucket bucket = hashIndex.get(bucketId);
+		if(!bucket.ifExistSpace()){
+		   bucket=null;
+		  
+		}
 		
 	}
 

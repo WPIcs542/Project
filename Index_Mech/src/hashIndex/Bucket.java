@@ -37,7 +37,9 @@ public class Bucket implements Serializable{
 			}	
 		}
 	}
-
+//    public void delete(string key){
+    	
+ //   }
 	public String getKey(String value){
 		for(int i=0 ; i<blockSize ; i++){
 			if(this.blockContents[i].getValue().equals(value)){
