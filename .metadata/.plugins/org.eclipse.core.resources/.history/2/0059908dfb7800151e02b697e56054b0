@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Bucket implements Serializable{
 	private static final long serialVersionUID = -9184164241837197805L;
 	private int blockBitsNumber; //"j" in textbook
-	public static int blockSize = 2;
+	public static final int blockSize = 2;
 	private KeyValuePair[] blockContents;
 	
 	/**
@@ -22,7 +22,7 @@ public class Bucket implements Serializable{
 	}
 	
 	public void incrementLength(){
-		this.blockBitsNumber++;
+		this.blockBitsNumber *= 2;
 	}
 	
 	public KeyValuePair[] getBlockContents(){
@@ -64,18 +64,26 @@ public class Bucket implements Serializable{
 		}
 	}
 	
-	public void refreshBucket(){
-		this.blockContents  = new KeyValuePair[blockSize];
-	}
-
-	public void expandSpace(){
-		blockSize *= 2;
-		KeyValuePair newBucket[] = new KeyValuePair[blockSize];
-		for(int n=0; n<blockSize/2; n++){
-			newBucket[n] = this.blockContents[n];
-		}
-		this.incrementLength();
-		this.blockContents = newBucket;
-	}
+//	class ValuePair{
+//		private String key;
+//		private String value;
+//		
+//		public ValuePair(String key, String value){
+//			this.key = key;
+//			this.value = value;
+//		}
+//		
+//		public String getValue(){
+//			return this.value;
+//		}
+//		
+//		public String getKey(){
+//			return this.key;
+//		}
+//		
+//		public void setValue(String value){
+//			this.value = value;
+//		}
+//	}
 }
 

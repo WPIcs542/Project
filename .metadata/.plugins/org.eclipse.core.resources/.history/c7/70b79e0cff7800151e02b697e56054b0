@@ -22,7 +22,11 @@ public class Bucket implements Serializable{
 	}
 	
 	public void incrementLength(){
+<<<<<<< Updated upstream
 		this.blockBitsNumber++;
+=======
+		this.blockBitsNumber += 1;
+>>>>>>> Stashed changes
 	}
 	
 	public KeyValuePair[] getBlockContents(){

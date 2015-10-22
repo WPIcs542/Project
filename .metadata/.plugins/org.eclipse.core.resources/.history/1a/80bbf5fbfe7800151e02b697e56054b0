@@ -22,7 +22,11 @@ public class Bucket implements Serializable{
 	}
 	
 	public void incrementLength(){
+<<<<<<< Updated upstream
 		this.blockBitsNumber++;
+=======
+		this.blockBitsNumber += 1;
+>>>>>>> Stashed changes
 	}
 	
 	public KeyValuePair[] getBlockContents(){
@@ -67,6 +71,28 @@ public class Bucket implements Serializable{
 	public void refreshBucket(){
 		this.blockContents  = new KeyValuePair[blockSize];
 	}
+	
+//	class ValuePair{
+//		private String key;
+//		private String value;
+//		
+//		public ValuePair(String key, String value){
+//			this.key = key;
+//			this.value = value;
+//		}
+//		
+//		public String getValue(){
+//			return this.value;
+//		}
+//		
+//		public String getKey(){
+//			return this.key;
+//		}
+//		
+//		public void setValue(String value){
+//			this.value = value;
+//		}
+//	}
 
 	public void expandSpace(){
 		blockSize *= 2;
