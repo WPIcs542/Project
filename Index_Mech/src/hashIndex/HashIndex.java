@@ -32,7 +32,7 @@ public class HashIndex {
 		}else{
 			hashIndex = new ArrayList<Bucket>();
 			
-			for(int n=0; n<this.decisionBitsNumber; n++){
+			for(int n=0; n<Math.pow(2, this.decisionBitsNumber); n++){
 				hashIndex.add(new Bucket(initialBlockBitsNumber));
 			}
 			try {
