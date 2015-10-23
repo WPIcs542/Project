@@ -16,6 +16,16 @@ public class Main {
 	public static void main(String[] args) {
 		hash = new HashIndex();
 		System.out.println("Test line of Hash Index!!");
+		hash.put("1", "1");
+		hash.put("2", "1");
+		hash.put("3", "1");
+		hash.put("4", "1");
+		hash.put("5", "1");
+		hash.put("6", "1");
+		hash.put("7", "1");
+		hash.put("8", "1");
+		
 	}
+
 
 }

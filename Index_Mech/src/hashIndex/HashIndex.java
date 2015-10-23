@@ -101,13 +101,17 @@ public class HashIndex {
 			    		Bucket bucketTemp = hashIndex.get(i);
 			    		hashIndex.add(bucketTemp);
 			    	}
-			    	redistribute(bucket);
 			    }
+			    	redistribute(bucket);
+			    	System.out.println("extend");
+			    
 			}else{//if "i" > "j", double the block
+				bucket.incrementLength();
 				int bucketTempId = (int) (bucketId + Math.pow(2, decisionBitsNumber-1));
 				Bucket bucketTemp = new Bucket(bucket.getLength());
 				hashIndex.set(bucketTempId, bucketTemp);
 				redistribute(bucket);
+				System.out.println("split");
 				}
 			put(key, dataValue);
 		}
