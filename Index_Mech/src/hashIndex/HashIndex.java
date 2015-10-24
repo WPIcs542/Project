@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class HashIndex {
 	private ArrayList<Bucket> hashIndex;
-	private int decisionBitsNumber = 2; //"i" in textbook
-	static int initialBlockBitsNumber = 2; //"j" in text book
+	private int decisionBitsNumber = 1; //"i" in textbook
+	static int initialBlockBitsNumber = 1; //"j" in text book
 	private static String filename = "cs542.db";
 	
 	/**
@@ -108,8 +108,10 @@ public class HashIndex {
 			}else{//if "i" > "j", double the block
 				bucket.incrementLength();
 				int bucketTempId = (int) (bucketId + Math.pow(2, decisionBitsNumber-1));
-				Bucket bucketTemp = new Bucket(bucket.getLength());
-				hashIndex.set(bucketTempId, bucketTemp);
+				Bucket bucketTemp = new Bucket(bucket.getLength()); 
+				//check where to create a new block
+				if(bucketTempId>=hashIndex.size()) hashIndex.set(bucketId, bucketTemp);
+				else hashIndex.set(bucketTempId, bucketTemp);
 				redistribute(bucket);
 				System.out.println("split");
 				}
