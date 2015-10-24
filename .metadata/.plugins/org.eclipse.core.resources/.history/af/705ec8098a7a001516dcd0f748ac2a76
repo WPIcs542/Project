@@ -66,7 +66,6 @@ public class Bucket implements Serializable{
 				return;
 			}
 		}
-		System.out.println("Can not find the matched key!");
 	}
 	
 	public void refreshBucket(){
