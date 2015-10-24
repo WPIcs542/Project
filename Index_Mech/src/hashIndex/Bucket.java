@@ -58,10 +58,9 @@ public class Bucket implements Serializable{
 	
 	public void remove(String key){
 		for(int i=0 ; i<blockSize ; i++){
-			if(blockContents[i] != null && blockContents[i].getKey().equals(key)){
-				this.blockContents[i] = null;
-//				this.blockContents[i].setKey("");
-//				this.blockContents[i].setValue("");
+			if(blockContents[i] != null && blockContents[i].getKey().equals(key)){				
+				this.blockContents[i].setKey("");
+				this.blockContents[i].setValue("");
 				System.out.println("The key \""+ key + "\" has been removed from index!");
 				return;
 			}
