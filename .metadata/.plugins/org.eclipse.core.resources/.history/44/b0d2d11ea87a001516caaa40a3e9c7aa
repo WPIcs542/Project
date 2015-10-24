@@ -153,16 +153,14 @@ public class HashIndex {
 	public String get(String value){
 		ArrayList<String> keylist = new ArrayList<String>();
 		for (Bucket b : hashIndex) {
-			if(b.getKey(value) != ""){
-				keylist.add(b.getKey(value));
-			}
+			keylist.add(b.getKey(value));
 		}
 		if(keylist.size() > 1){
 			return "same value with many Keys" + keylist.toString();
 		}else if(keylist.size() == 1){
 			return keylist.toString();
 		}
-		return "Key Not Found!";
+		
 	}
 	
 	

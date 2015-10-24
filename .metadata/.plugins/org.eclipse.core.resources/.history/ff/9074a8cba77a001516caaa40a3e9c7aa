@@ -25,10 +25,9 @@ public class Main {
 		hash.put("7", "4");
 		hash.put("8", "4");
 		
-		System.out.println("The value \"2\" has key: " + hash.get("2"));
-		System.out.println("The value \"4\" has key: " + hash.get("4"));
-		System.out.println("The value \"1\" has key: " + hash.get("1"));
-		System.out.println("The value \"5\" has key: " + hash.get("5"));
+//		System.out.println("The value \"2\" has key: " + hash.get("2"));
+//		System.out.println("The value \"4\" has key: " + hash.get("4"));
+//		System.out.println("The value \"1\" has key: " + hash.get("1"));
 		
 		hash.remove("8");
 		hash.remove("6");
