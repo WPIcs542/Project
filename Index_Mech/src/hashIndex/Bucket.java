@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Bucket implements Serializable{
 	private static final long serialVersionUID = -9184164241837197805L;
 	private int blockBitsNumber; //"j" in textbook
+	private int savebitNumber;  //"i" in textbook
 	public int blockSize = 2;
 	private KeyValuePair[] blockContents;
 	
@@ -29,10 +30,19 @@ public class Bucket implements Serializable{
 		return blockContents;
 	}
 	
+	public void saveBitNum(int n){
+		this.savebitNumber = n;
+	}
+	
+	public int getBitNum(){
+		return this.savebitNumber;
+	}
+	
 	public void insert(String key, String dataValue){
 		for(int i=0 ; i<blockSize ; i++){
 			if(this.blockContents[i] ==null||(this.blockContents[i].getKey()==""&&this.blockContents[i].getValue()=="")){
 				this.blockContents[i] = new KeyValuePair(key, dataValue);
+				System.out.println("Put key into index succeed");
 				return;
 			}	
 		}

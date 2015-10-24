@@ -68,7 +68,13 @@ public class HashIndex {
 		// finally we put the data into memory space
 		@SuppressWarnings("unchecked")
 		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
-		this.hashIndex = object2;	
+		this.hashIndex = object2;
+		int i = 0;
+		for (Bucket b : hashIndex) {
+			if((i=b.getBitNum()) > decisionBitsNumber){
+				decisionBitsNumber = i;
+			}
+		}
 		try {
 			objectInput.close();
 		} catch (IOException e) {
@@ -93,6 +99,7 @@ public class HashIndex {
 			//if "i" equals "j"
 			if(bucket.getLength() == decisionBitsNumber){
 				decisionBitsNumber++;
+				bucket.saveBitNum(decisionBitsNumber);
 				bucket.incrementLength();
 			    for(int i = 0; i< Math.pow(2, decisionBitsNumber-1);i++ ){
 			    	//create a new block
@@ -118,7 +125,6 @@ public class HashIndex {
 				redistribute(bucket);
 				System.out.println("split");
 			}
-			
 			put(key, dataValue);
 		}
 		
