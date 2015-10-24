@@ -34,14 +34,14 @@ public class Main {
 		hash.remove("5");
 		hash.remove("7");
 		
-//		hash.put("1", "1");
-//		hash.put("2", "1");
-//		hash.put("3", "2");
-//		hash.put("4", "2");
-//		hash.put("5", "3");
-//		hash.put("6", "3");
-//		hash.put("7", "4");
-//		hash.put("8", "4");
+		hash.put("1", "1");
+		hash.put("2", "1");
+		hash.put("3", "2");
+		hash.put("4", "2");
+		hash.put("5", "3");
+		hash.put("6", "3");
+		hash.put("7", "4");
+		hash.put("8", "4");
 		
 		hash.saveContents();
 		System.out.println("Job Done!");
