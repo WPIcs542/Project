@@ -40,7 +40,6 @@ public class Main {
 		hash.remove("7");
 		
 		hash.saveContents();
-		System.out.println();
 		System.out.println("Job Done!");
 	}
 

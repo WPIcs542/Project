@@ -20,7 +20,7 @@ public class HashIndex {
 	private ArrayList<Bucket> hashIndex;
 	private int decisionBitsNumber = 1; //"i" in textbook
 	static int initialBlockBitsNumber = 1; //"j" in text book
-	private static String filename = "cs542.db";
+	private static String filename = "cs542test.db";
 	
 	/**
 	 * The constructor
