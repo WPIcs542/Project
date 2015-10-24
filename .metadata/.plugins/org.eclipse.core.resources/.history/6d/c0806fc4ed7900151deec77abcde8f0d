@@ -59,8 +59,8 @@ public class Bucket implements Serializable{
 	
 	public void remove(String key){
 		for(int i=0 ; i<blockSize ; i++){
-			if(this.blockContents[i].getKey().equals(key)){
-				this.blockContents[i] = null;
+			if(blockContents[i].getKey().equals(key)){
+				blockContents[i] = null;
 				return;
 			}
 		}

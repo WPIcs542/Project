@@ -145,18 +145,18 @@ public class HashIndex {
 	
 	
 	/**
-	 * method to remove data in hash
+	 * 
 	 * @param key
 	 */
 	public void remove(String key){
 		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
 		Bucket bucket = hashIndex.get(bucketId);
-		bucket.remove(key);
-		
+		if(!bucket.ifExistSpace()){
+		   bucket=null;
 		  
 		}
 		
 	}
 
-
+}
 
