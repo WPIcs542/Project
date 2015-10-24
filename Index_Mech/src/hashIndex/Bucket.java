@@ -31,7 +31,7 @@ public class Bucket implements Serializable{
 	
 	public void insert(String key, String dataValue){
 		for(int i=0 ; i<blockSize ; i++){
-			if(this.blockContents[i] ==null){
+			if(this.blockContents[i] ==null||(this.blockContents[i].getKey()==""&&this.blockContents[i].getValue()=="")){
 				this.blockContents[i] = new KeyValuePair(key, dataValue);
 				return;
 			}	
@@ -49,7 +49,7 @@ public class Bucket implements Serializable{
 	
 	public boolean ifExistSpace(){
 		for(int i = 0; i<blockSize; i++){
-			if(blockContents[i] == null){	
+			if(blockContents[i] == null||(this.blockContents[i].getKey()==""&&this.blockContents[i].getValue()=="")){	
 				return true;
 			}
 		}
