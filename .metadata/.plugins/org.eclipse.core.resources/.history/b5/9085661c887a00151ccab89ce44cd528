@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Bucket implements Serializable{
 	private static final long serialVersionUID = -9184164241837197805L;
 	private int blockBitsNumber; //"j" in textbook
-	public int blockSize = 2;
+	public static int blockSize = 2;
 	private KeyValuePair[] blockContents;
 	
 	/**
