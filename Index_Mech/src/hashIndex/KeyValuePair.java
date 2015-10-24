@@ -1,6 +1,9 @@
 package hashIndex;
 
-public class KeyValuePair{
+import java.io.Serializable;
+
+public class KeyValuePair implements Serializable{
+	private static final long serialVersionUID = -4426643114124451175L;
 	private String key;
 	private String dataValue;
 	

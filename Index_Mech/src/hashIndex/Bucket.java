@@ -15,10 +15,6 @@ public class Bucket implements Serializable{
 	public Bucket(int blockBitsNumber){
 		this.blockBitsNumber = blockBitsNumber;
 	 	this.blockContents = new KeyValuePair[blockSize];
-	 	blockContents[0].setKey("");
-	 	blockContents[0].setValue("");
-	 	blockContents[1].setKey("");
-	 	blockContents[1].setValue("");
 	}
 	
 	public int getLength(){
@@ -52,17 +48,19 @@ public class Bucket implements Serializable{
 	}
 	
 	public boolean ifExistSpace(){
-		for(int i = 0; i<blockSize;i++){
-			if(this.blockContents[i].getKey() == null)	
+		for(int i = 0; i<blockSize; i++){
+			if(blockContents[i] == null){	
 				return true;
+			}
 		}
 		return false;
 	}
 	
 	public void remove(String key){
 		for(int i=0 ; i<blockSize ; i++){
-			if(this.blockContents[i].getKey().equals(key)){
+			if(blockContents[i] != null && this.blockContents[i].getKey().equals(key)){
 				this.blockContents[i] = null;
+				System.out.println("The key \""+ key + "\" has been removed from index!");
 				return;
 			}
 		}

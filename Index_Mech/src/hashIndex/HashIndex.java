@@ -30,6 +30,7 @@ public class HashIndex {
 		if(df.exists() && !df.isDirectory()) { 
 			System.out.println("Database file exist !");
 		}else{
+			System.out.println("Creating New Database file: "+ filename);
 			hashIndex = new ArrayList<Bucket>();
 			
 			for(int n=0; n<Math.pow(2, this.decisionBitsNumber); n++){
@@ -83,10 +84,12 @@ public class HashIndex {
 	public synchronized void put(String key, String dataValue){
 		
 		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
-		Bucket bucket = hashIndex.get(bucketId);
-		if(bucket.ifExistSpace()){
+		Bucket bucket = new Bucket(initialBlockBitsNumber);
+		bucket = hashIndex.get(bucketId);
+		if(bucket != null && bucket.ifExistSpace()){
 			bucket.insert(key, dataValue);
 		}else{
+			//System.out.println("The bucket has not enough space!");
 			//if "i" equals "j"
 			if(bucket.getLength() == decisionBitsNumber){
 				decisionBitsNumber++;
@@ -114,9 +117,11 @@ public class HashIndex {
 				else hashIndex.set(bucketTempId, bucketTemp);
 				redistribute(bucket);
 				System.out.println("split");
-				}
+			}
+			
 			put(key, dataValue);
 		}
+		
 	}
 	
 	
@@ -154,11 +159,19 @@ public class HashIndex {
 		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
 		Bucket bucket = hashIndex.get(bucketId);
 		bucket.remove(key);
-		
-		  
-		}
-		
 	}
+		
+	public void saveContents(){      
+		try{
+			FileOutputStream f =new FileOutputStream(filename);      
+			ObjectOutputStream objOutput = new ObjectOutputStream(f);
+			objOutput.writeObject(hashIndex);
+			objOutput.close();
+		}catch(IOException ex){
+			ex.printStackTrace(); 
+		}
+	}
+}
 
 
 
