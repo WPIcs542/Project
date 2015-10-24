@@ -151,14 +151,11 @@ public class HashIndex {
 	 * @return String is the key
 	 */
 	public String get(String value){
-		ArrayList<String> keylist = new ArrayList<String>();
+		ArrayList<String> key = new ArrayList<String>();
 		for (Bucket b : hashIndex) {
-			keylist.add(b.getKey(value));
+			key.add(b.getKey(value));
 		}
-		if(keylist.size() > 1){
-			return "same value with many Keys" + keylist.toString();
-		}
-		return keylist.toString();
+		return "";
 	}
 	
 	

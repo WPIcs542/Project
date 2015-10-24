@@ -156,7 +156,7 @@ public class HashIndex {
 			keylist.add(b.getKey(value));
 		}
 		if(keylist.size() > 1){
-			return "same value with many Keys" + keylist.toString();
+			return "same value with many Keys";
 		}
 		return keylist.toString();
 	}
