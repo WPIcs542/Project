@@ -5,8 +5,8 @@ public class KeyValuePair{
 	private String dataValue;
 	
     public KeyValuePair(String key, String dataValue) {
-	this.key = key;
-	this.dataValue = dataValue;
+    	this.key = key;
+    	this.dataValue = dataValue;
     }
     
     public String getValue(){
@@ -19,5 +19,9 @@ public class KeyValuePair{
 	
 	public void setValue(String value){
 		this.dataValue = value;
+	}
+	
+	public void setKey(String key){
+		this.key = key;
 	}
 }

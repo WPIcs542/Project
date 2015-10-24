@@ -14,7 +14,11 @@ public class Bucket implements Serializable{
 	 */
 	public Bucket(int blockBitsNumber){
 		this.blockBitsNumber = blockBitsNumber;
-	 	this.blockContents = new KeyValuePair[blockSize];	
+	 	this.blockContents = new KeyValuePair[blockSize];
+	 	blockContents[0].setKey("");
+	 	blockContents[0].setValue("");
+	 	blockContents[1].setKey("");
+	 	blockContents[1].setValue("");
 	}
 	
 	public int getLength(){
@@ -37,9 +41,7 @@ public class Bucket implements Serializable{
 			}	
 		}
 	}
-//    public void delete(string key){
-    	
- //   }
+
 	public String getKey(String value){
 		for(int i=0 ; i<blockSize ; i++){
 			if(this.blockContents[i].getValue().equals(value)){
@@ -51,7 +53,7 @@ public class Bucket implements Serializable{
 	
 	public boolean ifExistSpace(){
 		for(int i = 0; i<blockSize;i++){
-			if(this.blockContents[i]==null)	
+			if(this.blockContents[i].getKey() == null)	
 				return true;
 		}
 		return false;
@@ -70,14 +72,14 @@ public class Bucket implements Serializable{
 		this.blockContents  = new KeyValuePair[blockSize];
 	}
 
-	public void expandSpace(){
-		blockSize *= 2;
-		KeyValuePair newBucket[] = new KeyValuePair[blockSize];
-		for(int n=0; n<blockSize/2; n++){
-			newBucket[n] = this.blockContents[n];
-		}
-		this.incrementLength();
-		this.blockContents = newBucket;
-	}
+//	public void expandSpace(){
+//		blockSize *= 2;
+//		KeyValuePair newBucket[] = new KeyValuePair[blockSize];
+//		for(int n=0; n<blockSize/2; n++){
+//			newBucket[n] = this.blockContents[n];
+//		}
+//		this.incrementLength();
+//		this.blockContents = newBucket;
+//	}
 }
 
