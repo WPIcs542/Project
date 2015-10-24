@@ -1,5 +1,6 @@
 package hashIndex;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 public class Bucket implements Serializable{
@@ -40,12 +41,20 @@ public class Bucket implements Serializable{
 	
 	public void insert(String key, String dataValue){
 		for(int i=0 ; i<blockSize ; i++){
+			if(this.blockContents[i] !=null&&this.blockContents[i].getKey().equals(key)){
+				System.out.println("used the same key before, choose a new key please !");
+				return;
+			}	
+		}
+		
+		for(int i=0 ; i<blockSize ; i++){
 			if(this.blockContents[i] ==null||(this.blockContents[i].getKey()==""&&this.blockContents[i].getValue()=="")){
 				this.blockContents[i] = new KeyValuePair(key, dataValue);
 				System.out.println("Put key into index succeed");
 				return;
 			}	
 		}
+		
 	}
 
 	public String getKey(String value){

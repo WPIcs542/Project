@@ -18,10 +18,10 @@ public class Main {
 		System.out.println("Test line of Hash Index!!");
 		hash.put("1", "1");
 		hash.put("2", "1");
-		hash.put("3", "2");
+		hash.put("1", "2");
 		hash.put("4", "2");
 		hash.put("5", "3");
-		hash.put("6", "3");
+		hash.put("5", "3");
 		hash.put("7", "4");
 		hash.put("8", "4");
 		
