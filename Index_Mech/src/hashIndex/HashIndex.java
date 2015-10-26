@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 public class HashIndex {
 	private ArrayList<Bucket> hashIndex;
-	private int decisionBitsNumber = 1; //"i" in textbook
-	static int initialBlockBitsNumber = 1; //"j" in text book
+	private int bucketSize = 10; //"i" in textbook
+//	static int initialBlockBitsNumber = 1; //"j" in text book
 	private static String filename = "cs542.db";
 	
 	/**
@@ -33,8 +33,8 @@ public class HashIndex {
 			System.out.println("Creating New Database file: "+ filename);
 			hashIndex = new ArrayList<Bucket>();
 			
-			for(int n=0; n<Math.pow(2, this.decisionBitsNumber); n++){
-				hashIndex.add(new Bucket(initialBlockBitsNumber));
+			for(int n=0; n<bucketSize; n++){
+				hashIndex.add(new Bucket());
 			}
 			try {
 				//if there is no such file, create it.
@@ -70,11 +70,11 @@ public class HashIndex {
 		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
 		this.hashIndex = object2;
 		int i = 0;
-		for (Bucket b : hashIndex) {
-			if((i=b.getBitNum()) > decisionBitsNumber){
-				decisionBitsNumber = i;
-			}
-		}
+//		for (Bucket b : hashIndex) {
+//			if((i=b.getBitNum()) > decisionBitsNumber){
+//				decisionBitsNumber = i;
+//			}
+//		}
 		try {
 			objectInput.close();
 		} catch (IOException e) {
@@ -89,61 +89,41 @@ public class HashIndex {
 	 */
 	public synchronized void put(String key, String dataValue){
 		
-		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
-		Bucket bucket = new Bucket(initialBlockBitsNumber);
-		bucket = hashIndex.get(bucketId);
-		if(bucket != null && bucket.ifExistSpace()){
-			bucket.insert(key, dataValue);
-		}else{
-			//System.out.println("The bucket has not enough space!");
-			//if "i" equals "j"
-			if(bucket.getLength() == decisionBitsNumber){
-				decisionBitsNumber++;
-				bucket.saveBitNum(decisionBitsNumber);
-				bucket.incrementLength();
-			    for(int i = 0; i< Math.pow(2, decisionBitsNumber-1);i++ ){
-			    	//create a new block
-			    	if(i==bucketId){
-			    		hashIndex.add(new Bucket(bucket.getLength()));
-			    	}
-			    	//reference to old block
-			    	else{
-			    		Bucket bucketTemp = hashIndex.get(i);
-			    		hashIndex.add(bucketTemp);
-			    	}
-			    }
-			    	redistribute(bucket);
-			    	System.out.println("extend");
-			    
-			}else{//if "i" > "j", double the block
-				bucket.incrementLength();
-				int bucketTempId = (int) (bucketId + Math.pow(2, decisionBitsNumber-1));
-				Bucket bucketTemp = new Bucket(bucket.getLength()); 
-				//check where to create a new block
-				if(bucketTempId>=hashIndex.size()) hashIndex.set(bucketId, bucketTemp);
-				else hashIndex.set(bucketTempId, bucketTemp);
-				redistribute(bucket);
-				System.out.println("split");
+		int bucketId = Math.abs(dataValue.hashCode()) % hashIndex.size();
+		Bucket bucket = hashIndex.get(bucketId);
+		Bucket bucketTemp = hashIndex.get(bucketId);
+		while(bucket!=null){
+			if(bucket.ifExistSpace()){
+				bucket.insert(key, dataValue);
+				break;
+			}else{
+				if(bucket.getNext()==null){
+					bucket.setNext(new Bucket());
+					bucket.getNext().insert(key, dataValue);
+					break;
+				}else{
+					bucket = bucket.getNext();
+				}
 			}
-			put(key, dataValue);
 		}
+
 		
 	}
 	
-	
-	/**
-	 * Redistribute the elements in each block. 
-	 * Clean the block then put the elements in again.
-	 * 
-	 * @param bucket
-	 */
-	private void redistribute(Bucket bucket){
-		KeyValuePair tempContents[] = bucket.getBlockContents();
-		bucket.refreshBucket();
-		for(int i = 0; i< bucket.blockSize; i++){
-			put(tempContents[i].getKey(), tempContents[i].getValue());
-		}
-	}	
+//	
+//	/**
+//	 * Redistribute the elements in each block. 
+//	 * Clean the block then put the elements in again.
+//	 * 
+//	 * @param bucket
+//	 */
+//	private void redistribute(Bucket bucket){
+//		KeyValuePair tempContents[] = bucket.getBlockContents();
+//		bucket.refreshBucket();
+//		for(int i = 0; i< bucket.blockSize; i++){
+//			put(tempContents[i].getKey(), tempContents[i].getValue());
+//		}
+//	}	
 
 	/**
 	 * 
@@ -152,16 +132,20 @@ public class HashIndex {
 	 */
 	public String get(String value){
 		ArrayList<String> keylist = new ArrayList<String>();
-		for (Bucket b : hashIndex) {
-			if(b.getKey(value) != ""){
-				keylist.add(b.getKey(value));
+		int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
+		Bucket bucket = hashIndex.get(bucketId);
+		while(bucket!=null){
+			if(bucket.getKey(value) != ""){
+				keylist.add(bucket.getKey(value));
 			}
+			bucket = bucket.getNext();
 		}
 		if(keylist.size() > 1){
 			return "same value with many Keys" + keylist.toString();
 		}else if(keylist.size() == 1){
 			return keylist.toString();
 		}
+	
 		return "Key Not Found!";
 	}
 	

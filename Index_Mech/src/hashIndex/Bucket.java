@@ -2,29 +2,33 @@ package hashIndex;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Bucket implements Serializable{
 	private static final long serialVersionUID = -9184164241837197805L;
-	private int blockBitsNumber; //"j" in textbook
+//	private int blockBitsNumber; //"j" in textbook
 	private int savebitNumber;  //"i" in textbook
 	public int blockSize = 2;
 	private KeyValuePair[] blockContents;
+	private Bucket next;
 	
 	/**
 	 * This is constructor. 
 	 * @param blockBitsNumber
 	 */
-	public Bucket(int blockBitsNumber){
-		this.blockBitsNumber = blockBitsNumber;
+	public Bucket(){
+//		this.blockBitsNumber = blockBitsNumber;
 	 	this.blockContents = new KeyValuePair[blockSize];
 	}
 	
-	public int getLength(){
-		return blockBitsNumber;
+
+	
+	public void setNext(Bucket bucket){
+		this.next = bucket;
 	}
 	
-	public void incrementLength(){
-		this.blockBitsNumber++;
+	public Bucket getNext(){
+		return this.next;
 	}
 	
 	public KeyValuePair[] getBlockContents(){
@@ -40,13 +44,13 @@ public class Bucket implements Serializable{
 	}
 	
 	public void insert(String key, String dataValue){
-		for(int i=0 ; i<blockSize ; i++){
-			if(this.blockContents[i] !=null&&this.blockContents[i].getKey().equals(key)){
-				System.out.println("used the same key before, choose a new key please !");
-				return;
-			}	
-		}
-		
+//		for(int i=0 ; i<blockSize ; i++){
+//			if(this.blockContents[i] !=null&&this.blockContents[i].getKey().equals(key)){
+//				System.out.println("used the same key before, choose a new key please !");
+//				return;
+//			}	
+//		}
+//		
 		for(int i=0 ; i<blockSize ; i++){
 			if(this.blockContents[i] ==null||(this.blockContents[i].getKey()==""&&this.blockContents[i].getValue()=="")){
 				this.blockContents[i] = new KeyValuePair(key, dataValue);
@@ -58,12 +62,17 @@ public class Bucket implements Serializable{
 	}
 
 	public String getKey(String value){
+		String localKey = "";
 		for(int i=0 ; i<blockSize ; i++){
 			if(blockContents[i] != null && this.blockContents[i].getValue().equals(value)){
-				return this.blockContents[i].getKey();
-			}	
+				if(localKey == ""){
+					localKey=new String(blockContents[i].getKey());
+				}else{
+				localKey+=new String(", "+blockContents[i].getKey());								
+				}		
+			}
 		}
-		return "";
+		return localKey;
 	}
 	
 	public boolean ifExistSpace(){
