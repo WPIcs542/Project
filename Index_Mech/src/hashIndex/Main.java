@@ -21,7 +21,7 @@ public class Main {
 		hash.put("1", "2");
 		hash.put("4", "2");
 		hash.put("9", "2");
-		hash.put("5", "2");
+//		hash.put("5", "2");
 		hash.put("5", "2");
 		hash.put("7", "2");
 		hash.put("8", "2");
@@ -31,8 +31,8 @@ public class Main {
 //		System.out.println("The value \"1\" has key: " + hash.get("1"));
 //		System.out.println("The value \"5\" has key: " + hash.get("5"));
 //		
-//		hash.remove("8");
-//		hash.remove("6");
+		hash.remove("8");
+		hash.remove("6");
 //		hash.remove("4");
 //		hash.remove("2");
 //		hash.remove("3");

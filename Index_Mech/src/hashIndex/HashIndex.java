@@ -156,10 +156,52 @@ public class HashIndex {
 	 * @param key
 	 */
 	public void remove(String key){
-		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
-		Bucket bucket = hashIndex.get(bucketId);
-		bucket.remove(key);
+		int bucketId = -1;
+		stop:
+		for (Bucket bucket : hashIndex) {
+			while(bucket!=null){
+				for (int i=0;i<bucket.blockSize;i++) {
+					if (bucket.getBlockContents()[i]!= null && bucket.getBlockContents()[i].getKey().equals(key)) {
+					    bucket.remove(key, i);
+					    
+					    return;
+					}		
+				}
+				bucket = bucket.getNext();
+		    }
+		}
+			System.out.println("No such key exists"); 
+			return;
+		
+//		}else{
+//			Bucket bucket = hashIndex.get(bucketId);
+//			redistribute(bucket);
+//			return;
+//		}
 	}
+
+		/**
+		 * Redistribute the elements in the bucket. 
+		 * Move elements front if there exists space
+		 * 
+		 * @param bucket
+		 */
+//		private void redistribute(Bucket bucket){
+//			//get the last bucket of the list
+//			while(bucket.getNext()!=null){
+//				bucket = bucket.getNext();
+//			}
+//			KeyValuePair tempContents[] = bucket.getBlockContents();
+//			//Move the element front
+//			for(int i = bucket.blockSize-1; i>=0; i--){
+//				if(tempContents[i]!=null){
+//					bucket.remove(tempContents[i].getKey(), i);
+//					put(tempContents[i].getKey(),tempContents[i].getValue());
+//					
+//				}
+//			}
+//		}		
+//		
 		
 	public void saveContents(){      
 		try{
