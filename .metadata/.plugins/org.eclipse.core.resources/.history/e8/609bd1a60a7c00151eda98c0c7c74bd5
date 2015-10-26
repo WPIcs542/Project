@@ -156,7 +156,7 @@ public class HashIndex {
 	 * @param key
 	 */
 	public void remove(String key){
-//		int bucketId = -1;
+		int bucketId = -1;
 		stop:
 		for (Bucket bucket : hashIndex) {
 			while(bucket!=null){

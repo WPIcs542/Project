@@ -1,6 +1,8 @@
 package hashIndex;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Bucket implements Serializable{
 	private static final long serialVersionUID = -9184164241837197805L;

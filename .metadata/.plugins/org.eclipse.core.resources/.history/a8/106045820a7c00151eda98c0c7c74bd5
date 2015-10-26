@@ -39,7 +39,6 @@ public class Main {
 //		hash.remove("1");
 //		hash.remove("5");
 //		hash.remove("7");
-//		hash.remove("2");
 		
 		hash.saveContents();
 		System.out.println();

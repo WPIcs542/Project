@@ -69,7 +69,7 @@ public class HashIndex {
 		@SuppressWarnings("unchecked")
 		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
 		this.hashIndex = object2;
-//		int i = 0;
+		int i = 0;
 //		for (Bucket b : hashIndex) {
 //			if((i=b.getBitNum()) > decisionBitsNumber){
 //				decisionBitsNumber = i;
@@ -91,7 +91,7 @@ public class HashIndex {
 		
 		int bucketId = Math.abs(dataValue.hashCode()) % hashIndex.size();
 		Bucket bucket = hashIndex.get(bucketId);
-//		Bucket bucketTemp = hashIndex.get(bucketId);
+		Bucket bucketTemp = hashIndex.get(bucketId);
 		while(bucket!=null){
 			if(bucket.ifExistSpace()){
 				bucket.insert(key, dataValue);
@@ -156,7 +156,7 @@ public class HashIndex {
 	 * @param key
 	 */
 	public void remove(String key){
-//		int bucketId = -1;
+		int bucketId = -1;
 		stop:
 		for (Bucket bucket : hashIndex) {
 			while(bucket!=null){

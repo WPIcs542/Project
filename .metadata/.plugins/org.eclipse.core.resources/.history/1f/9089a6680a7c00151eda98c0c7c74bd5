@@ -16,16 +16,16 @@ public class Main {
 	public static void main(String[] args) {
 		hash = new HashIndex();
 		System.out.println("Test line of Hash Index!!");
-		hash.put("1", "5");
-		hash.put("2", "6");
-		hash.put("1", "2");
-		hash.put("4", "2");
-		hash.put("9", "2");
-		hash.put("5", "1");
-		hash.put("5", "2");
-		hash.put("7", "5");
-		hash.put("8", "2");
-		
+//		hash.put("1", "5");
+//		hash.put("2", "6");
+//		hash.put("1", "2");
+//		hash.put("4", "2");
+//		hash.put("9", "2");
+//		hash.put("5", "1");
+//		hash.put("5", "2");
+//		hash.put("7", "5");
+//		hash.put("8", "2");
+//		
 		System.out.println("The value \"2\" has key: " + hash.get("2"));
 		System.out.println("The value \"4\" has key: " + hash.get("4"));
 		System.out.println("The value \"1\" has key: " + hash.get("1"));
@@ -39,7 +39,6 @@ public class Main {
 //		hash.remove("1");
 //		hash.remove("5");
 //		hash.remove("7");
-//		hash.remove("2");
 		
 		hash.saveContents();
 		System.out.println();
