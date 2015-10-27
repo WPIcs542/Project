@@ -24,9 +24,6 @@ public class Main {
 		hash = new HashIndex();
 		String l;
 		
-		System.out.println("Test line of Hash Index!!");
-		System.out.println();
-		// here is the code to test "PUT" function working.
 		try{
 			FileReader readFile = new FileReader("cs542.txt");
 			BufferedReader in = new BufferedReader(readFile);
@@ -40,10 +37,10 @@ public class Main {
 			in.close();
 		}catch(FileNotFoundException e){
 			System.out.println(e);
-			return;
 		}
-	
-		// here is the code to test_1 the "GET" function. 
+		
+		System.out.println("Test line of Hash Index!!");
+		// here is the code to test the get function. 
 		System.out.println("The value \"1977|DVD\" has key: " + hash.get("1977|DVD"));
 		System.out.println("The value \"1990|VHS\" has key: " + hash.get("1990|VHS"));
 		System.out.println("The value \"2001|DVD\" has key: " + hash.get("2001|DVD"));
