@@ -169,7 +169,8 @@ public class HashIndex {
 				bucket = bucket.getNext();
 		    }
 		}
-		System.out.println("No such key exists"); 
+			System.out.println("No such key exists"); 
+			return;
 		
 //		}else{
 //			Bucket bucket = hashIndex.get(bucketId);

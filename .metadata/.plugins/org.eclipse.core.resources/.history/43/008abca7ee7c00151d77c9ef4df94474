@@ -157,7 +157,7 @@ public class HashIndex {
 	 */
 	public void remove(String key){
 //		int bucketId = -1;
-//		stop:
+		stop:
 		for (Bucket bucket : hashIndex) {
 			while(bucket!=null){
 				for (int i=0;i<bucket.blockSize;i++) {
@@ -169,7 +169,8 @@ public class HashIndex {
 				bucket = bucket.getNext();
 		    }
 		}
-		System.out.println("No such key exists"); 
+			System.out.println("No such key exists"); 
+			return;
 		
 //		}else{
 //			Bucket bucket = hashIndex.get(bucketId);
