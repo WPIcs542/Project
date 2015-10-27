@@ -134,21 +134,15 @@ public class HashIndex {
 		ArrayList<String> keylist = new ArrayList<String>();
 		String [] temp = {"|DVD", "|VHS", "|LaserDisc"};
 		int n = 1;
-		boolean flag = false;
 		
 		if(value.length() == 4){
 			temp[0] = value + temp[0];
 			temp[1] = value + temp[1];
 			temp[2] = value + temp[2];
-			n = 3;
-			flag = true;
+			n=3;
 		}
 		
 		while(n > 0){
-			if(flag){
-				value = temp[n-1];
-			}
-			
 			int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
 			Bucket bucket = hashIndex.get(bucketId);
 			while(bucket!=null){

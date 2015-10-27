@@ -43,16 +43,13 @@ public class Main {
 			return;
 		}
 	
-		// here is the code to test_1 the "GET" function: 
+		// here is the code to test_1 the "GET" function. 
 		System.out.println("The value \"1977|DVD\" has key: " + hash.get("1977|DVD"));
 		System.out.println("The value \"1990|VHS\" has key: " + hash.get("1990|VHS"));
 		System.out.println("The value \"2001|DVD\" has key: " + hash.get("2001|DVD"));
-		
-		// here is the code to test_2 the "GET" function:
-		System.out.println("The value \"2000\" has key: " + hash.get("2000"));
-		System.out.println("The value \"2005\" has key: " + hash.get("2005"));
-		System.out.println("The value \"2010\" has key: " + hash.get("2010"));
-		
+		System.out.println("The value \"2000\" has key: " + hash.get("2001"));
+		System.out.println("The value \"2005\" has key: " + hash.get("2001"));
+		System.out.println("The value \"2010\" has key: " + hash.get("2001"));
 //		hash.remove("8");
 //		hash.remove("6");
 //		hash.remove("4");

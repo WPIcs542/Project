@@ -132,39 +132,29 @@ public class HashIndex {
 	 */
 	public String get(String value){
 		ArrayList<String> keylist = new ArrayList<String>();
-		String [] temp = {"|DVD", "|VHS", "|LaserDisc"};
-		int n = 1;
-		boolean flag = false;
+		String temp1 = "|DVD";
+		String temp2 = "|VHS";
+		String temp3 = "|LaserDisc";
 		
 		if(value.length() == 4){
-			temp[0] = value + temp[0];
-			temp[1] = value + temp[1];
-			temp[2] = value + temp[2];
-			n = 3;
-			flag = true;
+			temp1 = value + temp1;
+			temp2 = value + temp2;
+			temp3 = value + temp3;
 		}
-		
-		while(n > 0){
-			if(flag){
-				value = temp[n-1];
+		int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
+		Bucket bucket = hashIndex.get(bucketId);
+		while(bucket!=null){
+			if(bucket.getKey(value) != ""){
+				keylist.add(bucket.getKey(value));
 			}
-			
-			int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
-			Bucket bucket = hashIndex.get(bucketId);
-			while(bucket!=null){
-				if(bucket.getKey(value) != ""){
-					keylist.add(bucket.getKey(value));
-				}
-				bucket = bucket.getNext();
-			}
-			if(keylist.size() > 1){
-				return "same value with many Keys" + keylist.toString();
-			}else if(keylist.size() == 1){
-				return keylist.toString();
-			}
-			--n;
+			bucket = bucket.getNext();
 		}
-		
+		if(keylist.size() > 1){
+			return "same value with many Keys" + keylist.toString();
+		}else if(keylist.size() == 1){
+			return keylist.toString();
+		}
+	
 		return "Key Not Found!";
 	}
 	

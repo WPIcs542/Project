@@ -132,23 +132,19 @@ public class HashIndex {
 	 */
 	public String get(String value){
 		ArrayList<String> keylist = new ArrayList<String>();
-		String [] temp = {"|DVD", "|VHS", "|LaserDisc"};
+		String temp1 = "|DVD";
+		String temp2 = "|VHS";
+		String temp3 = "|LaserDisc";
 		int n = 1;
-		boolean flag = false;
 		
 		if(value.length() == 4){
-			temp[0] = value + temp[0];
-			temp[1] = value + temp[1];
-			temp[2] = value + temp[2];
-			n = 3;
-			flag = true;
+			temp1 = value + temp1;
+			temp2 = value + temp2;
+			temp3 = value + temp3;
+			n=3
 		}
 		
 		while(n > 0){
-			if(flag){
-				value = temp[n-1];
-			}
-			
 			int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
 			Bucket bucket = hashIndex.get(bucketId);
 			while(bucket!=null){

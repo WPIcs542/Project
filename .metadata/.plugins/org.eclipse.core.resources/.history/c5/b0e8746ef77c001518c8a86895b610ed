@@ -146,7 +146,7 @@ public class HashIndex {
 		
 		while(n > 0){
 			if(flag){
-				value = temp[n-1];
+				
 			}
 			
 			int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
