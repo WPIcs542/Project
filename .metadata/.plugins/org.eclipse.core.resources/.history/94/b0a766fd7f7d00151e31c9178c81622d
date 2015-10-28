@@ -1,0 +1,236 @@
+/**
+ *  This is the Main.java for hash index project_2
+ *  Team Members: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
+ *  Date: Oct/26/2015
+ */
+
+package hashIndex;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+//import java.util.Hashtable;
+
+public class HashIndex {
+	private ArrayList<Bucket> hashIndex;
+	private int bucketSize = 10; //"i" in textbook
+//	static int initialBlockBitsNumber = 1; //"j" in text book
+	private static String filename = "cs542.db";
+	
+	/**
+	 * The constructor
+	 */
+	public HashIndex(){
+		File df = new File(filename);
+		if(df.exists() && !df.isDirectory()) { 
+			System.out.println("Database file exist !");
+		}else{
+			System.out.println("Creating New Database file: "+ filename);
+			hashIndex = new ArrayList<Bucket>();
+			
+			for(int n=0; n<bucketSize; n++){
+				hashIndex.add(new Bucket());
+			}
+			try {
+				//if there is no such file, create it.
+				ObjectOutputStream obout = new ObjectOutputStream(new FileOutputStream(filename));
+				
+				obout.writeObject(hashIndex);
+				obout.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		df.exists();
+		
+		ObjectInputStream objectInput = null;
+		try {
+			objectInput = new ObjectInputStream (new FileInputStream(filename));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Object object = null;
+		try {
+			object = objectInput.readObject();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// finally we put the data into memory space
+		@SuppressWarnings("unchecked")
+		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
+		this.hashIndex = object2;
+//		int i = 0;
+//		for (Bucket b : hashIndex) {
+//			if((i=b.getBitNum()) > decisionBitsNumber){
+//				decisionBitsNumber = i;
+//			}
+//		}
+		try {
+			objectInput.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Method to put data in hash. Extensible hash tables are used.
+	 * @param key
+	 * @param value
+	 */
+	public synchronized void put(String key, String dataValue){
+		
+		int bucketId = Math.abs(dataValue.hashCode()) % hashIndex.size();
+		Bucket bucket = hashIndex.get(bucketId);
+//		Bucket bucketTemp = hashIndex.get(bucketId);
+		while(bucket!=null){
+			if(bucket.ifExistSpace()){
+				bucket.insert(key, dataValue);
+				break;
+			}else{
+				if(bucket.getNext()==null){
+					bucket.setNext(new Bucket());
+					bucket.getNext().insert(key, dataValue);
+					break;
+				}else{
+					bucket = bucket.getNext();
+				}
+			}
+		}
+
+		
+	}
+	
+//	
+//	/**
+//	 * Redistribute the elements in each block. 
+//	 * Clean the block then put the elements in again.
+//	 * 
+//	 * @param bucket
+//	 */
+//	private void redistribute(Bucket bucket){
+//		KeyValuePair tempContents[] = bucket.getBlockContents();
+//		bucket.refreshBucket();
+//		for(int i = 0; i< bucket.blockSize; i++){
+//			put(tempContents[i].getKey(), tempContents[i].getValue());
+//		}
+//	}	
+
+	/**
+	 * 
+	 * @param value
+	 * @return String is the key
+	 */
+	public String get(String value){
+		ArrayList<String> keylist = new ArrayList<String>();
+		String [] temp = {"|DVD", "|VHS", "|LaserDisc"};
+		int n = 1;
+		boolean flag = false;
+		
+		if(value.length() == 4){
+			temp[0] = value + temp[0];
+			temp[1] = value + temp[1];
+			temp[2] = value + temp[2];
+			n = 3;
+			flag = true;
+		}
+		
+		while(n > 0){
+			if(flag){
+				value = temp[n-1];
+			}
+			
+			int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
+			Bucket bucket = hashIndex.get(bucketId);
+			while(bucket!=null){
+				if(bucket.getKey(value) != ""){
+					keylist.add(bucket.getKey(value));
+				}
+				bucket = bucket.getNext();
+			}
+			if(keylist.size() > 1){
+				return "same value with many Keys" + keylist.toString();
+			}else if(keylist.size() == 1){
+				return keylist.toString();
+			}
+			--n;
+		}
+		
+		return "Key Not Found!";
+	}
+	
+	
+	
+	/**
+	 * method to remove data in hash
+	 * @param key
+	 */
+	public void remove(String key){
+//		int bucketId = -1;
+//		stop:
+		for (Bucket bucket : hashIndex) {
+			while(bucket!=null){
+				for (int i=0;i<bucket.blockSize;i++) {
+					if (bucket.getBlockContents()[i]!= null && bucket.getBlockContents()[i].getKey().equals(key)) {
+					    bucket.remove(key, i);
+					    return;
+					}	
+				}
+				bucket = bucket.getNext();
+		    }
+		}
+		System.out.println("No such key exists"); 
+		
+//		}else{
+//			Bucket bucket = hashIndex.get(bucketId);
+//			redistribute(bucket);
+//			return;
+//		}
+	}
+
+		/**
+		 * Redistribute the elements in the bucket. 
+		 * Move elements front if there exists space
+		 * 
+		 * @param bucket
+		 */
+//		private void redistribute(Bucket bucket){
+//			//get the last bucket of the list
+//			while(bucket.getNext()!=null){
+//				bucket = bucket.getNext();
+//			}
+//			KeyValuePair tempContents[] = bucket.getBlockContents();
+//			//Move the element front
+//			for(int i = bucket.blockSize-1; i>=0; i--){
+//				if(tempContents[i]!=null){
+//					bucket.remove(tempContents[i].getKey(), i);
+//					put(tempContents[i].getKey(),tempContents[i].getValue());
+//					
+//				}
+//			}
+//		}		
+//		
+		
+	public void saveContents(){      
+		try{
+			FileOutputStream f =new FileOutputStream(filename);      
+			ObjectOutputStream objOutput = new ObjectOutputStream(f);
+			objOutput.writeObject(hashIndex);
+			objOutput.close();
+		}catch(IOException ex){
+			ex.printStackTrace(); 
+		}
+	}
+}
+
+
+

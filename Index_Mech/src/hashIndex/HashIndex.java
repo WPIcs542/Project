@@ -158,7 +158,7 @@ public class HashIndex {
 				bucket = bucket.getNext();
 			}
 			if(keylist.size() > 1){
-				return "same value with many Keys" + keylist.toString();
+				return "same value with many Keys " + keylist.toString();
 			}else if(keylist.size() == 1){
 				return keylist.toString();
 			}
@@ -171,21 +171,21 @@ public class HashIndex {
 	
 	
 	/**
-	 * method to remove data in hash
+	 * method to remove index data_value and its key in hashIndex
 	 * @param key
 	 */
 	public void remove(String key){
 //		int bucketId = -1;
 //		stop:
 		for (Bucket bucket : hashIndex) {
-			while(bucket!=null){
+			if(bucket!=null){
 				for (int i=0;i<bucket.blockSize;i++) {
 					if (bucket.getBlockContents()[i]!= null && bucket.getBlockContents()[i].getKey().equals(key)) {
 					    bucket.remove(key, i);
 					    return;
-					}		
+					}
 				}
-				bucket = bucket.getNext();
+				//bucket = bucket.getNext();
 		    }
 		}
 		System.out.println("No such key exists"); 
@@ -229,6 +229,15 @@ public class HashIndex {
 		}catch(IOException ex){
 			ex.printStackTrace(); 
 		}
+	}
+	
+	public void clear_all(){
+		this.hashIndex = new ArrayList<Bucket>();
+		
+		for(int n=0; n<bucketSize; n++){
+			hashIndex.add(new Bucket());
+		}
+		System.out.println("All Index Data and Key have been removed from memory and disk.");
 	}
 }
 
