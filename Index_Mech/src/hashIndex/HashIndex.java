@@ -1,7 +1,7 @@
 /**
  *  This is the Main.java for hash index project_2
  *  Team Members: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
- *  Date: Oct/16/2015
+ *  Date: Oct/26/2015
  */
 
 package hashIndex;
@@ -17,13 +17,17 @@ import java.util.ArrayList;
 //import java.util.Hashtable;
 
 public class HashIndex {
+	//this class is our main data structure for store the data, it has the function
+	//of hashing data to certain bucket based on their datavalue and getting keys of
+	//datavalue and removing data 
+	
 	private ArrayList<Bucket> hashIndex;
-	private int decisionBitsNumber = 1; //"i" in textbook
-	static int initialBlockBitsNumber = 1; //"j" in text book
-	private static String filename = "cs542.db";
+	private int bucketSize = 10; 
+    private static String filename = "cs542.db";
 	
 	/**
-	 * The constructor
+	 * The constructor for the hashtable we used for store data if its already exists,
+	 *  then open it if its not we create a new one
 	 */
 	public HashIndex(){
 		File df = new File(filename);
@@ -33,8 +37,8 @@ public class HashIndex {
 			System.out.println("Creating New Database file: "+ filename);
 			hashIndex = new ArrayList<Bucket>();
 			
-			for(int n=0; n<Math.pow(2, this.decisionBitsNumber); n++){
-				hashIndex.add(new Bucket(initialBlockBitsNumber));
+			for(int n=0; n<bucketSize; n++){
+				hashIndex.add(new Bucket());
 			}
 			try {
 				//if there is no such file, create it.
@@ -69,12 +73,7 @@ public class HashIndex {
 		@SuppressWarnings("unchecked")
 		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
 		this.hashIndex = object2;
-		int i = 0;
-		for (Bucket b : hashIndex) {
-			if((i=b.getBitNum()) > decisionBitsNumber){
-				decisionBitsNumber = i;
-			}
-		}
+
 		try {
 			objectInput.close();
 		} catch (IOException e) {
@@ -83,100 +82,146 @@ public class HashIndex {
 	}
 
 	/**
-	 * Method to put data in hash. Extensible hash tables are used.
+	 * Method to put data in hash table static hash tables are used, at first
+	 * we get the bucketid from the datavalue of one data then we hash it to 
+	 * the selected bucket,before that we need to check whether that bucket got
+	 * enough space to store the data,if not we create a new bucket,and then link
+	 * it with the old bucket and put the data in it
 	 * @param key
 	 * @param value
 	 */
 	public synchronized void put(String key, String dataValue){
 		
-		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
-		Bucket bucket = new Bucket(initialBlockBitsNumber);
-		bucket = hashIndex.get(bucketId);
-		if(bucket != null && bucket.ifExistSpace()){
-			bucket.insert(key, dataValue);
-		}else{
-			//System.out.println("The bucket has not enough space!");
-			//if "i" equals "j"
-			if(bucket.getLength() == decisionBitsNumber){
-				decisionBitsNumber++;
-				bucket.saveBitNum(decisionBitsNumber);
-				bucket.incrementLength();
-			    for(int i = 0; i< Math.pow(2, decisionBitsNumber-1);i++ ){
-			    	//create a new block
-			    	if(i==bucketId){
-			    		hashIndex.add(new Bucket(bucket.getLength()));
-			    	}
-			    	//reference to old block
-			    	else{
-			    		Bucket bucketTemp = hashIndex.get(i);
-			    		hashIndex.add(bucketTemp);
-			    	}
-			    }
-			    	redistribute(bucket);
-			    	System.out.println("extend");
-			    
-			}else{//if "i" > "j", double the block
-				bucket.incrementLength();
-				int bucketTempId = (int) (bucketId + Math.pow(2, decisionBitsNumber-1));
-				Bucket bucketTemp = new Bucket(bucket.getLength()); 
-				//check where to create a new block
-				if(bucketTempId>=hashIndex.size()) hashIndex.set(bucketId, bucketTemp);
-				else hashIndex.set(bucketTempId, bucketTemp);
-				redistribute(bucket);
-				System.out.println("split");
+		int bucketId = Math.abs(dataValue.hashCode()) % hashIndex.size();
+		Bucket bucket = hashIndex.get(bucketId);
+//		Bucket bucketTemp = hashIndex.get(bucketId);
+		while(bucket!=null){
+			if(bucket.ifExistSpace()){
+				bucket.insert(key, dataValue);
+				break;
+			}else{
+				if(bucket.getNext()==null){
+					bucket.setNext(new Bucket());
+					bucket.getNext().insert(key, dataValue);
+					break;
+				}else{
+					bucket = bucket.getNext();
+				}
 			}
-			put(key, dataValue);
 		}
+
 		
 	}
 	
-	
-	/**
-	 * Redistribute the elements in each block. 
-	 * Clean the block then put the elements in again.
-	 * 
-	 * @param bucket
-	 */
-	private void redistribute(Bucket bucket){
-		KeyValuePair tempContents[] = bucket.getBlockContents();
-		bucket.refreshBucket();
-		for(int i = 0; i< bucket.blockSize; i++){
-			put(tempContents[i].getKey(), tempContents[i].getValue());
-		}
-	}	
+//	
+//	/**
+//	 * Redistribute the elements in each block. 
+//	 * Clean the block then put the elements in again.
+//	 * 
+//	 * @param bucket
+//	 */
+//	private void redistribute(Bucket bucket){
+//		KeyValuePair tempContents[] = bucket.getBlockContents();
+//		bucket.refreshBucket();
+//		for(int i = 0; i< bucket.blockSize; i++){
+//			put(tempContents[i].getKey(), tempContents[i].getValue());
+//		}
+//	}	
 
 	/**
+	 * Method to get data in hash table static hash tables are used.
+	 * we doing the get based ont the type of input, if just input with year, 
+	 * we try every possibilities with each year, then get the result, if input is its year 
+	 * with other input we could directly search and get the keylist of these datavalue
 	 * 
 	 * @param value
 	 * @return String is the key
 	 */
 	public String get(String value){
 		ArrayList<String> keylist = new ArrayList<String>();
-		for (Bucket b : hashIndex) {
-			if(b.getKey(value) != ""){
-				keylist.add(b.getKey(value));
+		String [] temp = {"|DVD", "|VHS", "|LaserDisc"};
+		int n = 1;
+		boolean flag = false;
+		
+		if(value.length() == 4){
+			temp[0] = value + temp[0];
+			temp[1] = value + temp[1];
+			temp[2] = value + temp[2];
+			n = 3;
+			flag = true;
+		}
+		
+		while(n > 0){
+			if(flag){
+				value = temp[n-1];
 			}
+			
+			int bucketId = Math.abs(value.hashCode()) % hashIndex.size();
+			Bucket bucket = hashIndex.get(bucketId);
+			while(bucket!=null){
+				if(bucket.getKey(value) != ""){
+					keylist.add(bucket.getKey(value));
+				}
+				bucket = bucket.getNext();
+			}
+			if(keylist.size() > 1){
+				return "same value with many Keys " + keylist.toString();
+			}else if(keylist.size() == 1){
+				return keylist.toString();
+			}
+			--n;
 		}
-		if(keylist.size() > 1){
-			return "same value with many Keys" + keylist.toString();
-		}else if(keylist.size() == 1){
-			return keylist.toString();
-		}
+		
 		return "Key Not Found!";
 	}
 	
 	
 	
 	/**
-	 * method to remove data in hash
+	 * method to remove index data_value and its key in hashIndex
 	 * @param key
 	 */
 	public void remove(String key){
-		int bucketId = Math.abs(key.hashCode()) % hashIndex.size();
-		Bucket bucket = hashIndex.get(bucketId);
-		bucket.remove(key);
+
+		for (Bucket bucket : hashIndex) {
+			if(bucket!=null){
+				for (int i=0;i<bucket.blockSize;i++) {
+					if (bucket.getBlockContents()[i]!= null && bucket.getBlockContents()[i].getKey().equals(key)) {
+					    bucket.remove(key, i);
+					    return;
+					}
+				}
+		    }
+		}
+		System.out.println("No such key exists"); 
+
 	}
-		
+
+		/**
+		 * Redistribute the elements in the bucket. 
+		 * Move elements front if there exists space
+		 * 
+		 * @param bucket
+		 */
+//		private void redistribute(Bucket bucket){
+//			//get the last bucket of the list
+//			while(bucket.getNext()!=null){
+//				bucket = bucket.getNext();
+//			}
+//			KeyValuePair tempContents[] = bucket.getBlockContents();
+//			//Move the element front
+//			for(int i = bucket.blockSize-1; i>=0; i--){
+//				if(tempContents[i]!=null){
+//					bucket.remove(tempContents[i].getKey(), i);
+//					put(tempContents[i].getKey(),tempContents[i].getValue());
+//					
+//				}
+//			}
+//		}		
+//		
+	/**
+	 * this method is used for save all the contents of of hashidex into the certain file	
+	 */
 	public void saveContents(){      
 		try{
 			FileOutputStream f =new FileOutputStream(filename);      
@@ -186,6 +231,17 @@ public class HashIndex {
 		}catch(IOException ex){
 			ex.printStackTrace(); 
 		}
+	}
+	/**
+	 * this method is used for refreshing the hashindex clear all the data in the hashIndex
+	 */
+	public void clear_all(){
+		this.hashIndex = new ArrayList<Bucket>();
+		
+		for(int n=0; n<bucketSize; n++){
+			hashIndex.add(new Bucket());
+		}
+		System.out.println("All Index Data and Key have been removed from memory and disk.");
 	}
 }
 

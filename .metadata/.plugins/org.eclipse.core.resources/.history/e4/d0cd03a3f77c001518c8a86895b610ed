@@ -1,0 +1,69 @@
+/**
+ *  This is the Main.java for hash index project_2
+ *  Team Members: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
+ *  Date: Oct/26/2015
+ */
+ 
+package hashIndex;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+	static HashIndex hash;
+	
+	/**
+	 * run testing through Hashindex.
+	 * @param args
+	 * @throws IOException 
+	 */
+	public static void main(String[] args) throws IOException {
+		hash = new HashIndex();
+		String l;
+		
+		System.out.println("Test line of Hash Index!!");
+		System.out.println();
+		// here is the code to test "PUT" function working.
+		try{
+			FileReader readFile = new FileReader("cs542.txt");
+			BufferedReader in = new BufferedReader(readFile);
+			while ((l = in.readLine()) != null) {
+				Scanner s = new Scanner(l);	
+				s.useDelimiter("\\s*thisisfordivision\\s*");
+				// here is the code to test "PUT" function working.
+				hash.put(s.next(),s.next());
+				s.close();
+			}
+			in.close();
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+			return;
+		}
+	
+		// here is the code to test_1 the "GET" function. 
+		System.out.println("The value \"1977|DVD\" has key: " + hash.get("1977|DVD"));
+		System.out.println("The value \"1990|VHS\" has key: " + hash.get("1990|VHS"));
+		System.out.println("The value \"2001|DVD\" has key: " + hash.get("2001|DVD"));
+		System.out.println("The value \"2000\" has key: " + hash.get("2000"));
+		System.out.println("The value \"2005\" has key: " + hash.get("2005"));
+		System.out.println("The value \"2010\" has key: " + hash.get("2010"));
+//		hash.remove("8");
+//		hash.remove("6");
+//		hash.remove("4");
+//		hash.remove("9");
+//		hash.remove("3");
+//		hash.remove("1");
+//		hash.remove("5");
+//		hash.remove("7");
+//		hash.remove("2");
+		
+		//hash.saveContents();
+		System.out.println();
+		System.out.println("Job Done!");
+	}
+
+
+}

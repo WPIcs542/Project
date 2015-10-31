@@ -1,44 +1,77 @@
 /**
  *  This is the Main.java for hash index project_2
  *  Team Members: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
- *  Date: Oct/16/2015
+ *  Date: Oct/26/2015
  */
  
 package hashIndex;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+/**
+ * this is our main shell to test the data put and get from our hashindex, 
+ * at first we read data from the txt file 542.txt then put them into our 
+ * hash table,after that we test the get function to get datavalue from the hashtable
+ *
+ */
 public class Main {
 	static HashIndex hash;
 	
 	/**
 	 * run testing through Hashindex.
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		hash = new HashIndex();
+		String l;
+		
 		System.out.println("Test line of Hash Index!!");
-		hash.put("1", "1");
-		hash.put("2", "1");
-		hash.put("1", "2");
-		hash.put("4", "2");
-		hash.put("5", "3");
-		hash.put("5", "3");
-		hash.put("7", "4");
-		hash.put("8", "4");
+		System.out.println();
+		// here is the code to test "PUT" function working,we read data from the cs542.txt and put them
+		//in our hash table
+		try{
+			FileReader readFile = new FileReader("cs542.txt");
+			BufferedReader in = new BufferedReader(readFile);
+			while ((l = in.readLine()) != null) {
+				Scanner s = new Scanner(l);	
+				s.useDelimiter("\\s*thisisfordivision\\s*");
+				// here is the code to test "PUT" function working.
+				hash.put(s.next(),s.next());
+				s.close();
+			}
+			in.close();
+		}catch(FileNotFoundException e){
+			System.out.println(e);
+			return;
+		}
+	
+
 		
-		System.out.println("The value \"2\" has key: " + hash.get("2"));
-		System.out.println("The value \"4\" has key: " + hash.get("4"));
-		System.out.println("The value \"1\" has key: " + hash.get("1"));
-		System.out.println("The value \"5\" has key: " + hash.get("5"));
+		// here is the code to test_1 the "GET" function: 
+		System.out.println("The value \"1977|DVD\" has key: " + hash.get("1977|DVD"));
+		System.out.println("The value \"1990|VHS\" has key: " + hash.get("1990|VHS"));
+		System.out.println("The value \"2001|DVD\" has key: " + hash.get("2001|DVD"));
 		
-		hash.remove("8");
-		hash.remove("6");
-		hash.remove("4");
-		hash.remove("2");
-		hash.remove("3");
-		hash.remove("1");
-		hash.remove("5");
-		hash.remove("7");
+		// here is the code to test_2 the "GET" function:
+		System.out.println("The value \"2000\" has key: " + hash.get("2000"));
+		System.out.println("The value \"2005\" has key: " + hash.get("2005"));
+		System.out.println("The value \"2010\" has key: " + hash.get("2010"));
 		
+//		hash.remove("Ammie");
+//		hash.remove("6");
+//		hash.remove("4");
+//		hash.remove("9");
+//		hash.remove("3");
+//		hash.remove("1");
+//		hash.remove("5");
+//		hash.remove("7");
+//		hash.remove("2");
+		
+//		hash.clear_all();
 		hash.saveContents();
 		System.out.println();
 		System.out.println("Job Done!");
