@@ -1,0 +1,23 @@
+CS542 Project2
+Team Members: Fangyu Lin, Hongzhang Cheng, Zhaojun Yang
+Oct/16/2015
+
+This file is the introduction of HashIndex and how it works. 
+
+In this project, static Hashtable is used to store value under given datavalue which is the index, 
+this program could also get and remove the keylist of the datavalue(index) we put in.
+
+Testing method and how to use:
+Once the program starts to run, the following is printed first:
+Database file exist !
+Test line of Hash Index!!
+then our program read data from the already exist file cs542.txt automatically and put them in out Hashtable,
+you will see "Put key into index succeed"when the hash function successfully put a key in our Hashtable.
+after reading and putting all the data from the .txt file, the program begin to test the get function of our Hashtable.
+with different type of input, the test result is different ,when you provide our get function just the number year, 
+our program will show the movies of that year regardless of the type of that movie, when you give more specific condition like year and type, 
+our program will show the movies fit for that condition. if you enter some datavalude which has no matched key in our hashtable, 
+our program will show "Key not Found"
+after all these work done our program will show "Job Done"
+
+

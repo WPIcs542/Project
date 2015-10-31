@@ -88,7 +88,7 @@ public class HashIndex {
 	 * enough space to store the data,if not we create a new bucket,and then link
 	 * it with the old bucket and put the data in it
 	 * @param key
-	 * @param value
+	 * @param datavalue
 	 */
 	public synchronized void put(String key, String dataValue){
 		

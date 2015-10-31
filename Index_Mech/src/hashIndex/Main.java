@@ -48,8 +48,9 @@ public class Main {
 			System.out.println(e);
 			return;
 		}
-	
-
+		
+		//here is the code to test "REMOVE" function
+//		hash.remove("Ammie");
 		
 		// here is the code to test_1 the "GET" function: 
 		System.out.println("The value \"1977|DVD\" has key: " + hash.get("1977|DVD"));
@@ -61,7 +62,6 @@ public class Main {
 		System.out.println("The value \"2005\" has key: " + hash.get("2005"));
 		System.out.println("The value \"2010\" has key: " + hash.get("2010"));
 		
-//		hash.remove("Ammie");
 //		hash.remove("6");
 //		hash.remove("4");
 //		hash.remove("9");
@@ -71,7 +71,10 @@ public class Main {
 //		hash.remove("7");
 //		hash.remove("2");
 		
-//		hash.clear_all();
+		//clear all memory, if you don't want to write into disk.
+		hash.clear_all();
+		
+		//write keys and data values into disk.
 		hash.saveContents();
 		System.out.println();
 		System.out.println("Job Done!");
