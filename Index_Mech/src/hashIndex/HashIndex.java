@@ -17,13 +17,17 @@ import java.util.ArrayList;
 //import java.util.Hashtable;
 
 public class HashIndex {
+	//this class is our main data structure for store the data, it has the function
+	//of hashing data to certain bucket based on their datavalue and getting keys of
+	//datavalue and removing data 
+	
 	private ArrayList<Bucket> hashIndex;
-	private int bucketSize = 10; //"i" in textbook
-//	static int initialBlockBitsNumber = 1; //"j" in text book
-	private static String filename = "cs542.db";
+	private int bucketSize = 10; 
+    private static String filename = "cs542.db";
 	
 	/**
-	 * The constructor
+	 * The constructor for the hashtable we used for store data if its already exists,
+	 *  then open it if its not we create a new one
 	 */
 	public HashIndex(){
 		File df = new File(filename);
@@ -69,12 +73,7 @@ public class HashIndex {
 		@SuppressWarnings("unchecked")
 		ArrayList<Bucket> object2 = (ArrayList<Bucket>) object;
 		this.hashIndex = object2;
-//		int i = 0;
-//		for (Bucket b : hashIndex) {
-//			if((i=b.getBitNum()) > decisionBitsNumber){
-//				decisionBitsNumber = i;
-//			}
-//		}
+
 		try {
 			objectInput.close();
 		} catch (IOException e) {
@@ -83,7 +82,11 @@ public class HashIndex {
 	}
 
 	/**
-	 * Method to put data in hash. Extensible hash tables are used.
+	 * Method to put data in hash table static hash tables are used, at first
+	 * we get the bucketid from the datavalue of one data then we hash it to 
+	 * the selected bucket,before that we need to check whether that bucket got
+	 * enough space to store the data,if not we create a new bucket,and then link
+	 * it with the old bucket and put the data in it
 	 * @param key
 	 * @param value
 	 */
@@ -126,6 +129,10 @@ public class HashIndex {
 //	}	
 
 	/**
+	 * Method to get data in hash table static hash tables are used.
+	 * we doing the get based ont the type of input, if just input with year, 
+	 * we try every possibilities with each year, then get the result, if input is its year 
+	 * with other input we could directly search and get the keylist of these datavalue
 	 * 
 	 * @param value
 	 * @return String is the key
@@ -175,8 +182,7 @@ public class HashIndex {
 	 * @param key
 	 */
 	public void remove(String key){
-//		int bucketId = -1;
-//		stop:
+
 		for (Bucket bucket : hashIndex) {
 			if(bucket!=null){
 				for (int i=0;i<bucket.blockSize;i++) {
@@ -185,16 +191,10 @@ public class HashIndex {
 					    return;
 					}
 				}
-				//bucket = bucket.getNext();
 		    }
 		}
 		System.out.println("No such key exists"); 
-		
-//		}else{
-//			Bucket bucket = hashIndex.get(bucketId);
-//			redistribute(bucket);
-//			return;
-//		}
+
 	}
 
 		/**
@@ -219,7 +219,9 @@ public class HashIndex {
 //			}
 //		}		
 //		
-		
+	/**
+	 * this method is used for save all the contents of of hashidex into the certain file	
+	 */
 	public void saveContents(){      
 		try{
 			FileOutputStream f =new FileOutputStream(filename);      
@@ -230,7 +232,9 @@ public class HashIndex {
 			ex.printStackTrace(); 
 		}
 	}
-	
+	/**
+	 * this method is used for refreshing the hashindex clear all the data in the hashIndex
+	 */
 	public void clear_all(){
 		this.hashIndex = new ArrayList<Bucket>();
 		

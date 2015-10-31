@@ -9,6 +9,7 @@ package hashIndex;
 import java.io.Serializable;
 
 public class KeyValuePair implements Serializable{
+	//this is the array inside the bucket we used for store the data
 	private static final long serialVersionUID = -4426643114124451175L;
 	private String key;
 	private String dataValue;

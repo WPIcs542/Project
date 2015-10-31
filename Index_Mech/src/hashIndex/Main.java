@@ -11,7 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * this is our main shell to test the data put and get from our hashindex, 
+ * at first we read data from the txt file 542.txt then put them into our 
+ * hash table,after that we test the get function to get datavalue from the hashtable
+ *
+ */
 public class Main {
 	static HashIndex hash;
 	
@@ -26,7 +31,8 @@ public class Main {
 		
 		System.out.println("Test line of Hash Index!!");
 		System.out.println();
-		// here is the code to test "PUT" function working.
+		// here is the code to test "PUT" function working,we read data from the cs542.txt and put them
+		//in our hash table
 		try{
 			FileReader readFile = new FileReader("cs542.txt");
 			BufferedReader in = new BufferedReader(readFile);
@@ -43,8 +49,7 @@ public class Main {
 			return;
 		}
 	
-		// one line to test the "REMOVE" function
-//		hash.remove("Ammie");
+
 		
 		// here is the code to test_1 the "GET" function: 
 		System.out.println("The value \"1977|DVD\" has key: " + hash.get("1977|DVD"));
