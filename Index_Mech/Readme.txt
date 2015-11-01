@@ -7,7 +7,7 @@ Key Notes:
 This file is an introduction of HashIndex and how it works. 
 
 In this project, we use static hashing as our index structure. The hash function used is String.hashcode mod size of buckets.
-Size of buckets is set to 10 by us. Each bucket contains two blocks. Each block contains a key and a data value pair, which is represented by a class KeyValuePair created by us.
+Size of buckets is set to 10 by us. Each bucket contains two blocks. Each block contains a key and a data value, which is represented by a class KeyValuePair created by us.
 If both of the blocks are full, a link with extra bucket is added after the current bucket.
 With the help of index, this program can get and remove the keylist of the datavalue(index) we put in efficiently.
 
