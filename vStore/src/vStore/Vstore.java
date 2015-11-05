@@ -25,6 +25,7 @@ public class Vstore{
 	/**
 	 * This is the object initialization 
 	 */
+	@SuppressWarnings("unchecked")
 	public Vstore(){
 		File df = new File(file);
 		// Need to check if the database filename is correct or not

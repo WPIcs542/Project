@@ -1,0 +1,16 @@
+package query_ex;
+
+/**
+ * CS542 Project_3
+ * @author Fangyu Lin; Hongzhang Cheng; Zhaojun Yang
+ * @date November/04/2015
+ */
+
+public class Main {
+
+	public static void main(String[] args) {
+		System.out.println("Here is a testing line");
+
+	}
+
+}
