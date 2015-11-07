@@ -1,0 +1,43 @@
+package query_ex;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+
+/**
+ * CS542 Project_3
+ * @author Fangyu Lin; Hongzhang Cheng; Zhaojun Yang
+ * @date November/04/2015
+ */
+
+public class Ex_Engine {
+	
+	public void init(){
+		String cityfile = "city.txt";
+		String countryfile = "country.txt";
+		Relation city = new Relation();
+		Relation country = new Relation();
+		FileInputStream fs;
+		try {
+			fs = new FileInputStream(cityfile);
+			InputStreamReader isr = new InputStreamReader(fs);
+			BufferedReader b_read = new BufferedReader(isr);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void open(){
+		
+	}
+	
+	public void getNext(){
+		
+	}
+	
+	public void close(){
+		
+	}
+}

@@ -1,0 +1,36 @@
+package query_ex;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+/**
+ * CS542 Project_3
+ * @author Fangyu Lin; Hongzhang Cheng; Zhaojun Yang
+ * @date November/04/2015
+ */
+
+public class Ex_Engine {
+	
+	public void init(){
+		String cityfile = "city.txt";
+		String countryfile = "country.txt";
+		Relation city = new Relation();
+		Relation country = new Relation();
+		FileInputStream fs = new FileInputStream(cityfile, "UTF8");
+		InputStreamReader isr = new InputStreamReader(fs);
+		BufferedReader br = new BufferedReader(isr);
+	}
+	
+	public void open(){
+		
+	}
+	
+	public void getNext(){
+		
+	}
+	
+	public void close(){
+		
+	}
+}
