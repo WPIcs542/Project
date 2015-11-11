@@ -69,12 +69,6 @@ public class ExEngineJoin {
 	public void open() {
 		city = new Relation("city.db");
 		country = new Relation("country.db");
-		try {
-			this.init();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	// put the whole joined tuple into joinResult
