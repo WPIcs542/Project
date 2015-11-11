@@ -127,6 +127,6 @@ public class ExEngineJoin {
 	
 
 	public void close() {
-		joinResult.saveContents();
+//		joinResult.saveContents();
 	}
 }
