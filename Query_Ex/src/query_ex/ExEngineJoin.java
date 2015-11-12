@@ -92,7 +92,7 @@ public class ExEngineJoin {
 	    	  }catch (UnsupportedEncodingException exp){
 	    		exp.printStackTrace();  
 	    	  }
-	    	  if(tumpleofcity[0].equals(tumpleofcountry[2])){	    		
+	    	  if(tumpleofcity[2].equals(tumpleofcountry[0])){	    		
 	    		  Double cityP = Double.parseDouble(tumpleofcity[4]);
                   Double countryP=Double.parseDouble(tumpleofcountry[6]);
                   if(cityP/countryP>0.4){
