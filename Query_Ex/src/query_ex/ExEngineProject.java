@@ -24,16 +24,16 @@ public class ExEngineProject {
 	private String tupleResult;
 
 	public void open() {
-	//	Relation joinResult = new Relation("joinResult.db");
-	//	joinResultEnume = joinResult.getValuesEnum();
-	//	tupleResult = joinResult;
+		// Relation joinResult = new Relation("joinResult.db");
+		// joinResultEnume = joinResult.getValuesEnum();
+		// tupleResult = joinResult;
 	}
 
 	public void getNext(String tuple[]) throws UnsupportedEncodingException {
-		int key = (int)Double.parseDouble(tuple[15]);
+		int key = (int) Double.parseDouble(tuple[15]);
 		byte[] value = tuple[16].getBytes();
 		projectResult.put(key, value);
-		
+
 	}
 
 	public void close() {
@@ -47,8 +47,8 @@ public class ExEngineProject {
 		return finalResult;
 	}
 
-	public String[] splitOfTuple(String str) throws UnsupportedEncodingException {	
+	public String[] splitOfTuple(String str) throws UnsupportedEncodingException {
 		return str.split(","); // ignores commas inside quotation marks
 	}
-	
+
 }
