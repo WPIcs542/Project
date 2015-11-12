@@ -109,7 +109,7 @@ public class ExEngineJoin {
 		    	}   	    
                 joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes());
                 count++;
-                break;  // because only one country code, if find it, just skip the rest of them. 
+                break;
 	    	  }
 	    	  compareCount++;
 	      }
