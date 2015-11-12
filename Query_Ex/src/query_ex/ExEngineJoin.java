@@ -77,6 +77,7 @@ public class ExEngineJoin {
 	String [] tumpleofcountry = null;
 	String cjc ="";
 	String cityjoincountry[]=null;
+	int count = 0;
 	
 	Enumeration<byte[]> enumofcity =city.getValuesEnum();
 	Enumeration<byte[]> enumofcountry= country.getValuesEnum();
@@ -92,24 +93,26 @@ public class ExEngineJoin {
 	    	  }catch (UnsupportedEncodingException exp){
 	    		exp.printStackTrace();  
 	    	  }
-	    	  if(tumpleofcity[2].equals(tumpleofcountry[0])){	    		
+	    	  
+	    	  if(tumpleofcity[2].equals(tumpleofcountry[0])){
 	    		  Double cityP = Double.parseDouble(tumpleofcity[4]);
                   Double countryP=Double.parseDouble(tumpleofcountry[6]);
                   if(cityP/countryP>0.4){
                 	  cityjoincountry = new String[tumpleofcity.length+tumpleofcountry.length];
 	                  System.arraycopy(tumpleofcity,0,cityjoincountry,0, tumpleofcity.length);
 	                  System.arraycopy(tumpleofcountry,0,cityjoincountry,tumpleofcity.length , tumpleofcountry.length);
-		    		     for(int i=0;i<cityjoincountry.length-1;i++){    		          
-		    		    	 cjc +=  cityjoincountry[i] + "," ;  
-	    		         }	
+		    		  for(int i=0;i<cityjoincountry.length-1;i++){
+		    			  cjc +=  cityjoincountry[i] + ",";
+		    			  }
 		    		     cjc+=cityjoincountry[cityjoincountry.length-1];
-	    	         }   	    
-	    	    joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes()); }
+		    		     }   	    
+                joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes());
+                count++;
+	    	    }
 	    	
 	      }
-	
 	  }
-	
+	System.out.println("total join: " + count);
 	}
 	
 	public String[]splitoftuple(byte[] tuple) throws UnsupportedEncodingException {

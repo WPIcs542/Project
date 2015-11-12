@@ -231,10 +231,13 @@ public class Relation {
 		// }
 		Set<Integer> keys = data.keySet();
 		int size = 0;
+		int count = 0;
 		for (Integer key : keys) {
 			size = data.get(key).length;
 			System.out.println("Value of Key:\t" + key + "\t" + "---The size of data:\t" + size + " Bytes");
+			count++;
 		}
+		System.out.println("Size: "+ count);
 		return true;
 	}
 

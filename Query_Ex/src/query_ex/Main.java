@@ -27,27 +27,27 @@ public class Main {
 		// }
 
 		Relation test = new Relation("city.db");
-		// test.listTable("city.db");
+//		test.listTable("city.db");
 		System.out.println(new String(test.get(1058921154)));
 		System.out.println(new String(test.get(959629210)));
 
 		Relation test2 = new Relation("country.db");
-		// test2.listTable("country.db");
+//		test2.listTable("country.db");
 		System.out.println(new String(test2.get(1362842287)));
 		System.out.println(new String(test2.get(1298350375)));
-
+		
 		ExEngineJoin joinContryCity = new ExEngineJoin();
 		joinContryCity.open();
 		joinContryCity.getNext();
 		joinContryCity.close();
 
-		ExEngineProject projectCity = new ExEngineProject();
-		projectCity.open();
-		projectCity.getNext();
-		projectCity.close();
+//		ExEngineProject projectCity = new ExEngineProject();
+//		projectCity.open();
+//		projectCity.getNext();
+//		projectCity.close();
 
 		// test if the data retrieved match result
-		System.out.println(projectCity.getFinalResult().toString());
+//		System.out.println(projectCity.getFinalResult().toString());
 
 	}
 
