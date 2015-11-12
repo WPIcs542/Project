@@ -222,7 +222,7 @@ public class Relation {
 	 * @param filename
 	 * @return boolean
 	 */
-	public boolean listTable(String filename) {
+	public boolean listTable() {
 		// if(!filename.equalsIgnoreCase("542.db")
 		// || !filename.equalsIgnoreCase("city.db")
 		// || !filename.equalsIgnoreCase("country.db")){
