@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
@@ -234,10 +235,12 @@ public class Relation {
 		int count = 0;
 		for (Integer key : keys) {
 			size = data.get(key).length;
-			System.out.println("Value of Key:\t" + key + "\t" + "---The size of data:\t" + size + " Bytes");
+			String value = new String(data.get(key), StandardCharsets.UTF_8);
+			System.out.println("Value of Key:\t" + key + "\t" + "---The size of data:\t" + size + " Bytes" + "\t"
+					+ "value: " + value);
 			count++;
 		}
-		System.out.println("Size: "+ count);
+		System.out.println("Size: " + count);
 		return true;
 	}
 

@@ -1,6 +1,7 @@
 package query_ex;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 /**
  * CS542 Project_3
@@ -17,29 +18,35 @@ public class Main {
 															// 1MB
 	static ExEngineJoin ex = new ExEngineJoin();
 
-	public static void main(String[] args) {
-		System.out.println("Here is a testing line");
-//		 try { //this needs to be run only once to setup the database file.
-//		 ex.init();
-//		 } catch (IOException e) {
-//		 // TODO Auto-generated catch block
-//		 e.printStackTrace();
-//		 }
-
-		Relation test = new Relation("city.db");
-//		test.listTable();
-		System.out.println(new String(test.get(1058921154)));
-		System.out.println(new String(test.get(959629210)));
-
-		Relation test2 = new Relation("country.db");
-//		test2.listTable();
-		System.out.println(new String(test2.get(1362842287)));
-		System.out.println(new String(test2.get(1298350375)));
+	public static void main(String[] args) throws UnsupportedEncodingException {
+//		System.out.println("Here is a testing line");
+////		 try { //this needs to be run only once to setup the database file.
+////		 ex.init();
+////		 } catch (IOException e) {
+////		 // TODO Auto-generated catch block
+////		 e.printStackTrace();
+////		 }
+//
+//		Relation test = new Relation("city.db");
+////		test.listTable();
+//		System.out.println(new String(test.get(1058921154)));
+//		System.out.println(new String(test.get(959629210)));
+//
+//		Relation test2 = new Relation("country.db");
+////		test2.listTable();
+//		System.out.println(new String(test2.get(1362842287)));
+//		System.out.println(new String(test2.get(1298350375)));
+		Relation result = new Relation("projectResult.db");
 		
 		ExEngineJoin joinContryCity = new ExEngineJoin();
 		joinContryCity.open();
 		joinContryCity.getNext();
 		joinContryCity.close();
+		
+		
+		result.listTable();
+				
+		
 
 //		ExEngineProject projectCity = new ExEngineProject();
 //		projectCity.open();

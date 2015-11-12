@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 
-
 /**
  * CS542 Project_3
  * 
@@ -20,10 +19,10 @@ import java.util.Enumeration;
 public class ExEngineJoin {
 	Relation city;
 	Relation country;
-	
+
 	// to store result and to be used in PROJECT operator
 	private Relation joinResult = new Relation("joinResult.db");
-	
+	private ExEngineSelect exeSelect = new ExEngineSelect();
 
 	public ExEngineJoin() {
 	}
@@ -72,65 +71,78 @@ public class ExEngineJoin {
 	}
 
 	// put the whole joined tuple into joinResult
-	public void getNext()  {	
-	String[] tumpleofcity = null;
-	String [] tumpleofcountry = null;
-	String cjc ="";
-	String cityjoincountry[]=null;
-	int count = 0;
-	int compareCount = 0;
-	
-	Enumeration<byte[]> enumofcity = city.getValuesEnum();
-	Enumeration<byte[]> enumofcountry;
-	while(enumofcity.hasMoreElements()){
-	  try{
-		  tumpleofcity = splitoftuple(enumofcity.nextElement());
-	  }catch(UnsupportedEncodingException exp){
-		  exp.printStackTrace();
-	  }
-	  enumofcountry = country.getValuesEnum();
-	  
-	      while(enumofcountry.hasMoreElements()){
-	    	  try{
-	    	      tumpleofcountry =splitoftuple(enumofcountry.nextElement());
-	    	  }catch (UnsupportedEncodingException exp){
-	    		exp.printStackTrace();  
-	    	  }
-//	    	  System.out.println(tumpleofcity[2] + ", " +tumpleofcountry[0]);
-	    	  
-	    	  if(tumpleofcity[2].equals(tumpleofcountry[0])){
-	    		  Double cityP = Double.parseDouble(tumpleofcity[4]);
-                  Double countryP = Double.parseDouble(tumpleofcountry[6]);
-//                  System.out.println(cityP + ", " + countryP);
-                  if(cityP > 0.4 * countryP){
-                	  cjc = tumpleofcity[2] + "," + tumpleofcountry[0] + "," + cityP + "," + countryP;
-//                	  cityjoincountry = new String[tumpleofcity.length+tumpleofcountry.length];
-//	                  System.arraycopy(tumpleofcity,0,cityjoincountry,0, tumpleofcity.length);
-//	                  System.arraycopy(tumpleofcountry,0,cityjoincountry,tumpleofcity.length , tumpleofcountry.length);
-//		    		  for(int i=0;i<cityjoincountry.length-1;i++){
-//		    			  cjc +=  cityjoincountry[i] + ",";
-//		    		  }
-//		    		     cjc+=cityjoincountry[cityjoincountry.length-1];
-                	  joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes());
-                	  count++;
-                  }
-                  break;  // because only one country code, if find it, just skip the rest of them. 
-	    	  }
-	    	  compareCount++;
-	      }
-	  }
-	System.out.println("total join: " + count + "; Compare Count: " + compareCount);
+	public void getNext() throws UnsupportedEncodingException {
+		String[] tumpleofcity = null;
+		String[] tumpleofcountry = null;
+
+		Enumeration<byte[]> enumofcity = city.getValuesEnum();
+		Enumeration<byte[]> enumofcountry;
+		while (enumofcity.hasMoreElements()) {
+			byte[] city = enumofcity.nextElement();
+			try {
+				tumpleofcity = splitoftuple(city);
+			} catch (UnsupportedEncodingException exp) {
+				exp.printStackTrace();
+			}
+			enumofcountry = country.getValuesEnum();
+
+			while (enumofcountry.hasMoreElements()) {
+				byte[] country = enumofcountry.nextElement();
+				try {
+					tumpleofcountry = splitoftuple(country);
+				} catch (UnsupportedEncodingException exp) {
+					exp.printStackTrace();
+				}
+				// System.out.println(tumpleofcity[2] + ", "
+				// +tumpleofcountry[0]);
+
+				if (tumpleofcity[2].equals(tumpleofcountry[0])) {
+					String tuple = new String(country, StandardCharsets.UTF_8) + ","
+							+ new String(city, StandardCharsets.UTF_8);
+					pipelineExe(tuple);
+				}
+			}
+		}
 	}
-	
+	// System.out.println(cityP + ", " + countryP);
+	// if (cityP > 0.4 * countryP) {
+	// cjc = tumpleofcity[2] + "," + tumpleofcountry[0] + "," + cityP + "," +
+	// countryP;
+	// cityjoincountry = new
+	// String[tumpleofcity.length+tumpleofcountry.length];
+	// System.arraycopy(tumpleofcity,0,cityjoincountry,0,
+	// tumpleofcity.length);
+	// System.arraycopy(tumpleofcountry,0,cityjoincountry,tumpleofcity.length
+	// , tumpleofcountry.length);
+	// for(int i=0;i<cityjoincountry.length-1;i++){
+	// cjc += cityjoincountry[i] + ",";
+	// }
+	// cjc+=cityjoincountry[cityjoincountry.length-1];
+	// joinResult.put(cjc.getBytes().hashCode(), cjc.getBytes());
+	// count++;
+	// }
+	// break; // because only one country code, if find it, just
+	// // skip the rest of them.
+	// }
+	// compareCount++;
+	// }
+	// }
+	// // System.out.println("total join: " + count + "; Compare Count: " +
+	// compareCount);
+	// }
+
 	public String[] splitoftuple(byte[] tuple) throws UnsupportedEncodingException {
 		String str = new String(tuple, StandardCharsets.UTF_8);
 		return str.split(","); // ignores commas inside quotation marks
 	}
 
-	
-	
+	public void pipelineExe(String joinResult) throws UnsupportedEncodingException {
+		// exeSelect.open(joinResult);
+		exeSelect.getNext(joinResult);
+		exeSelect.close();
+	}
 
 	public void close() {
-//		joinResult.saveContents();
+		// joinResult.saveContents();
 	}
 }
