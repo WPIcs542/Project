@@ -78,7 +78,6 @@ public class ExEngineJoin {
 	String cjc ="";
 	String cityjoincountry[]=null;
 	int count = 0;
-	int compareCount = 0;
 	
 	Enumeration<byte[]> enumofcity =city.getValuesEnum();
 	Enumeration<byte[]> enumofcountry= country.getValuesEnum();
@@ -97,8 +96,8 @@ public class ExEngineJoin {
 	    	  
 	    	  if(tumpleofcity[2].equals(tumpleofcountry[0])){
 	    		  Double cityP = Double.parseDouble(tumpleofcity[4]);
-                  Double countryP = Double.parseDouble(tumpleofcountry[6]);
-                  if(cityP/countryP > 0.4){
+                  Double countryP=Double.parseDouble(tumpleofcountry[6]);
+                  if(cityP/countryP>0.4){
                 	  cityjoincountry = new String[tumpleofcity.length+tumpleofcountry.length];
 	                  System.arraycopy(tumpleofcity,0,cityjoincountry,0, tumpleofcity.length);
 	                  System.arraycopy(tumpleofcountry,0,cityjoincountry,tumpleofcity.length , tumpleofcountry.length);
@@ -110,16 +109,16 @@ public class ExEngineJoin {
                 joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes());
                 count++;
 	    	  }
-	    	  compareCount++;
+	    	
 	      }
 	  }
-	System.out.println("total join: " + count + "; Compare Count: " + compareCount);
+	System.out.println("total join: " + count);
 	}
 	
 	public String[]splitoftuple(byte[] tuple) throws UnsupportedEncodingException {
 		String str = new String(tuple, StandardCharsets.UTF_8);
 		return str.split(","); // ignores commas inside quotation marks
-	}
+	    }
 
 	
 	

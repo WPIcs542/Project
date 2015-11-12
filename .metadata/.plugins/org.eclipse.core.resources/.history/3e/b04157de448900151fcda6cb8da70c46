@@ -110,7 +110,6 @@ public class ExEngineJoin {
                 joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes());
                 count++;
 	    	  }
-	    	  compareCount++;
 	      }
 	  }
 	System.out.println("total join: " + count + "; Compare Count: " + compareCount);

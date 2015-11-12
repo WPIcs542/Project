@@ -110,8 +110,9 @@ public class ExEngineJoin {
                 joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes());
                 count++;
 	    	  }
-	    	  compareCount++;
+//	    	compareCount++;
 	      }
+	      compareCount++;
 	  }
 	System.out.println("total join: " + count + "; Compare Count: " + compareCount);
 	}
@@ -119,7 +120,7 @@ public class ExEngineJoin {
 	public String[]splitoftuple(byte[] tuple) throws UnsupportedEncodingException {
 		String str = new String(tuple, StandardCharsets.UTF_8);
 		return str.split(","); // ignores commas inside quotation marks
-	}
+	    }
 
 	
 	

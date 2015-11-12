@@ -78,7 +78,6 @@ public class ExEngineJoin {
 	String cjc ="";
 	String cityjoincountry[]=null;
 	int count = 0;
-	int compareCount = 0;
 	
 	Enumeration<byte[]> enumofcity =city.getValuesEnum();
 	Enumeration<byte[]> enumofcountry= country.getValuesEnum();
@@ -110,16 +109,16 @@ public class ExEngineJoin {
                 joinResult.put(cjc.getBytes().hashCode(),cjc.getBytes());
                 count++;
 	    	  }
-	    	  compareCount++;
+	    	
 	      }
 	  }
-	System.out.println("total join: " + count + "; Compare Count: " + compareCount);
+	System.out.println("total join: " + count);
 	}
 	
 	public String[]splitoftuple(byte[] tuple) throws UnsupportedEncodingException {
 		String str = new String(tuple, StandardCharsets.UTF_8);
 		return str.split(","); // ignores commas inside quotation marks
-	}
+	    }
 
 	
 	
