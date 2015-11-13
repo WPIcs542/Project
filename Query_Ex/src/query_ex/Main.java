@@ -19,13 +19,13 @@ public class Main {
 	static ExEngineJoin ex = new ExEngineJoin();
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		Relation result = new Relation("projectResult.db");
+		
 
 		ExEngineJoin joinContryCity = new ExEngineJoin();
 		joinContryCity.open();
 		joinContryCity.getNext();
 		joinContryCity.close();
-
+		Relation result = new Relation("projectResult.db");
 		result.listTable();
 
 		// ExEngineProject projectCity = new ExEngineProject();
