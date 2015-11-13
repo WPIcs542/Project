@@ -4,14 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 
 public class ExEngineSelect {
-
-	private String tuple;
 	private ExEngineProject exeProject = new ExEngineProject();
 
 	public void open(String joinResult) {
-		// Relation joinResult = new Relation("joinResult.db");
-		// joinResultEnume = joinResult.getValuesEnum();
-		tuple = joinResult;
+		// useless in pipeline, intentionally left blank
 	}
 
 	public void getNext(String tupleResult) throws UnsupportedEncodingException {
@@ -25,11 +21,7 @@ public class ExEngineSelect {
 	}
 
 	public void close() {
-		// Enumeration<byte[]> projectResultEnume =
-		// projectResult.getValuesEnum();
-		// while (projectResultEnume.hasMoreElements()) {
-		// finalResult.add(new String(projectResultEnume.nextElement()));
-		// }
+		// useless in pipeline, intentionally left blank
 	}
 
 	public String[] splitOfTuple(String str) throws UnsupportedEncodingException {
@@ -37,9 +29,7 @@ public class ExEngineSelect {
 	}
 
 	public void pipelineExe(String joinResult[]) throws UnsupportedEncodingException {
-		// exeSelect.open(joinResult);
-		exeProject.getNext(joinResult);
-		// exeProject.close();
+		exeProject.getNext(joinResult);	
 	}
 
 }

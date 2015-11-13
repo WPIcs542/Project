@@ -19,9 +19,6 @@ import java.util.Enumeration;
 public class ExEngineJoin {
 	Relation city;
 	Relation country;
-
-	// to store result and to be used in PROJECT operator
-	private Relation joinResult = new Relation("joinResult.db");
 	private ExEngineSelect exeSelect = new ExEngineSelect();
 
 	public ExEngineJoin() {
@@ -69,8 +66,8 @@ public class ExEngineJoin {
 		city = new Relation("city.db");
 		country = new Relation("country.db");
 	}
-
-	// put the whole joined tuple into joinResult
+	
+	
 	public void getNext() throws UnsupportedEncodingException {
 		String[] tumpleofcity = null;
 		String[] tumpleofcountry = null;
@@ -93,9 +90,6 @@ public class ExEngineJoin {
 				} catch (UnsupportedEncodingException exp) {
 					exp.printStackTrace();
 				}
-				// System.out.println(tumpleofcity[2] + ", "
-				// +tumpleofcountry[0]);
-
 				if (tumpleofcity[2].equals(tumpleofcountry[0])) {
 					String tuple = new String(country, StandardCharsets.UTF_8) + ","
 							+ new String(city, StandardCharsets.UTF_8);
@@ -104,45 +98,17 @@ public class ExEngineJoin {
 			}
 		}
 	}
-	// System.out.println(cityP + ", " + countryP);
-	// if (cityP > 0.4 * countryP) {
-	// cjc = tumpleofcity[2] + "," + tumpleofcountry[0] + "," + cityP + "," +
-	// countryP;
-	// cityjoincountry = new
-	// String[tumpleofcity.length+tumpleofcountry.length];
-	// System.arraycopy(tumpleofcity,0,cityjoincountry,0,
-	// tumpleofcity.length);
-	// System.arraycopy(tumpleofcountry,0,cityjoincountry,tumpleofcity.length
-	// , tumpleofcountry.length);
-	// for(int i=0;i<cityjoincountry.length-1;i++){
-	// cjc += cityjoincountry[i] + ",";
-	// }
-	// cjc+=cityjoincountry[cityjoincountry.length-1];
-	// joinResult.put(cjc.getBytes().hashCode(), cjc.getBytes());
-	// count++;
-	// }
-	// break; // because only one country code, if find it, just
-	// // skip the rest of them.
-	// }
-	// compareCount++;
-	// }
-	// }
-	// // System.out.println("total join: " + count + "; Compare Count: " +
-	// compareCount);
-	// }
-
+	
 	public String[] splitoftuple(byte[] tuple) throws UnsupportedEncodingException {
 		String str = new String(tuple, StandardCharsets.UTF_8);
 		return str.split(","); // ignores commas inside quotation marks
 	}
 
 	public void pipelineExe(String joinResult) throws UnsupportedEncodingException {
-		// exeSelect.open(joinResult);
-		exeSelect.getNext(joinResult);
-		exeSelect.close();
+		exeSelect.getNext(joinResult);	
 	}
 
 	public void close() {
-		// joinResult.saveContents();
+		//close the file read in;
 	}
 }

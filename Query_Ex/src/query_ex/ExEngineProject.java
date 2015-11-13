@@ -17,16 +17,10 @@ import java.util.Enumeration;
  * @date November/04/2015
  */
 public class ExEngineProject {
-	private Relation joinResult;
-	private Enumeration<byte[]> joinResultEnume;
 	private Relation projectResult = new Relation("projectResult.db");
-	private ArrayList<String> finalResult = new ArrayList<String>();
-	private String tupleResult;
 
 	public void open() {
-		// Relation joinResult = new Relation("joinResult.db");
-		// joinResultEnume = joinResult.getValuesEnum();
-		// tupleResult = joinResult;
+		// useless in pipeline, intentionally left blank
 	}
 
 	public void getNext(String tuple[]) throws UnsupportedEncodingException {
@@ -37,14 +31,8 @@ public class ExEngineProject {
 	}
 
 	public void close() {
-		Enumeration<byte[]> projectResultEnume = projectResult.getValuesEnum();
-		while (projectResultEnume.hasMoreElements()) {
-			finalResult.add(new String(projectResultEnume.nextElement()));
-		}
-	}
+		// useless in pipeline, intentionally left blank
 
-	public ArrayList<String> getFinalResult() {
-		return finalResult;
 	}
 
 	public String[] splitOfTuple(String str) throws UnsupportedEncodingException {
