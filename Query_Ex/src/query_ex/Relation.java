@@ -243,6 +243,8 @@ public class Relation {
 		System.out.println("Size: " + count);
 		return true;
 	}
+	
+	
 
 	public Enumeration<byte[]> getValuesEnum() {
 		return data.elements();

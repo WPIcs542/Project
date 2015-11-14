@@ -109,6 +109,7 @@ public class ExEngineJoin {
 	}
 
 	public void close() {
-		//close the file read in;
+		city.clear();
+		country.clear();
 	}
 }
