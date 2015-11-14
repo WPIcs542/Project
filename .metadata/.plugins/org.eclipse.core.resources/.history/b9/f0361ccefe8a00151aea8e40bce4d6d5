@@ -94,7 +94,6 @@ public class ExEngineJoin {
 					String tuple = new String(country, StandardCharsets.UTF_8) + ","
 							+ new String(city, StandardCharsets.UTF_8);
 					pipelineExe(tuple);
-					break;
 				}
 			}
 		}

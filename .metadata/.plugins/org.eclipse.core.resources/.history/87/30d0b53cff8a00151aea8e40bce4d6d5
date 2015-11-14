@@ -30,7 +30,7 @@ public class Main {
 		result.listTable();
 		
 //		long endTime = System.nanoTime();
-//		System.out.println("Join, Select, Projection All took "+((double)(endTime - startTime))*(10^9) + " sec");
+//		System.out.println("All Took "+((double)(endTime - startTime))*(10^9) + " sec");
 		
 		// ExEngineProject projectCity = new ExEngineProject();
 		// projectCity.open();

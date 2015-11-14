@@ -20,7 +20,7 @@ public class Main {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		
-//		long startTime = System.nanoTime();
+		long startTime = System.nanoTime();
 		
 		ExEngineJoin joinContryCity = new ExEngineJoin();
 		joinContryCity.open();
@@ -29,8 +29,8 @@ public class Main {
 		Relation result = new Relation("projectResult.db");
 		result.listTable();
 		
-//		long endTime = System.nanoTime();
-//		System.out.println("Join, Select, Projection All took "+((double)(endTime - startTime))*(10^9) + " sec");
+		long endTime = System.nanoTime();
+		System.out.println("All Took "+(endTime - startTime)*(10^9) + " ns");
 		
 		// ExEngineProject projectCity = new ExEngineProject();
 		// projectCity.open();
