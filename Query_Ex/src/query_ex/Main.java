@@ -10,6 +10,11 @@ import java.io.UnsupportedEncodingException;
  * @date November/04/2015
  */
 
+/**
+ *this is the test for our query program 
+ * @author hongzhangcheng
+ *
+ */
 public class Main {
 	static Relation relation = new Relation("cs542.db"); // Initialize value
 															// store object
@@ -20,18 +25,14 @@ public class Main {
 
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		
-//		long startTime = System.nanoTime();
-		
+
 		ExEngineJoin joinContryCity = new ExEngineJoin();
 		joinContryCity.open();
 		joinContryCity.getNext();
 		joinContryCity.close();
 		Relation result = new Relation("projectResult.db");
 		result.listTable();
-		
-//		long endTime = System.nanoTime();
-//		System.out.println("Join, Select, Projection All took "+((double)(endTime - startTime))*(10^9) + " sec");
-		
+
 		// ExEngineProject projectCity = new ExEngineProject();
 		// projectCity.open();
 		// projectCity.getNext();
