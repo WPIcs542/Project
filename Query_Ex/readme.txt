@@ -1,4 +1,4 @@
-CS542 Project_3
+﻿CS542 Project_3
 Team: Fangyu Lin; Hongzhang Cheng; Zhaojun Yang
 Date November/12/2015
 
@@ -10,23 +10,29 @@ Key Notes:
 
 This file is an introduction of Query-execution and how it works. 
 
-In this project, we use hashtable to store our relation, we used the project we made before to implement the function of our hashtable,
-after we get the relation we are going to do the operation on, we at first read them out,then split them ,doubleparse the attribute we want 
-in it and compared tuple and select the attribute based on them. in the procedure, we used a break in join operation, when a city find a 
-country which match its country code, it gona directly break the loop and skip the comparison with the rest of country. this method could
-reduce the runtime. besides we used the pipeline fuction which could connected our two operation, so we dont need to save data in a new relation
+Relation store:
+In this project, we use hashtable to store our relation. Program of project one is used to realize the Relation class. 
+The city table and country table in world.sql file are saved into two txt files, done by init() method. By executing open() method in ExeJoin, contents in these two files are read into memory and form two relation: city and country.
+In these relations, each tuple's hashcode is the key and tuple string itself is the value. Program splits tuple into different attributes on character "," by method splitoftuple().
 
+Operation:
+Our project contains three operator: 
+JOIN city and country on countrycode
+SELECT tuple where city.pop>0.4*country.pop
+PROJECT city.name from tuple 
+Therefore, three class, ExeJoin, ExeSelect, ExeProject are realized. 
+Since PIPELINE is used in this project (we use a method called pipelineExe() in ExeJoin and ExeSelect to represent this), which means tuples are sent to the next operator as soon as they are ready, SELECT and PROJECT operator do not need to read the data from disk into memory. As a result, open() close() methods are only implemented in ExeJoin.
+At runtime, we use a break in join operation. In getNext() method in ExeJoin, when a city finds a country which matches its country code, it directly breaks the loop and skips the comparison with the rest of country. This method can reduce the runtime. 
 
 Testing method and how to use:
-Once the program starts to run, the following is printed first:
+In main() method, open(), getNext() and close() methods in ExeJoin are executed one by one. 
 Database file exists !
 Database file exists !
 Database file exists !
 Database file exists !
 Database file exists !
 Database file exists !
-our program initialize the ExEnginejoin object, the using the function of the open, getnext and close of this object
-then you will see the results and how many tuples had been joined show as below:
+The result is stored in a file called projectResult.db. We read the file and print the result:
 Value of Key:	2973	---The size of data:	6 Bytes	value: 'Doha'
 Value of Key:	2316	---The size of data:	8 Bytes	value: 'Bantam'
 Value of Key:	763	---The size of data:	9 Bytes	value: 'Stanley'
@@ -46,5 +52,11 @@ Value of Key:	3538	---The size of data:	20 Bytes	value: 'Citt? del Vaticano'
 Value of Key:	2881	---The size of data:	7 Bytes	value: 'Koror'
 Value of Key:	2912	---The size of data:	11 Bytes	value: 'Adamstown'
 Size: 18
-our program at first read data from the relation tables and then transform and split them, after that, do the comparison
-tuple by tuple based on the attribute condition.
+By comparing with the result got from executing the following on world.sql in mysql
+select country.Name
+
+from world.city,  world.country
+ where city.CountryCode = country.Code and
+	
+       city.population > 0.4*country.population
+we conclude that our result is correct.
