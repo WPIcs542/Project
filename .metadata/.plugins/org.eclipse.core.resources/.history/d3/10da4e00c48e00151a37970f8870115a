@@ -1,0 +1,11 @@
+package redoLog;
+
+public class Main {
+	static Relation relation = new Relation("cs542.db"); // Initialize value
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Here is the test line!");
+	}
+
+}

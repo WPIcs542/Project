@@ -1,0 +1,12 @@
+package redoLog;
+
+public class Main {
+	static Relation country = new Relation("country.db"); // Initialize value
+	static Relation city = new Relation("city.db");
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Here is the test line!");
+	}
+
+}
