@@ -1,3 +1,4 @@
+
 package redoLog;
 
 import java.io.File;
@@ -251,4 +252,3 @@ public class Relation {
 		return data.elements();
 	};
 }
-
