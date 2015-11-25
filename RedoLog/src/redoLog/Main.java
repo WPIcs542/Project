@@ -19,12 +19,18 @@ public class Main {
 	static Relation city = new Relation("city.db");		//read into memory
 //	static Relation city2 = new Relation("city_backup.db");        //backup file
 //	static Relation country2 = new Relation("country_backup.db");  //backup file
-	static RedoLog citylog = new RedoLog();
-	static RedoLog countrylog = new RedoLog();
+//	static RedoLog citylog = new RedoLog();
+//	static RedoLog countrylog = new RedoLog();
+	static UpdateOp update = new UpdateOp();
+	
 	
 	public static void main(String[] args) {
+		
+		
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
+		update.UpdateOP(city,4);
+		city.listTable();
 //		country.listTable();
 //		city.listTable();
 		

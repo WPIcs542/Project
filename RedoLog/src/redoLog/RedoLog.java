@@ -20,9 +20,12 @@ public class RedoLog {
 	final String STOP = "<STOP>";
 	final String UPDATE = "<UPDATE>";
 	List<String> logline;
+	private String filename;
 	
-	public RedoLog(){
+	public RedoLog(String filename) throws IOException{
+		this.filename=filename;
 		logline = new ArrayList<String>();
+		readLargerTextFile(filename);
 	}
 	
 	public void writeCommit(){
@@ -69,8 +72,8 @@ public class RedoLog {
 	   }
 	}
 	
-	public void savelog(String filename) throws IOException{
-		writeLargerTextFile(filename, logline);
+	public void savelog() throws IOException{
+		writeLargerTextFile(this.filename, logline);
 	}
 	
 	public void clearlog(){
