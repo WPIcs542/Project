@@ -1,0 +1,110 @@
+package redoLog;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ * CS542 Project_4
+ * 
+ * @author Fangyu Lin; Hongzhang Cheng; Zhaojun Yang
+ * @date November/19/2015
+ */
+
+public class Main {
+	static Relation country = new Relation("country.db"); // Read into memory
+	static Relation city = new Relation("city.db");		//read into memory
+	static Relation city2 = new Relation("city_backup.db");        //backup file
+	static Relation country2 = new Relation("country_backup.db");  //backup file
+	static RedoLog citylog = new RedoLog();
+	static RedoLog countrylog = new RedoLog();
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Here is the test line!");
+//		country2.listTable();
+//		city2.listTable();
+		try {
+			init();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//this is only need to be ran once to initialization log files.
+//		try {
+//			citylog.init("city.log");
+//			countrylog.init("country.log");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+//		try {
+//			citylog.readLargerTextFile("city.log");
+//			countrylog.readLargerTextFile("country.log");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+//		citylog.writeStart();
+//		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
+//		citylog.printlog();
+//		countrylog.writeStart();
+//		countrylog.printlog();
+//		countrylog.writeCommit();
+		
+//		try {
+//			citylog.savelog("city.log");
+//			countrylog.savelog("country.log");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	}
+	
+	public static void init() throws IOException {
+		city = new Relation("city.db");
+		country = new Relation("country.db");
+		String cityfile = "city.txt";
+		String countryfile = "country.txt";
+		FileInputStream fs;
+		InputStreamReader isr;
+		BufferedReader b_read;
+		String templine;
+		String [] split_temp;
+		try {
+			fs = new FileInputStream(cityfile);
+			isr = new InputStreamReader(fs);
+			b_read = new BufferedReader(isr);
+			while ((templine = b_read.readLine()) != null) {
+				split_temp = templine.split(",");
+				city.put(split_temp[0].getBytes().hashCode(), templine.getBytes());
+			}
+			city.saveContents();
+			b_read.close();
+			isr.close();
+			fs.close();
+
+			fs = new FileInputStream(countryfile);
+			isr = new InputStreamReader(fs);
+			b_read = new BufferedReader(isr);
+			while ((templine = b_read.readLine()) != null) {
+				split_temp = templine.split(",");
+				country.put(split_temp[0].getBytes().hashCode(), templine.getBytes());
+			}
+			country.saveContents();
+			b_read.close();
+			isr.close();
+			fs.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Initialization of \"city.db\" and \"country.db\" successful!");
+	}
+
+}

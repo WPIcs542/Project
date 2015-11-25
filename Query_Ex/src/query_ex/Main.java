@@ -1,6 +1,5 @@
 package query_ex;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -19,8 +18,6 @@ public class Main {
 	static Relation relation = new Relation("cs542.db"); // Initialize value
 															// store object
 	static final int vKey = 428657931; // this key is used for testing only
-	private static final int MAX_VALUE_SIZE = 1024 * 1024; // set maximum size
-															// 1MB
 	static ExEngineJoin ex = new ExEngineJoin();
 
 	public static void main(String[] args) throws UnsupportedEncodingException {

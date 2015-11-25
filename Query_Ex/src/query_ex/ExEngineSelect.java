@@ -1,7 +1,6 @@
 package query_ex;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
 
  /**
   *  this class is for get the tuple satisfy our condition 

@@ -54,7 +54,7 @@ public class RedoLog {
 	    	while (scanner.hasNextLine()){
 	    		//process each line in some way
 	    		logline.add(scanner.nextLine());
-	    	}     
+	    	}
 	    }
 	}
 	
