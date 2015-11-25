@@ -38,11 +38,10 @@ public class Main {
 		}
 		
 //		citylog.writeStart();
-//		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
-//		citylog.printlog();
+//		citylog.writeUpdate("Beijing", 954321.0, 1234567.0);
+		citylog.printlog();
 //		countrylog.writeStart();
-//		countrylog.printlog();
-//		countrylog.writeCommit();
+		countrylog.printlog();
 		
 //		try {
 //			citylog.savelog("city.log");

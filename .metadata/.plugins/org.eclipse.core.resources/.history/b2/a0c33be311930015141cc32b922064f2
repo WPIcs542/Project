@@ -38,7 +38,7 @@ public class RedoLog {
 	}
 	
 	public void writeUpdate(String name, double old_pop, double new_pop){
-		String temp = UPDATE + "," + name + "," + old_pop + "," + new_pop;
+		String temp = UPDATE + "," + city + "," + old_pop + "," + new_pop;
 		logline.add(temp);
 	}
 	
@@ -67,10 +67,6 @@ public class RedoLog {
 		   }
 		   writer.close();
 	   }
-	}
-	
-	public void savelog(String filename) throws IOException{
-		writeLargerTextFile(filename, logline);
 	}
 	
 	public void clearlog(){

@@ -38,19 +38,18 @@ public class Main {
 		}
 		
 //		citylog.writeStart();
-//		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
-//		citylog.printlog();
+		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
+		citylog.printlog();
 //		countrylog.writeStart();
-//		countrylog.printlog();
-//		countrylog.writeCommit();
+		countrylog.printlog();
 		
-//		try {
-//			citylog.savelog("city.log");
-//			countrylog.savelog("country.log");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			citylog.savelog("city.log");
+			countrylog.savelog("country.log");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

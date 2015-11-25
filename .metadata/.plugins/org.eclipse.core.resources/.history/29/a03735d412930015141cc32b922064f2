@@ -37,20 +37,14 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-//		citylog.writeStart();
-//		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
-//		citylog.printlog();
-//		countrylog.writeStart();
-//		countrylog.printlog();
-//		countrylog.writeCommit();
+		citylog.writeStart();
+		citylog.writeUpdate("Beijing", 954321.0, 1234567.0);
+		citylog.printlog();
+		countrylog.writeStart();
+		countrylog.printlog();
 		
-//		try {
-//			citylog.savelog("city.log");
-//			countrylog.savelog("country.log");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		citylog.savelog("city.log");
+		countrylog.savelog("country.log");
 	}
 
 }

@@ -69,7 +69,7 @@ public class RedoLog {
 	   }
 	}
 	
-	public void savelog(String filename) throws IOException{
+	public void savelog(String filename){
 		writeLargerTextFile(filename, logline);
 	}
 	
