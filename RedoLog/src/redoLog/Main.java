@@ -15,6 +15,8 @@ import java.nio.charset.StandardCharsets;
  */
 
 public class Main {
+	static final int citypopindex=4;
+	static final int countryindex=6;
 	static Relation country = new Relation("country.db"); // Read into memory
 	static Relation city = new Relation("city.db");		//read into memory
 //	static Relation city2 = new Relation("city_backup.db");        //backup file
@@ -29,8 +31,10 @@ public class Main {
 		
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
-		update.UpdateOP(city,4);
-		city.listTable();
+		update.UpdateOP(country,countryindex);
+		
+//		city.listTable();
+//		update.close();
 //		country.listTable();
 //		city.listTable();
 		
@@ -68,6 +72,7 @@ public class Main {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+		System.out.println("finish");
 	}
 	
 	public static void init() throws IOException {
