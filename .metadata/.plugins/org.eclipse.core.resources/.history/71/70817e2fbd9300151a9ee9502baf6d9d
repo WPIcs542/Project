@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Main {
 	static final int citypopindex=4;
-	static final int countrypopindex=6;
+	static final int countryindex=6;
 	static Relation country = new Relation("country.db"); // Read into memory
 	static Relation city = new Relation("city.db");		//read into memory
 //	static Relation city2 = new Relation("city_backup.db");        //backup file
@@ -28,10 +28,8 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
-		long startTime = System.currentTimeMillis();
-		update.UpdateOP(country,countrypopindex);
-		update.UpdateOP(city,citypopindex);
-		System.out.println("Time: " + (System.currentTimeMillis()-startTime) + " ms.");
+		update.UpdateOP(country,countryindex);
+		
 //		city.listTable();
 //		update.close();
 //		country.listTable();

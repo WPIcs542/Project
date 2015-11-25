@@ -28,10 +28,8 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
-		long startTime = System.currentTimeMillis();
 		update.UpdateOP(country,countrypopindex);
 		update.UpdateOP(city,citypopindex);
-		System.out.println("Time: " + (System.currentTimeMillis()-startTime) + " ms.");
 //		city.listTable();
 //		update.close();
 //		country.listTable();
