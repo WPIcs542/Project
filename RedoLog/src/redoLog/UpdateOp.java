@@ -20,18 +20,7 @@ public class UpdateOp {
 	
 	
 	public UpdateOp()  {
-//	 try{	
-//		this.r=r;
-//		if(j==4){
-//			popindex=4;	
-//			log= new RedoLog("city.log");
-//		}else{
-//			popindex=6;
-//			log= new RedoLog("country.log");
-//		}
-//	 }catch(IOException e){
-//		 e.printStackTrace();
-//	 }
+
 	}
 		
 	
@@ -61,7 +50,7 @@ public class UpdateOp {
 				exp.printStackTrace();
 			}
 			Double tupleP = Double.parseDouble(tumpleofr[popindex]);
-			Double newtumpleP=tupleP*1.2;
+			Double newtumpleP=tupleP*1.02;
 			tumpleofr[popindex]=newtumpleP.toString();
            try{
         	   newenumofr=unsplitoftuple(tumpleofr);
