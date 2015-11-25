@@ -11,17 +11,16 @@ import java.io.IOException;
 
 public class Main {
 	static Relation country = new Relation("country.db"); // Read into memory
-	static Relation city = new Relation("city.db");		//read into memory
-	static Relation city2 = new Relation("city_backup.db");        //backup file
-	static Relation country2 = new Relation("country_backup.db");  //backup file
+	static Relation city = new Relation("city.db");	//read into memory
+	static Relation city2 = new Relation("city_a.db"); //backup file
+	static Relation country2 = new Relation("country_a.db"); //backup file
 	static RedoLog citylog = new RedoLog();
 	static RedoLog countrylog = new RedoLog();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
-//		country2.listTable();
-//		city2.listTable();
+		country.listTable();
 
 		//this is only need to be ran once to initialization log files.
 //		try {
@@ -42,9 +41,9 @@ public class Main {
 		
 //		citylog.writeStart();
 //		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
-		citylog.printlog();
+//		citylog.printlog();
 //		countrylog.writeStart();
-		countrylog.printlog();
+//		countrylog.printlog();
 //		countrylog.writeCommit();
 		
 //		try {

@@ -42,9 +42,9 @@ public class Main {
 		
 //		citylog.writeStart();
 //		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
-		citylog.printlog();
+//		citylog.printlog();
 //		countrylog.writeStart();
-		countrylog.printlog();
+//		countrylog.printlog();
 //		countrylog.writeCommit();
 		
 //		try {

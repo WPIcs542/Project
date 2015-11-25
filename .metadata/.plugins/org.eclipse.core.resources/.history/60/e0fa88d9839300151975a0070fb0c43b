@@ -20,9 +20,10 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
-//		country2.listTable();
-//		city2.listTable();
+//		country.listTable();
 
+		city2.listTable();
+		country2.listTable();
 		//this is only need to be ran once to initialization log files.
 //		try {
 //			citylog.init("city.log");
@@ -42,9 +43,9 @@ public class Main {
 		
 //		citylog.writeStart();
 //		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
-		citylog.printlog();
+//		citylog.printlog();
 //		countrylog.writeStart();
-		countrylog.printlog();
+//		countrylog.printlog();
 //		countrylog.writeCommit();
 		
 //		try {
