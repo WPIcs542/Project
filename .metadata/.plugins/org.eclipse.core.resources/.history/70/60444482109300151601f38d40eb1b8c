@@ -18,7 +18,6 @@ public class RedoLog {
 	final String COMMIT = "<COMMIT>";
 	final String START = "<START>";
 	final String STOP = "<STOP>";
-	final String UPDATE = "<UPDATE>";
 	List<String> logline;
 	
 	public RedoLog(){
@@ -35,10 +34,6 @@ public class RedoLog {
 	
 	public void writeStop(){
 		logline.add(STOP);
-	}
-	
-	public void writeUpdate(){
-		logline.add(UPDATE);
 	}
 	
 	public void init(String logname) throws IOException{

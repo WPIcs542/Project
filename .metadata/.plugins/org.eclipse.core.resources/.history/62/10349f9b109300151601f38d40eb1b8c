@@ -39,7 +39,6 @@ public class Main {
 		
 		citylog.writeStart();
 		citylog.printlog();
-		countrylog.writeStart();
 		countrylog.printlog();
 		
 	}

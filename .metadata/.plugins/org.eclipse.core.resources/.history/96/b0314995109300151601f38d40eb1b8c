@@ -37,9 +37,7 @@ public class Main {
 			e.printStackTrace();
 		}
 		
-		citylog.writeStart();
 		citylog.printlog();
-		countrylog.writeStart();
 		countrylog.printlog();
 		
 	}
