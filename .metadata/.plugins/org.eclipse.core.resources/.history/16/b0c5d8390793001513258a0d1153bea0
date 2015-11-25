@@ -1,0 +1,12 @@
+package redoLog;
+
+public class RedoLog {
+	//TODO: start project 4 here. 
+	public RedoLog(){
+		
+	}
+	
+	public void init(String logname){
+		
+	}
+}

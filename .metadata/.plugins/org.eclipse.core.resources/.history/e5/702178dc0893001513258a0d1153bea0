@@ -1,0 +1,55 @@
+package redoLog;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Scanner;
+
+public class RedoLog {
+	//TODO: start project 4 here. 
+	final String INIT = "<INIT>";
+	final String COMMIT = "<COMMIT>";
+	final String START = "<START>";
+	final String STOP = "<STOP>";
+	static List<String> logline;
+	
+	public RedoLog(){
+		logline = new List<String>();
+	}
+	
+	public void init(String logname){
+		
+	}
+	
+	public void readLargerTextFile(String logname) throws IOException {
+	    Path path = Paths.get(logname);
+	    try (Scanner scanner =  new Scanner(path, ENCODING.name())){
+	      while (scanner.hasNextLine()){
+	        //process each line in some way
+	        logline.add(scanner.nextLine());
+	      }      
+	    }
+	  }
+	  
+	  void readLargerTextFileAlternate(String aFileName) throws IOException {
+	    Path path = Paths.get(aFileName);
+	    try (BufferedReader reader = Files.newBufferedReader(path, ENCODING)){
+	      String line = null;
+	      while ((line = reader.readLine()) != null) {
+	        //process each line in some way
+	        log(line);
+	      }      
+	    }
+	  }
+	  
+	  void writeLargerTextFile(String aFileName, List<String> aLines) throws IOException {
+	    Path path = Paths.get(aFileName);
+	    try (BufferedWriter writer = Files.newBufferedWriter(path, ENCODING)){
+	      for(String line : aLines){
+	        writer.write(line);
+	        writer.newLine();
+	      }
+	    }
+	  }
+}

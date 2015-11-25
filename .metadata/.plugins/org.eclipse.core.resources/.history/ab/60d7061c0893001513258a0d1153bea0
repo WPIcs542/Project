@@ -1,0 +1,17 @@
+package redoLog;
+
+public class RedoLog {
+	//TODO: start project 4 here. 
+	final String INIT = "<INIT>";
+	final String COMMIT = "<COMMIT>";
+	final String START = "<START>";
+	final String STOP = "<STOP>";
+	
+	public RedoLog(){
+		
+	}
+	
+	public void init(String logname){
+		
+	}
+}
