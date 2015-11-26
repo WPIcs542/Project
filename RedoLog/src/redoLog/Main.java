@@ -30,7 +30,8 @@ public class Main {
 		System.out.println("Here is the test line!");
 		long startTime = System.currentTimeMillis();
 		update.UpdateOP(country,countrypopindex);
-		update.UpdateOP(city,citypopindex);
+	    update.close();
+    	update.oldcountry.listTable();
 		System.out.println("Time: " + (System.currentTimeMillis()-startTime) + " ms.");
 //		city.listTable();
 //		update.close();
