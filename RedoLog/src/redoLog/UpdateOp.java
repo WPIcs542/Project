@@ -1,6 +1,9 @@
 package redoLog;
 
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -9,11 +12,11 @@ import java.util.Enumeration;
 import javax.imageio.IIOException;
 
 public class UpdateOp {
-	Relation city = new Relation("city.db");
-	Relation country = new Relation("country.db");
+//	Relation city = new Relation("city.db");
+//	Relation country = new Relation("country.db");
 	Relation r;
-	Relation oldcity =city;
-	Relation oldcountry= country;
+	Relation oldcity =new Relation("city_backup.db");
+	Relation oldcountry= new Relation("country_backup.db");
 	int popindex;
 	byte[] newenumofr=null;
 	RedoLog log;
@@ -30,6 +33,7 @@ public class UpdateOp {
 			if(j==4){
 				popindex=4;	
 				log= new RedoLog("city.log");
+				
 			}else{
 				popindex=6;
 				log= new RedoLog("country.log");
@@ -37,6 +41,8 @@ public class UpdateOp {
 		 }catch(IOException e){
 			 e.printStackTrace();
 		 }
+		log.writeInit();
+		log.writeStart();
 	
 		String[] tumpleofr = null;
 		Enumeration<byte[]> enumofr = r.getValuesEnum();
@@ -49,8 +55,9 @@ public class UpdateOp {
 			} catch (UnsupportedEncodingException exp) {
 				exp.printStackTrace();
 			}
+//			Long tupleP=Long.parseLong(tumpleofr[popindex]);
 			Double tupleP = Double.parseDouble(tumpleofr[popindex]);
-			Double newtumpleP=tupleP*1.02;
+			Long newtumpleP=(long) (tupleP*1.02);
 			tumpleofr[popindex]=newtumpleP.toString();
            try{
         	   newenumofr=unsplitoftuple(tumpleofr);
@@ -60,7 +67,7 @@ public class UpdateOp {
            }
            r.put(tumpleofr[0].hashCode(), newenumofr);
            
-           log.writeUpdate(tumpleofr[1], tupleP, newtumpleP);
+           log.writeUpdate(tumpleofr[0].hashCode() ,tumpleofr[1],tupleP, newtumpleP);
 
              
 		}
@@ -74,39 +81,38 @@ public class UpdateOp {
 		
 	}
 	
-	public void getNext(){
+	public void getNext() {
 		if(popindex==4){r=oldcity;}else{r=oldcountry;};
-		byte[] newenumofr=null;
+		String[] oldtumple=null;
+		String[] logtumple=null;
+		byte[] oldtumpleofr=null;
+		byte[] oldtumplebyte=null;
 		
-		String[] tumpleofr = null;
-		Enumeration<byte[]> enumofr = r.getValuesEnum();
-		while (enumofr.hasMoreElements()){
-			byte[] rtupleofbyte = enumofr.nextElement();			
-			try {
-				tumpleofr = splitoftuple(rtupleofbyte);
-			} catch (UnsupportedEncodingException exp) {
-				exp.printStackTrace();
-			}
-			Double tupleP = Double.parseDouble(tumpleofr[popindex]);
-			tumpleofr[popindex]=(tupleP*=1.02).toString();
-           try{
-        	   newenumofr=unsplitoftuple(tumpleofr);
-           }catch(UnsupportedEncodingException e){
-        	   e.printStackTrace();
-        	   
-           }
-        
-           r.put(tumpleofr[0].hashCode(), newenumofr);
-           }
+			try (BufferedReader br = new BufferedReader(new FileReader(log.getfilename()))) {
+			    String line;
+			    while ((line = br.readLine()) != null) {
+			    	 if(!line.equals("<INIT>")&&!line.equals("<START>") &&!line.equals("<COMMIT>")){
+			    		 logtumple=line.split(","); 
+			    		 int j=Integer.parseInt(logtumple[1]);
+			    		 System.out.println(j);
+			    		 oldtumplebyte=r.get(Integer.parseInt(logtumple[1]));
+			             
+			    		 oldtumple=splitoftuple(oldtumplebyte);
+			    		 oldtumple[popindex]=logtumple[4];
+			    		oldtumpleofr=unsplitoftuple(oldtumple);
+			    		r.put(oldtumple[0].hashCode(),oldtumpleofr );			    		 
+			    	 }
+			    }
+			}catch(FileNotFoundException e){e.printStackTrace();}catch(IOException ex){ex.printStackTrace();}   
 	    r.saveContents();
-	    }
+    }
 		
 	
 	
 	public void close(){
-     log.writeCommit();
-	 try{log.savelog();}catch(IOException e){e.printStackTrace();}
-	 log.clearlog();
+//     log.writeCommit();
+//	 try{log.savelog();}catch(IOException e){e.printStackTrace();}
+//	 log.clearlog();
 	 this.getNext();
 	 
 		
@@ -130,3 +136,4 @@ public class UpdateOp {
 			return retString.getBytes("UTF-8");
 		    }
 }
+
