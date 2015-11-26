@@ -39,17 +39,20 @@ public class RedoLog {
 	public void writeStop(){
 		logline.add(STOP);
 	}
+	public void writeInit(){
+		logline.add(INIT);
+	}
 	
-	public void writeUpdate(String name, double old_pop, double new_pop){
-		String temp = UPDATE + "," + name + "," + old_pop + "," + new_pop;
+	public void writeUpdate(int key,String name, double old_pop, double new_pop){
+		String temp = UPDATE + ","+key+"," + name + "," + old_pop + "," + new_pop;
 		logline.add(temp);
 	}
 	
-	public void init(String logname) throws IOException{
-		String firstline = "<INIT>";
-		logline.add(firstline);
-		writeLargerTextFile(logname, logline);
-	}
+//	public void init(String logname) throws IOException{
+//		String firstline = "<INIT>";
+//		logline.add(firstline);
+//		writeLargerTextFile(logname, logline);
+//	}
 	
 	public void readLargerTextFile(String logname) throws IOException {
 	    Path path = Paths.get(logname);
@@ -84,5 +87,8 @@ public class RedoLog {
 		for(String lgg : logline){
 			System.out.println(lgg);
 		}
+	}
+	public String getfilename(){
+		return this.filename;
 	}
 }
