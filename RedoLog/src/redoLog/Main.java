@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 /**
  * CS542 Project_4
@@ -19,20 +20,42 @@ public class Main {
 	static final int countrypopindex = 6;
 	static Relation country = new Relation("country.db"); // Read into memory
 	static Relation city = new Relation("city.db"); // read into memory
-	// static Relation city2 = new Relation("city_backup.db"); //backup file
-	// static Relation country2 = new Relation("country_backup.db"); //backup
+	static Relation city2 = new Relation("city_backup.db"); // backup file
+	static Relation country2 = new Relation("country_backup.db"); // backup
 	// file
 	// static RedoLog citylog = new RedoLog();
 	// static RedoLog countrylog = new RedoLog();
-	static UpdateOp update = new UpdateOp();
+	static UpdateOp updateCity = new UpdateOp(citypopindex);
+	static UpdateOp updateCountry = new UpdateOp(countrypopindex);
 
-	public static void main(String[] args) {
+	static UpdateDB updateBackUpCity;
+	static UpdateDB updateBackUpCountry;
+
+	public static void main(String[] args) throws IOException {
+		// init();
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
 		long startTime = System.currentTimeMillis();
-		update.UpdateOP(country, countrypopindex);
-		update.close();
-		update.oldcountry.listTable();
+
+		// increase population
+		updateCity.open(city);
+		updateCity.getNext();
+		updateCity.close();
+
+		// edit backup file using log file
+		updateBackUpCity = new UpdateDB("city.log", citypopindex);
+		updateBackUpCity.updateBackup(city2);
+
+		// increase population
+		updateCountry.open(country);
+		updateCountry.getNext();
+		updateCountry.close();
+
+		// edit backup file using log file
+		updateBackUpCountry = new UpdateDB("country.log", countrypopindex);
+		updateBackUpCountry.updateBackup(country2);
+
+		//
 		System.out.println("Time: " + (System.currentTimeMillis() - startTime) + " ms.");
 		// city.listTable();
 		// update.close();
@@ -74,6 +97,20 @@ public class Main {
 		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
+		for (int k : country.getKeysArray()) {
+			if (!Arrays.equals(country2.get(k), country.get(k))) {
+				System.out.println("Error: Relations do not match");
+				return;
+			}
+		}
+
+		for (int k : city.getKeysArray()) {
+			if (!Arrays.equals(city2.get(k), city.get(k))) {
+				System.out.println("Error: Relations do not match");
+				return;
+			}
+		}
+
 		System.out.println("finish");
 	}
 

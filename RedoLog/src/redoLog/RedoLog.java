@@ -25,7 +25,7 @@ public class RedoLog {
 	public RedoLog(String filename) throws IOException {
 		this.filename = filename;
 		logline = new ArrayList<String>();
-		readLargerTextFile(filename);
+	//	readLargerTextFile(filename);
 	}
 
 	public void writeCommit() {

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Set;
@@ -254,4 +255,8 @@ public class Relation {
 	public Enumeration<byte[]> getValuesEnum() {
 		return data.elements();
 	};
+
+	public ArrayList<Integer> getKeysArray() {
+		return new ArrayList<Integer>(data.keySet());
+	}
 }
