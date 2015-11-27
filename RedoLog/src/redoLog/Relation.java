@@ -244,10 +244,13 @@ public class Relation {
 		System.out.println("Size: " + count);
 		return true;
 	}
-/**
- * this is the function for return all the data of our relation hashtable
- * @return all elements in our hash table as enumeration which contain several byte array
- */
+
+	/**
+	 * this is the function for return all the data of our relation hashtable
+	 * 
+	 * @return all elements in our hash table as enumeration which contain
+	 *         several byte array
+	 */
 	public Enumeration<byte[]> getValuesEnum() {
 		return data.elements();
 	};

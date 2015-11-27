@@ -15,66 +15,68 @@ import java.nio.charset.StandardCharsets;
  */
 
 public class Main {
-	static final int citypopindex=4;
-	static final int countrypopindex=6;
+	static final int citypopindex = 4;
+	static final int countrypopindex = 6;
 	static Relation country = new Relation("country.db"); // Read into memory
-	static Relation city = new Relation("city.db");		//read into memory
-//	static Relation city2 = new Relation("city_backup.db");        //backup file
-//	static Relation country2 = new Relation("country_backup.db");  //backup file
-//	static RedoLog citylog = new RedoLog();
-//	static RedoLog countrylog = new RedoLog();
+	static Relation city = new Relation("city.db"); // read into memory
+	// static Relation city2 = new Relation("city_backup.db"); //backup file
+	// static Relation country2 = new Relation("country_backup.db"); //backup
+	// file
+	// static RedoLog citylog = new RedoLog();
+	// static RedoLog countrylog = new RedoLog();
 	static UpdateOp update = new UpdateOp();
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
 		long startTime = System.currentTimeMillis();
-		update.UpdateOP(country,countrypopindex);
-	    update.close();
-    	update.oldcountry.listTable();
-		System.out.println("Time: " + (System.currentTimeMillis()-startTime) + " ms.");
-//		city.listTable();
-//		update.close();
-//		country.listTable();
-//		city.listTable();
-		
-//		String citycode = "\'AFG\'";
-//		System.out.println(new String(country.get(citycode.hashCode()), StandardCharsets.UTF_8));
-		
-		//this is only need to be ran once to initialization log files.
-//		try {
-//			citylog.init("city.log");
-//			countrylog.init("country.log");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		try {
-//			citylog.readLargerTextFile("city.log");
-//			countrylog.readLargerTextFile("country.log");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-//		citylog.writeStart();
-//		citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
-//		citylog.printlog();
-//		countrylog.writeStart();
-//		countrylog.printlog();
-//		countrylog.writeCommit();
-		
-//		try {
-//			citylog.savelog("city.log");
-//			countrylog.savelog("country.log");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		update.UpdateOP(country, countrypopindex);
+		update.close();
+		update.oldcountry.listTable();
+		System.out.println("Time: " + (System.currentTimeMillis() - startTime) + " ms.");
+		// city.listTable();
+		// update.close();
+		// country.listTable();
+		// city.listTable();
+
+		// String citycode = "\'AFG\'";
+		// System.out.println(new String(country.get(citycode.hashCode()),
+		// StandardCharsets.UTF_8));
+
+		// this is only need to be ran once to initialization log files.
+		// try {
+		// citylog.init("city.log");
+		// countrylog.init("country.log");
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
+		// try {
+		// citylog.readLargerTextFile("city.log");
+		// countrylog.readLargerTextFile("country.log");
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+
+		// citylog.writeStart();
+		// citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
+		// citylog.printlog();
+		// countrylog.writeStart();
+		// countrylog.printlog();
+		// countrylog.writeCommit();
+
+		// try {
+		// citylog.savelog("city.log");
+		// countrylog.savelog("country.log");
+		// } catch (IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		System.out.println("finish");
 	}
-	
+
 	public static void init() throws IOException {
 		city = new Relation("city.db");
 		country = new Relation("country.db");
@@ -84,7 +86,7 @@ public class Main {
 		InputStreamReader isr;
 		BufferedReader b_read;
 		String templine;
-		String [] split_temp;
+		String[] split_temp;
 		try {
 			fs = new FileInputStream(cityfile);
 			isr = new InputStreamReader(fs);

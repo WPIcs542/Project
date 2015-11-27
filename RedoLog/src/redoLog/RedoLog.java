@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RedoLog {
-	//TODO: start project 4 here. 
-	private final static Charset ENCODING = StandardCharsets.UTF_8; 
+	// TODO: start project 4 here.
+	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	final String INIT = "<INIT>";
 	final String COMMIT = "<COMMIT>";
 	final String START = "<START>";
@@ -21,74 +21,76 @@ public class RedoLog {
 	final String UPDATE = "<UPDATE>";
 	List<String> logline;
 	private String filename;
-	
-	public RedoLog(String filename) throws IOException{
-		this.filename=filename;
+
+	public RedoLog(String filename) throws IOException {
+		this.filename = filename;
 		logline = new ArrayList<String>();
 		readLargerTextFile(filename);
 	}
-	
-	public void writeCommit(){
+
+	public void writeCommit() {
 		logline.add(COMMIT);
 	}
-	
-	public void writeStart(){
+
+	public void writeStart() {
 		logline.add(START);
 	}
-	
-	public void writeStop(){
+
+	public void writeStop() {
 		logline.add(STOP);
 	}
-	public void writeInit(){
+
+	public void writeInit() {
 		logline.add(INIT);
 	}
-	
-	public void writeUpdate(int key,String name, double old_pop, double new_pop){
-		String temp = UPDATE + ","+key+"," + name + "," + old_pop + "," + new_pop;
+
+	public void writeUpdate(int key, String name, double old_pop, double new_pop) {
+		String temp = UPDATE + "," + key + "," + name + "," + old_pop + "," + new_pop;
 		logline.add(temp);
 	}
-	
-//	public void init(String logname) throws IOException{
-//		String firstline = "<INIT>";
-//		logline.add(firstline);
-//		writeLargerTextFile(logname, logline);
-//	}
-	
+
+	// public void init(String logname) throws IOException{
+	// String firstline = "<INIT>";
+	// logline.add(firstline);
+	// writeLargerTextFile(logname, logline);
+	// }
+
 	public void readLargerTextFile(String logname) throws IOException {
-	    Path path = Paths.get(logname);
-	    try (Scanner scanner =  new Scanner(path, ENCODING.name())){
-	    	while (scanner.hasNextLine()){
-	    		//process each line in some way
-	    		logline.add(scanner.nextLine());
-	    	}
-	    }
+		Path path = Paths.get(logname);
+		try (Scanner scanner = new Scanner(path, ENCODING.name())) {
+			while (scanner.hasNextLine()) {
+				// process each line in some way
+				logline.add(scanner.nextLine());
+			}
+		}
 	}
-	
+
 	public void writeLargerTextFile(String fileName, List<String> logLines) throws IOException {
-	   Path path = Paths.get(fileName);
-	   try (BufferedWriter writer = Files.newBufferedWriter(path, ENCODING)){
-		   for(String line : logLines){
-			   writer.write(line);
-			   writer.newLine();
-		   }
-		   writer.close();
-	   }
+		Path path = Paths.get(fileName);
+		try (BufferedWriter writer = Files.newBufferedWriter(path, ENCODING)) {
+			for (String line : logLines) {
+				writer.write(line);
+				writer.newLine();
+			}
+			writer.close();
+		}
 	}
-	
-	public void savelog() throws IOException{
+
+	public void savelog() throws IOException {
 		writeLargerTextFile(this.filename, logline);
 	}
-	
-	public void clearlog(){
+
+	public void clearlog() {
 		logline.clear();
 	}
-	
-	public void printlog(){
-		for(String lgg : logline){
+
+	public void printlog() {
+		for (String lgg : logline) {
 			System.out.println(lgg);
 		}
 	}
-	public String getfilename(){
+
+	public String getfilename() {
 		return this.filename;
 	}
 }
