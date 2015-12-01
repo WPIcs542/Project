@@ -1,0 +1,157 @@
+package redoLog;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+/**
+ * CS542 Project_4
+ * 
+ * @author Fangyu Lin; Hongzhang Cheng; Zhaojun Yang
+ * @date November/19/2015
+ */
+
+public class Main {
+	static final int citypopindex = 4;
+	static final int countrypopindex = 6;
+	static Relation country = new Relation("country.db"); // Read into memory
+	static Relation city = new Relation("city.db"); // read into memory
+	static Relation city2 = new Relation("city_backup.db"); // backup file
+	static Relation country2 = new Relation("country_backup.db"); // backup
+	// file
+	// static RedoLog citylog = new RedoLog();
+	// static RedoLog countrylog = new RedoLog();
+	static UpdateOp updateCity = new UpdateOp(citypopindex);
+	static UpdateOp updateCountry = new UpdateOp(countrypopindex);
+
+	static UpdateDB updateBackUpCity;
+	static UpdateDB updateBackUpCountry;
+
+	public static void main(String[] args) throws IOException {
+		// init();
+		System.out.println("Here is the test line!");
+		long startTime = System.currentTimeMillis();
+
+		// increase population
+		updateCity.open(city);
+		updateCity.getNext();
+		updateCity.close();
+
+		// edit backup file using log file
+		updateBackUpCity = new UpdateDB("city.log", citypopindex);
+		updateBackUpCity.updateBackup(city2);
+
+		// increase population
+		updateCountry.open(country);
+		updateCountry.getNext();
+		updateCountry.close();
+
+		// edit backup file using log file
+		updateBackUpCountry = new UpdateDB("country.log", countrypopindex);
+		updateBackUpCountry.updateBackup(country2);
+
+		System.out.println("Time: " + (System.currentTimeMillis() - startTime) + " ms.");
+		// city.listTable();
+		// update.close();
+		// country.listTable();
+		// city.listTable();
+
+		// String citycode = "\'AFG\'";
+		// System.out.println(new String(country.get(citycode.hashCode()),
+		// StandardCharsets.UTF_8));
+
+		// this is only need to be ran once to initialization log files.
+		// try {
+		// citylog.init("city.log");
+		// countrylog.init("country.log");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		// try {
+		// citylog.readLargerTextFile("city.log");
+		// countrylog.readLargerTextFile("country.log");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		// citylog.writeStart();
+		// citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
+		// citylog.printlog();
+		// countrylog.writeStart();
+		// countrylog.printlog();
+		// countrylog.writeCommit();
+
+		// try {
+		// citylog.savelog("city.log");
+		// countrylog.savelog("country.log");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		for (int k : country.getKeysArray()) {
+			if (!Arrays.equals(country2.get(k), country.get(k))) {
+				System.out.println("Error: Relations do not match");
+				return;
+			}
+		}
+
+		for (int k : city.getKeysArray()) {
+			if (!Arrays.equals(city2.get(k), city.get(k))) {
+				System.out.println("Error: Relations do not match");
+				return;
+			}
+		}
+
+		System.out.println("finish");
+	}
+
+	/**
+	 * init() function 
+	 * used for first time initialize the database if you mission the *.db file
+	 * Be sure to have the city.txt and country.txt file ready to load into database.
+	 * @throws IOException
+	 */
+	public static void init() throws IOException {
+		city = new Relation("city.db");
+		country = new Relation("country.db");
+		String cityfile = "city.txt";
+		String countryfile = "country.txt";
+		FileInputStream fs;
+		InputStreamReader isr;
+		BufferedReader b_read;
+		String templine;
+		String[] split_temp;
+		try {
+			fs = new FileInputStream(cityfile);
+			isr = new InputStreamReader(fs);
+			b_read = new BufferedReader(isr);
+			while ((templine = b_read.readLine()) != null) {
+				split_temp = templine.split(",");
+				city.put(split_temp[0].hashCode(), templine.getBytes());
+			}
+			city.saveContents();
+			b_read.close();
+			isr.close();
+			fs.close();
+
+			fs = new FileInputStream(countryfile);
+			isr = new InputStreamReader(fs);
+			b_read = new BufferedReader(isr);
+			while ((templine = b_read.readLine()) != null) {
+				split_temp = templine.split(",");
+				country.put(split_temp[0].hashCode(), templine.getBytes());
+			}
+			country.saveContents();
+			b_read.close();
+			isr.close();
+			fs.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Initialization of \"city.db\" and \"country.db\" successful!");
+	}
+
+}

@@ -1,14 +1,9 @@
 package redoLog;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
-
-import javax.imageio.IIOException;
 
 public class UpdateOp {
 	// Relation city = new Relation("city.db");
@@ -18,13 +13,16 @@ public class UpdateOp {
 	byte[] newenumofr = null;
 	RedoLog log;
 
+	/**
+	 * constructor to open the log files
+	 * @param popindex
+	 */
 	public UpdateOp(int popindex) {
 		if (popindex == 4) {
 
 			try {
 				log = new RedoLog("city.log");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.popindex = popindex;
@@ -34,7 +32,6 @@ public class UpdateOp {
 			try {
 				log = new RedoLog("country.log");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			this.popindex = popindex;
@@ -43,11 +40,12 @@ public class UpdateOp {
 
 	public void open(Relation r) {
 		this.r = r;
-
 	}
 
+	/**
+	 * increase the population by 2% for all tuples 
+	 */
 	public void getNext() {
-
 		log.writeInit();
 		log.writeStart();
 
@@ -88,6 +86,9 @@ public class UpdateOp {
 
 	}
 
+	/**
+	 * clean the log memory
+	 */
 	public void close() {
 		// log.writeCommit();
 		// try{log.savelog();}catch(IOException e){e.printStackTrace();}
@@ -110,7 +111,6 @@ public class UpdateOp {
 				retString = retString + "," + str;
 			}
 		}
-
 		return retString.getBytes("UTF-8");
 	}
 }

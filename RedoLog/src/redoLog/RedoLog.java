@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RedoLog {
-	// TODO: start project 4 here.
+	//start project 4 here.
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	final String INIT = "<INIT>";
 	final String COMMIT = "<COMMIT>";

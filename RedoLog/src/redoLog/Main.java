@@ -5,14 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 /**
  * CS542 Project_4
  * 
  * @author Fangyu Lin; Hongzhang Cheng; Zhaojun Yang
- * @date November/19/2015
+ * @date November/30/2015
  */
 
 public class Main {
@@ -21,10 +20,7 @@ public class Main {
 	static Relation country = new Relation("country.db"); // Read into memory
 	static Relation city = new Relation("city.db"); // read into memory
 	static Relation city2 = new Relation("city_backup.db"); // backup file
-	static Relation country2 = new Relation("country_backup.db"); // backup
-	// file
-	// static RedoLog citylog = new RedoLog();
-	// static RedoLog countrylog = new RedoLog();
+	static Relation country2 = new Relation("country_backup.db"); // backup file
 	static UpdateOp updateCity = new UpdateOp(citypopindex);
 	static UpdateOp updateCountry = new UpdateOp(countrypopindex);
 
@@ -33,7 +29,6 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// init();
-		// TODO Auto-generated method stub
 		System.out.println("Here is the test line!");
 		long startTime = System.currentTimeMillis();
 
@@ -42,7 +37,7 @@ public class Main {
 		updateCity.getNext();
 		updateCity.close();
 
-		// edit backup file using log file
+		// edit backup file using log file, run this carefully, takes really long time.
 		updateBackUpCity = new UpdateDB("city.log", citypopindex);
 		updateBackUpCity.updateBackup(city2);
 
@@ -51,12 +46,10 @@ public class Main {
 		updateCountry.getNext();
 		updateCountry.close();
 
-		// edit backup file using log file
+		// edit backup file using log file,  run this carefully, takes really long time.
 		updateBackUpCountry = new UpdateDB("country.log", countrypopindex);
 		updateBackUpCountry.updateBackup(country2);
 
-		//
-		System.out.println("Time: " + (System.currentTimeMillis() - startTime) + " ms.");
 		// city.listTable();
 		// update.close();
 		// country.listTable();
@@ -71,7 +64,6 @@ public class Main {
 		// citylog.init("city.log");
 		// countrylog.init("country.log");
 		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
 
@@ -79,7 +71,6 @@ public class Main {
 		// citylog.readLargerTextFile("city.log");
 		// countrylog.readLargerTextFile("country.log");
 		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
 
@@ -94,7 +85,6 @@ public class Main {
 		// citylog.savelog("city.log");
 		// countrylog.savelog("country.log");
 		// } catch (IOException e) {
-		// // TODO Auto-generated catch block
 		// e.printStackTrace();
 		// }
 		for (int k : country.getKeysArray()) {
@@ -111,9 +101,16 @@ public class Main {
 			}
 		}
 
+		System.out.println("Time: " + (System.currentTimeMillis() - startTime) + " ms.");
 		System.out.println("finish");
 	}
 
+	/**
+	 * init() function 
+	 * used for first time initialize the database if you mission the *.db file
+	 * Be sure to have the city.txt and country.txt file ready to load into database.
+	 * @throws IOException
+	 */
 	public static void init() throws IOException {
 		city = new Relation("city.db");
 		country = new Relation("country.db");
@@ -149,7 +146,6 @@ public class Main {
 			isr.close();
 			fs.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		System.out.println("Initialization of \"city.db\" and \"country.db\" successful!");

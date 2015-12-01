@@ -24,8 +24,7 @@ import java.util.Set;
 public class Relation {
 	private Hashtable<Integer, byte[]> data;
 	private String global_file = "cs542.db"; // defualt database filename
-	private static final int MAX_VALUE_SIZE = 1024 * 1024; // set maximum size
-															// to be 1.0 MB
+	private static final int MAX_VALUE_SIZE = 1024 * 1024; // set maximum size 1.0 MB
 
 	/**
 	 * This is the object initialization
@@ -44,7 +43,6 @@ public class Relation {
 				obout.writeObject(new Hashtable<Integer, byte[]>());
 				obout.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -55,20 +53,16 @@ public class Relation {
 		try {
 			objectInput = new ObjectInputStream(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Object object = null;
 		try {
 			object = objectInput.readObject();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// finally we put the data into memory space
@@ -77,7 +71,6 @@ public class Relation {
 		try {
 			objectInput.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -93,8 +86,7 @@ public class Relation {
 	 * @return boolean
 	 */
 	public boolean put(int key, byte[] value) {
-		// synchronized blocks can only have one thread executing at the same
-		// time
+		// synchronized blocks can only have one thread executing at the same time
 		synchronized (this) {
 			// Check if the value satisfies the size requirement
 			if (value.length > MAX_VALUE_SIZE) {
@@ -110,10 +102,6 @@ public class Relation {
 					System.out.println("Database has no space to put data! the attempt key=" + key);
 					return false;
 				} else {
-					/*
-					 * if(data.containsKey(key)){ System.out.println(
-					 * "The key exist !"); return false; }
-					 */
 					data.put(key, value);
 				}
 			}
@@ -134,12 +122,9 @@ public class Relation {
 		// synchronized blocks can only have one thread executing at the same
 		// time
 		synchronized (this) {
-			// Thread.sleep is for testing while doing get(), a thread starts
-			// put()
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			if (!data.containsKey(key)) {
@@ -177,7 +162,6 @@ public class Relation {
 				try {
 					Thread.sleep(400);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				data.remove(key);
@@ -226,12 +210,6 @@ public class Relation {
 	 * @return boolean
 	 */
 	public boolean listTable() {
-		// if(!filename.equalsIgnoreCase("542.db")
-		// || !filename.equalsIgnoreCase("city.db")
-		// || !filename.equalsIgnoreCase("country.db")){
-		// System.out.println("File does not exist !");
-		// return false;
-		// }
 		Set<Integer> keys = data.keySet();
 		int size = 0;
 		int count = 0;

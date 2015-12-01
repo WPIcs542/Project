@@ -11,14 +11,22 @@ public class UpdateDB {
 	private RedoLog log;
 	private int popindex;
 
+	/**
+	 * Constructor to open the log file
+	 * @param fileName
+	 * @param popindex
+	 * @throws IOException
+	 */
 	public UpdateDB(String fileName, int popindex) throws IOException {
 		log = new RedoLog(fileName);
 		this.popindex = popindex;
-
 	}
 
+	/**
+	 * use the log file to update the backup database file
+	 * @param backUp
+	 */
 	public void updateBackup(Relation backUp) {
-
 		String[] oldtuple = null;
 		String[] logtuple = null;
 		byte[] oldtupleofr = null;
@@ -44,11 +52,23 @@ public class UpdateDB {
 		backUp.saveContents();
 	}
 
+	/**
+	 * split the string by ','
+	 * @param tuple
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public String[] splitoftuple(byte[] tuple) throws UnsupportedEncodingException {
 		String str = new String(tuple, StandardCharsets.UTF_8);
 		return str.split(","); // ignores commas inside quotation marks
 	}
 
+	/**
+	 * combine the string with ',' between
+	 * @param splitArray
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	protected static byte[] unsplitoftuple(String[] splitArray) throws UnsupportedEncodingException {
 		String retString = null;
 		for (String str : splitArray) {
@@ -58,7 +78,6 @@ public class UpdateDB {
 				retString = retString + "," + str;
 			}
 		}
-
 		return retString.getBytes("UTF-8");
 	}
 }
