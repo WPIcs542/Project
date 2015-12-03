@@ -77,7 +77,7 @@ public class Main {
 		System.out.println("compare city and city_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 
 		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + " ms.");
-		System.out.println("finish");  //when you see this line, congratulations!
+		System.out.println("finish");
 	}
 
 	/**

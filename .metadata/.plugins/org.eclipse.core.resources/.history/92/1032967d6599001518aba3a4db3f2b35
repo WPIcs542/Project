@@ -59,25 +59,61 @@ public class Main {
 		System.out.println("update country population backpup file Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 		time_stamp = System.currentTimeMillis();
 		
+		// city.listTable();
+		// update.close();
+		// country.listTable();
+		// city.listTable();
+
+		// String citycode = "\'AFG\'";
+		// System.out.println(new String(country.get(citycode.hashCode()),
+		// StandardCharsets.UTF_8));
+
+		// this is only need to be ran once to initialization log files.
+		// try {
+		// citylog.init("city.log");
+		// countrylog.init("country.log");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		// try {
+		// citylog.readLargerTextFile("city.log");
+		// countrylog.readLargerTextFile("country.log");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		// citylog.writeStart();
+		// citylog.writeUpdate("Shanghai", 754321.0, 1934567.0);
+		// citylog.printlog();
+		// countrylog.writeStart();
+		// countrylog.printlog();
+		// countrylog.writeCommit();
+
+		// try {
+		// citylog.savelog("city.log");
+		// countrylog.savelog("country.log");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		for (int k : country.getKeysArray()) {
 			if (!Arrays.equals(country2.get(k), country.get(k))) {
 				System.out.println("Error: Relations do not match");
-				return; //should not return
+				return;
 			}
 		}
-		System.out.println("compare country and country_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
+		System.out.println("compare city and city_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 		time_stamp = System.currentTimeMillis();
 		
 		for (int k : city.getKeysArray()) {
 			if (!Arrays.equals(city2.get(k), city.get(k))) {
 				System.out.println("Error: Relations do not match");
-				return; //should not return
+				return;
 			}
 		}
-		System.out.println("compare city and city_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 
-		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + " ms.");
-		System.out.println("finish");  //when you see this line, congratulations!
+		System.out.println("Time: " + (System.currentTimeMillis() - startTime) + " ms.");
+		System.out.println("finish");
 	}
 
 	/**

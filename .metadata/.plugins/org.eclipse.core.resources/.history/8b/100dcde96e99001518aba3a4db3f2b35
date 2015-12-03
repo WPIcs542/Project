@@ -62,7 +62,7 @@ public class Main {
 		for (int k : country.getKeysArray()) {
 			if (!Arrays.equals(country2.get(k), country.get(k))) {
 				System.out.println("Error: Relations do not match");
-				return; //should not return
+				return;
 			}
 		}
 		System.out.println("compare country and country_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
@@ -71,13 +71,13 @@ public class Main {
 		for (int k : city.getKeysArray()) {
 			if (!Arrays.equals(city2.get(k), city.get(k))) {
 				System.out.println("Error: Relations do not match");
-				return; //should not return
+				return;
 			}
 		}
 		System.out.println("compare city and city_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 
 		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + " ms.");
-		System.out.println("finish");  //when you see this line, congratulations!
+		System.out.println("finish");
 	}
 
 	/**
