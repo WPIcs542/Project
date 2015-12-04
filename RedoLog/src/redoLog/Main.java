@@ -39,51 +39,67 @@ public class Main {
 		updateCity.close();
 		time_stamp = System.currentTimeMillis();
 		System.out.println("update city population Time: " + (time_stamp - startTime) + " ms.");
-		
-		// edit backup file using log file, run this carefully, takes really long time.
+
+		// edit backup file using log file, run this carefully, takes really
+		// long time.
 		updateBackUpCity = new UpdateDB("city.log", citypopindex);
 		updateBackUpCity.updateBackup(city2);
-		System.out.println("update city population backpup file Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
+		System.out.println(
+				"update city population backpup file Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 		time_stamp = System.currentTimeMillis();
-		
+
 		// increase population
 		updateCountry.open(country);
 		updateCountry.getNext();
 		updateCountry.close();
 		System.out.println("update country population Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 		time_stamp = System.currentTimeMillis();
-		
-		// edit backup file using log file,  run this carefully, takes really long time.
+
+		// edit backup file using log file, run this carefully, takes really
+		// long time.
 		updateBackUpCountry = new UpdateDB("country.log", countrypopindex);
 		updateBackUpCountry.updateBackup(country2);
-		System.out.println("update country population backpup file Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
+		System.out.println(
+				"update country population backpup file Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 		time_stamp = System.currentTimeMillis();
-		
+
+		// spot-checks to verify that the country.db and country_backup.db
+		// contain identical
+		// data and that both show populations that are 2% higher than the
+		// original.
 		for (int k : country.getKeysArray()) {
 			if (!Arrays.equals(country2.get(k), country.get(k))) {
 				System.out.println("Error: Relations do not match");
-				return; //should not return
+				return; // should not return
 			}
 		}
-		System.out.println("compare country and country_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
+		System.out.println(
+				"compare country and country_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 		time_stamp = System.currentTimeMillis();
-		
+
+		// spot-checks to verify that the city.db and city_backup.db
+		// contain identical
+		// data and that both show populations that are 2% higher than the
+		// original.
 		for (int k : city.getKeysArray()) {
 			if (!Arrays.equals(city2.get(k), city.get(k))) {
 				System.out.println("Error: Relations do not match");
-				return; //should not return
+				return; // should not return
 			}
 		}
-		System.out.println("compare city and city_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
+		System.out.println(
+				"compare city and city_backup files Time: " + (System.currentTimeMillis() - time_stamp) + " ms.");
 
 		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + " ms.");
-		System.out.println("finish");  //when you see this line, congratulations!
+		System.out.println("finish"); // when you see this line,
+										// congratulations!
 	}
 
 	/**
-	 * init() function 
-	 * used for first time initialize the database if you mission the *.db file
-	 * Be sure to have the city.txt and country.txt file ready to load into database.
+	 * init() function used for first time initialize the database if you
+	 * mission the *.db file Be sure to have the city.txt and country.txt file
+	 * ready to load into database.
+	 * 
 	 * @throws IOException
 	 */
 	public static void init() throws IOException {

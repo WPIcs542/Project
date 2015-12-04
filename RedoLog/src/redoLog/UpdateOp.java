@@ -97,6 +97,12 @@ public class UpdateOp {
 
 	}
 
+	/**
+	 * split tuple by ","
+	 * @param tuple
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	public String[] splitoftuple(byte[] tuple) throws UnsupportedEncodingException {
 		String str = new String(tuple, StandardCharsets.UTF_8);
 		return str.split(","); // ignores commas inside quotation marks

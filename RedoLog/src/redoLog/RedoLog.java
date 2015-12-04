@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RedoLog {
-	//start project 4 here.
+	// start project 4 here.
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 	final String INIT = "<INIT>";
 	final String COMMIT = "<COMMIT>";
@@ -22,28 +22,56 @@ public class RedoLog {
 	List<String> logline;
 	private String filename;
 
+	/**
+	 * 
+	 * @param filename
+	 * @throws IOException
+	 */
+
 	public RedoLog(String filename) throws IOException {
 		this.filename = filename;
 		logline = new ArrayList<String>();
-	//	readLargerTextFile(filename);
+		// readLargerTextFile(filename);
 	}
+
+	/**
+	 * add "COMMIT" into log
+	 */
 
 	public void writeCommit() {
 		logline.add(COMMIT);
 	}
 
+	/**
+	 * add "START" into log
+	 */
+
 	public void writeStart() {
 		logline.add(START);
 	}
 
+	/**
+	 * add "STOP" into log
+	 */
 	public void writeStop() {
 		logline.add(STOP);
 	}
+
+	/**
+	 * add "INIT" into log
+	 */
 
 	public void writeInit() {
 		logline.add(INIT);
 	}
 
+	/**
+	 * 
+	 * @param key
+	 * @param name
+	 * @param old_pop
+	 * @param new_pop
+	 */
 	public void writeUpdate(int key, String name, double old_pop, double new_pop) {
 		String temp = UPDATE + "," + key + "," + name + "," + old_pop + "," + new_pop;
 		logline.add(temp);
@@ -54,7 +82,11 @@ public class RedoLog {
 	// logline.add(firstline);
 	// writeLargerTextFile(logname, logline);
 	// }
-
+	/**
+	 * 
+	 * @param logname
+	 * @throws IOException
+	 */
 	public void readLargerTextFile(String logname) throws IOException {
 		Path path = Paths.get(logname);
 		try (Scanner scanner = new Scanner(path, ENCODING.name())) {
@@ -65,6 +97,12 @@ public class RedoLog {
 		}
 	}
 
+	/**
+	 * 
+	 * @param fileName
+	 * @param logLines
+	 * @throws IOException
+	 */
 	public void writeLargerTextFile(String fileName, List<String> logLines) throws IOException {
 		Path path = Paths.get(fileName);
 		try (BufferedWriter writer = Files.newBufferedWriter(path, ENCODING)) {
@@ -76,20 +114,34 @@ public class RedoLog {
 		}
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	public void savelog() throws IOException {
 		writeLargerTextFile(this.filename, logline);
 	}
 
+	/**
+	 * clear log
+	 */
 	public void clearlog() {
 		logline.clear();
 	}
 
+	/**
+	 *  print log 
+	 */
 	public void printlog() {
 		for (String lgg : logline) {
 			System.out.println(lgg);
 		}
 	}
 
+	/**
+	 * 
+	 * @return filename
+	 */
 	public String getfilename() {
 		return this.filename;
 	}
